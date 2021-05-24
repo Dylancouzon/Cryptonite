@@ -1,0 +1,34 @@
+{
+  "name": "Project-3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "bootstrap": "^5.0.1",
+    "chart.js": "^3.3.0",
+    "crypto-js": "^4.0.0",
+    "elliptic": "^6.5.4",
+    "express": "^4.17.1",
+    "express-session": "^1.17.2",
+    "mongoose": "^5.12.11",
+    "react-bootstrap": "^1.6.0",
+    "react-router-dom": "^5.2.0",
+    "stripe": "^8.149.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cheng21tang/Project-3.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cheng21tang/Project-3/issues"
+  },
+  "homepage": "https://github.com/cheng21tang/Project-3#readme"
+}
