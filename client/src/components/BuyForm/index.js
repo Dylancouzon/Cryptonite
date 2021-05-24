@@ -6,7 +6,7 @@ function BuyForm() {
         <Container>
             <Form>
                 <Form.Group as={Row} controlId="formPlaintextPassword">
-                    <Form.Label column sm="2">
+                    <Form.Label column md={4}>
                         Amount of Coins:
                         </Form.Label>
                     <Col sm="10">
@@ -14,7 +14,7 @@ function BuyForm() {
                     </Col>
                 </Form.Group>
                 <Form.Group as={Row} controlId="formPlaintextCost">
-                    <Form.Label column sm="2">
+                    <Form.Label column md={4}>
                         Cost USD:
                         </Form.Label>
                     <Col sm="10">
@@ -22,7 +22,7 @@ function BuyForm() {
                     </Col>
                 </Form.Group>
                 <Form.Group as={Row} controlId="formPlaintextTransFees">
-                    <Form.Label column sm="2">
+                    <Form.Label column md={4}>
                         Trans Fees:
                         </Form.Label>
                     <Col sm="10">
@@ -30,7 +30,7 @@ function BuyForm() {
                     </Col>
                 </Form.Group>
                 <Form.Group as={Row} controlId="formPlaintextTotal">
-                    <Form.Label column sm="2">
+                    <Form.Label column md={4}>
                         Total:
                         </Form.Label>
                     <Col sm="10">
