@@ -1,11 +1,11 @@
 import React from 'react';
 
-function Navbar() {
+function About() {
     return(
         <div>
-            <p>Navbar</p>
+            <p>About our Coin</p>
         </div>
     )
 }
 
-export default Navbar;
+export default About;

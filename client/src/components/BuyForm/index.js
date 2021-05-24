@@ -1,11 +1,11 @@
 import React from 'react';
 
-function Navbar() {
+function BuyForm() {
     return(
         <div>
-            <p>Navbar</p>
+            <p>Buy Form</p>
         </div>
     )
 }
 
-export default Navbar;
+export default BuyForm;

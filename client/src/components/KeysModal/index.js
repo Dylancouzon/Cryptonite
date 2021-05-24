@@ -1,11 +1,11 @@
 import React from 'react';
 
-function Navbar() {
+function KeysModal() {
     return(
         <div>
-            <p>Navbar</p>
+            <p>Keys Modal</p>
         </div>
     )
 }
 
-export default Navbar;
+export default KeysModal;

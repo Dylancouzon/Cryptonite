@@ -1,11 +1,11 @@
 import React from 'react';
 
-function Navbar() {
+function SendForm() {
     return(
         <div>
-            <p>Navbar</p>
+            <p>Send Form</p>
         </div>
     )
 }
 
-export default Navbar;
+export default SendForm;
