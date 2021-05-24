@@ -4,6 +4,7 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 const mongoose = require("mongoose");
 const { Users } = require("./models");
+let userData = require('./seeds/users.json');
 const bcrypt = require('bcrypt');
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/cryptousers", {
@@ -11,16 +12,11 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/cryptousers", {
     useFindAndModify: false
 });
 
-// Visit the /seed get route to populate the db.
-app.get("/seed", async (_req, res) => {
-    const dbSeed = {
-        username: "Admin1",
-        password: "Admin1",
-        email: "admin@admin.com",
-        public_key: "123456789"
-    };
-    dbSeed.password = await bcrypt.hash(dbSeed.password, 10);
-    Users.create(dbSeed)
+// Visit the /seed get route to populate the db with data from the users.json file.
+app.get("/seed", async (_req, _res) => {
+    //Hash the passwords
+    // const hashedUsers = userData.map(async (user) => console.log(user.password));
+    Users.create(userData)
         .then(dbSeeded => {
             console.log(dbSeeded);
         })
