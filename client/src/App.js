@@ -1,8 +1,13 @@
-
+import React from "react";
+import Navigation from "./components/Navbar";
+import Accordion from "./components/Accordion";
 
 function App() {
   return (
-    <h1>Hello world</h1>
+    <>
+      <Navigation />
+      <Accordion />
+    </>
   );
 }
 
