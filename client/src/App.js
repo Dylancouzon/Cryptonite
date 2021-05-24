@@ -1,12 +1,13 @@
 import React from "react";
 import Navigation from "./components/Navbar";
-import Accordion from "./components/Accordion";
+import Accords from "./components/Accords";
+import Footer from "./components/Footer";
 
 function App() {
   return (
     <>
       <Navigation />
-      <Accordion />
+      <Accords />
     </>
   );
 }
