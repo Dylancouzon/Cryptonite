@@ -6,16 +6,17 @@ import Profile from "./pages/Profile";
 import Buy from "./pages/Buy";
 import Send from "./pages/Send";
 import Mining from "./pages/Mining";
-
+import { Container } from "react-bootstrap";
 
 
 
 function App() {
   return (
-    <Router>
-      <>
+    <Container>
+      <Router>
+
         <Navigation />
-        
+
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/profile" component={Profile} />
@@ -23,8 +24,8 @@ function App() {
           <Route exact path="/send" component={Send} />
           <Route exact path="/mining" component={Mining} />
         </Switch>
-      </>
-    </Router>
+      </Router>
+    </Container>
   );
 }
 
