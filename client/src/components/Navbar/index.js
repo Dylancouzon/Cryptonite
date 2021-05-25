@@ -14,6 +14,21 @@ function Navigation() {
         setSidebarOpen(open)
     }
 
+    // Handle onClick for Sign-up/Login Buttons for sidenav conditional render
+    // const onClick = () => {
+         
+    // }
+
+    // Submit button Sign-up
+    // const handleSignup = () => {
+
+    // }
+
+    // Submit button Login
+    // const handleLogin = () => {
+        
+    // }
+
     return (
         <>
             <Navbar className="container-fluid">
