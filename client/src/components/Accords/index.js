@@ -4,11 +4,14 @@ import About from "../About";
 import LearnMore from "../LearnMore";
 import GetStarted from "../GetStarted";
 
+
 function Accords() {
+
+  
   return (
 
     <>
-      <Accordion defaultActiveKey="0">
+      <Accordion defaultActiveKey="0" >
         <About />
         <LearnMore />
         <GetStarted />
