@@ -16,7 +16,7 @@ function BuyForm() {
                 <Form.Group as={Row} controlId="formPlaintextCost">
                     <Form.Label style={{marginTop: 5}} column md={4}>
                         Cost USD:
-                        </Form.Label>
+                    </Form.Label>
                     <Col style={{marginTop: 5}} md={{ span: 4, offset: 4 }}>
                         <Form.Control type="text" />
                     </Col>
