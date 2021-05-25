@@ -7,11 +7,15 @@ import Buy from "./pages/Buy";
 import Send from "./pages/Send";
 import Mining from "./pages/Mining";
 
+
+
+
 function App() {
   return (
     <Router>
       <>
         <Navigation />
+        
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/profile" component={Profile} />
