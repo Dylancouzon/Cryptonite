@@ -1,10 +1,11 @@
 import React from 'react';
+import { Container, Card } from 'react-bootstrap';
 
 function WalletCoins() {
     return(
-        <div>
-            <p>Wallet Coins</p>
-        </div>
+        <Container>
+            <Card body>This is some text within a card body.</Card>
+        </Container>
     )
 }
 
