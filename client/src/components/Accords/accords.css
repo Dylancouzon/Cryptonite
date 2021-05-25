@@ -1,0 +1,21 @@
+.desktopCard {
+    padding: 50px 50px 50px 50px;
+    margin-bottom: 30px;
+}
+
+@media screen and (min-width: 768px) {
+    .cardBody {
+        padding-left: 50px !important;
+    }
+}
+
+.image {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+    margin-bottom: 20px;
+}
+
+.round {
+    border-radius: 50%;
+}
