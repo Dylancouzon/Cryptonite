@@ -1,5 +1,5 @@
 import React from "react";
-import { Accordion, Card } from "react-bootstrap";
+import { Accordion } from "react-bootstrap";
 import About from "../About";
 import LearnMore from "../LearnMore";
 import GetStarted from "../GetStarted";
