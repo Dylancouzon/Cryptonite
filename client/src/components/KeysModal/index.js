@@ -9,6 +9,12 @@ function KeysModal() {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    const copyToClipboard = (e) => {
+        navigator.clipboard.writeText(e.target.value);
+    }
+
+
     return (
         <div>
             <Button variant="primary" onClick={handleShow}>
@@ -40,7 +46,9 @@ function KeysModal() {
                             Private Key:
                         </Form.Label>
                         <Col style={{ marginTop: 5 }} md={{ span: 5, offset: 4 }}>
-                            <Form.Control plaintext readOnly defaultValue="0fds2134012#@!#10156" />
+                            <Button variant="primary" onClick={copyToClipboard}>
+                            <Form.Control plaintext readOnly defaultValue="0fds" />
+                            </Button>
                         </Col>
                     </Form.Group>
                 </Modal.Body>
