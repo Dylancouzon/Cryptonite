@@ -4,6 +4,7 @@ import CryptoTicker from "../components/CryptoTicker";
 import BuyForm from "../components/BuyForm";
 import TransComplete from "../components/TransComplete";
 import TransFailed from "../components/TransFailed";
+import KeysModal from "../components/KeysModal";
 
 function Buy() {
   return (
@@ -13,6 +14,7 @@ function Buy() {
       <BuyForm />
       <TransComplete />
       <TransFailed />
+      <KeysModal />
     </>
   )
 }
