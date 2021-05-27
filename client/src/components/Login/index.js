@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form, Button } from "react-bootstrap";
 import API from "../../utils/api";
+// import SessionContext from "../../utils/sessionContext";
 
 class SignUpForm extends React.Component {
 
@@ -12,7 +13,13 @@ class SignUpForm extends React.Component {
             username: e.target[0].value,
             password: e.target[1].value,
         }
-        API.logIn(submitData);
+        API.logIn(submitData)
+        // .then((req, res) => {
+        //     var username = req.session.username;
+        //     var publicKey = req.session.publicKey;
+            // this.setSession({username, publicKey});
+        // })
+        
     }
 
     render() {
