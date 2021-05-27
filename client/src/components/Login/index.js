@@ -3,7 +3,7 @@ import { Form, Button } from "react-bootstrap";
 
 function LoginForm() {
     return(
-        <>
+        <div style={{ padding: "0 100px"}}>
             <div className="sidebar-header">
                 <h3>Login</h3>
             </div>
@@ -23,7 +23,7 @@ function LoginForm() {
             </div>
             {/* Need to add a type for button */}
             <Button>Sign-up with Google</Button>
-        </>
+        </div>
     )
 }
 
