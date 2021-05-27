@@ -61,7 +61,7 @@ router.get('/transactions/:key', async (req, res) => {
 router.post('/transactions', async (req, res) => {
     try {
         const tx = new Transaction(req.body.from, req.body.to, req.body.amount);
-        const txKey = ec.keyFromPrivate(req.body.from);
+        const txKey = ec.keyFromPrivate(req.body.private);
         tx.signTransaction(txKey);
         blockchain.addTransaction(tx);
         res.json(tx);
