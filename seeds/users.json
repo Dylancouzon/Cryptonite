@@ -1,8 +1,33 @@
 [
     {
-    "username": "Admin1",
-    "password": "$2b$10$Jnwyn0KIfzuQjnunDDyO/OtZ6dTyjnHdDK2DvsJUBZO9BAbW73n/i",
-    "email": "admin1@admin.com",
-    "public_key": "123456789"
+        "username": "BlockchainAdmin",
+        "password": "BlockchainAdmin",
+        "email": "admin@admin.com",
+        "public_key": "046dde2f0162157620e0b6a2347cb5522148f35809c871bad9cfa3843b4f40f48c4fe043ea8fee6b3e07234a044138afcfc240a0854e5eeb2d587686dc4a239bcb"
+        
+    },
+    {
+        "username": "Dylancouzon",
+        "password": "Dylancouzon",
+        "email": "dylan@couzon.com",
+        "public_key": "046c6dbe58d175935e2d4db1b29a926f2ceaf8b362e97e63c5477e4e3d6fa0efeb8287b1538a7b61eb72140e9ff03a1e703ff6cdab53d19e9a49a9d8e162958978"
+    },
+    {
+        "username": "Chengtang",
+        "password": "Chengtang",
+        "email": "cheng@tang.com",
+        "public_key": "046fb09bf6a546b32f95cd0d82f3c37c5fe0857086122d0d448f50e8dd260972178e05c0721e226cd85c180fe7869d66319d70122c79408b899f892af582e7c9a8"
+    },
+    {
+        "username": "LiamStewart",
+        "password": "LiamStewart",
+        "email": "liam@Stewart.com",
+        "public_key": "0489e85126ff72d30b6118b6b6bcc0f4a7a7899bf191af80237d6e4784865aa7f5394f5a619351ecd0a76c78e5f989738351d41a5215a801ce4b8e36707047233f"
+    },
+    {
+        "username": "Jakenovelli",
+        "password": "Jakenovelli",
+        "email": "Jake@novelli.com",
+        "public_key": "04607ee359622c2e0a0fd8f963c68655968107dd3f8f538a911e50aa8a0bfc922130b584dd21c66c267ee38a6581146f95e8291c16fb053730764864e57a927f6f"
     }
 ]

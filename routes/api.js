@@ -17,7 +17,6 @@ router.post('/signUp', async (req, res) => {
   const publicKey = key.getPublic('hex');
   const privateKey = key.getPrivate('hex');
   try {
-    console.log(req.body);
     req.body.public_key = publicKey;
     req.body.password = await bcrypt.hash(req.body.password, 8);
     const userData = await User.create(req.body);
@@ -38,7 +37,6 @@ router.post('/signUp', async (req, res) => {
 });
 
 router.post('/logIn', async (req, res) => {
-  console.log(req.body);
   try {
     const userData = await User.find({ username: req.body.username });
 
