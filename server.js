@@ -44,8 +44,12 @@ if (process.env.NODE_ENV === "production") {
     app.use(express.static("client/public"));
 }
 
+//Server side API routes.
+app.use('/api', require('./routes/api'));
+
 //Routes
 app.get("*", (req, res) => {
+    console.log("test");
     res.sendFile(path.join(__dirname, "./client/public/index.html"));
 });
 
