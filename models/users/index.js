@@ -5,8 +5,9 @@ var Schema = mongoose.Schema;
 var UsersSchema = new Schema({
     username: {
         type: String,
-        validate: [({ length }) => length <= 6, "Username should be at least 6 characters."],
-        required: true
+        minlength: 6,
+        required: true,
+        unique: true
     },
     password: {
         type: String,
@@ -27,7 +28,7 @@ var UsersSchema = new Schema({
         unique: true
     }
 })
-    
+
 
 var Users = mongoose.model('Users', UsersSchema);
 

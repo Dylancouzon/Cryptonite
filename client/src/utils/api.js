@@ -5,10 +5,11 @@ import axios from "axios";
 
 export default {
     signUp: function (data) {
-        console.log(data);
         return axios.post(`/api/signUp`, data)
     },
-
+    logIn: function (data) {
+        return axios.post(`/api/logIn`, data)
+    },
 }
 
 // return axios.post(`http://localhost:3001/api/signUp`, data, {

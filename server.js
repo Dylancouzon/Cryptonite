@@ -7,7 +7,6 @@ const mongoose = require("mongoose");
 var MongoDBStore = require('connect-mongodb-session')(session);
 
 
-
 require('dotenv').config();
 
 // Acces the Database for the sessions.
@@ -49,7 +48,6 @@ app.use('/api', require('./routes/api'));
 
 //Routes
 app.get("*", (req, res) => {
-    console.log("test");
     res.sendFile(path.join(__dirname, "./client/public/index.html"));
 });
 
@@ -75,6 +73,7 @@ app.get("/seed", async (_req, _res) => {
 
 
 mongoose.connection.on('open', function () {
+    
     app.listen(process.env.PORT, () => {
         console.log(`🌎 ==> API server now on port ${process.env.PORT}!`);
     });
