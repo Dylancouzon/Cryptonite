@@ -31,8 +31,8 @@ function Navigation() {
                 sidenav={
                     // Passed in components here. Need to include conditional rendering when we have working logged-in status. Card has been made
                     //<Sidebar />
-                    <SignUpForm />
-                    // <LoginForm />
+                    //<SignUpForm />
+                     <LoginForm />
                 }
             >
             </Sidenav>
