@@ -4,7 +4,9 @@ import axios from "axios";
 
 
 export default {
+    
     signUp: function (data) {
+        console.log(data);
         return axios.post(`/api/signUp`, data)
     },
     logIn: function (data) {
