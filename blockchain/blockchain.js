@@ -36,7 +36,7 @@ class Transaction {
     // You can only send a transaction from the wallet that is linked to your
     // key. So here we check if the fromAddress matches your publicKey
     if (signingKey.getPublic('hex') !== this.fromAddress) {
-      throw new Error('You cannot sign transactions for other wallets!');
+      return new Error('You cannot sign transactions for other wallets!');
     }
 
 
@@ -61,7 +61,7 @@ class Transaction {
     if (this.fromAddress === null) return true;
 
     if (!this.signature || this.signature.length === 0) {
-      throw new Error('No signature in this transaction');
+      return new Error('No signature in this transaction');
     }
 
     const publicKey = ec.keyFromPublic(this.fromAddress, 'hex');
@@ -195,21 +195,21 @@ class Blockchain {
    */
   addTransaction(transaction) {
     if (!transaction.fromAddress || !transaction.toAddress) {
-      throw new Error('Transaction must include from and to address');
+      return ('Transaction must include from and to address');
     }
 
     // Verify the transactiion
     if (!transaction.isValid()) {
-      throw new Error('Cannot add invalid transaction to chain');
+      return ('Cannot add invalid transaction to chain');
     }
 
     if (transaction.amount <= 0) {
-      throw new Error('Transaction amount should be higher than 0');
+      return ('Transaction amount should be higher than 0');
     }
 
     // Making sure that the amount sent is not greater than existing balance
     if (this.getBalanceOfAddress(transaction.fromAddress) < transaction.amount) {
-      throw new Error('Not enough balance');
+      return 'Not enough balance';
     }
 
     this.pendingTransactions.push(transaction);

@@ -27,11 +27,12 @@ blockchain.addTransaction(tx1);
 console.log("Admin sends 100 coins to Dylan");
 
 //Liam sends 500 coins to Jake
-const tx2 = new Transaction('0489e85126ff72d30b6118b6b6bcc0f4a7a7899bf191af80237d6e4784865aa7f5394f5a619351ecd0a76c78e5f989738351d41a5215a801ce4b8e36707047233f', '04607ee359622c2e0a0fd8f963c68655968107dd3f8f538a911e50aa8a0bfc922130b584dd21c66c267ee38a6581146f95e8291c16fb053730764864e57a927f6f', 500);
+const tx2 = new Transaction('0489e85126ff72d30b6118b6b6bcc0f4a7a7899bf191af80237d6e4784865aa7f5394f5a619351ecd0a76c78e5f989738351d41a5215a801ce4b8e36707047233f', '04607ee359622c2e0a0fd8f963c68655968107dd3f8f538a911e50aa8a0bfc922130b584dd21c66c267ee38a6581146f95e8291c16fb053730764864e57a927f6f', 50000);
 const tx2Key = ec.keyFromPrivate('1ec87e0d86f325d124d08b3515bccb59a92cc5c6cfbfb0dc69e26a5e8c730a40');
-tx2.signTransaction(tx2Key);
+test = tx2.signTransaction(tx2Key);
 blockchain.addTransaction(tx2);
-console.log("Liam sends 500 coins to Jake");
+
+console.log(test);
 
 //Cheng Mines the block
 blockchain.minePendingTransactions("046fb09bf6a546b32f95cd0d82f3c37c5fe0857086122d0d448f50e8dd260972178e05c0721e226cd85c180fe7869d66319d70122c79408b899f892af582e7c9a8");
@@ -59,7 +60,6 @@ router.get('/transactions/:key', async (req, res) => {
 
 router.post('/transactions', async (req, res) => {
     try {
-
         const tx = new Transaction(req.body.from, req.body.to, req.body.amount);
         const txKey = ec.keyFromPrivate(req.body.from);
         tx.signTransaction(txKey);
