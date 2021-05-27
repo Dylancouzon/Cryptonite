@@ -7,6 +7,7 @@ import SignUpForm from "../SignUp";
 import LoginForm from "../Login";
 import "./style.css";
 
+
 function Navigation() {
     const [sidebarOpen, setSidebarOpen] = useState(false)
     const [loginComponent, setLoginComponent] = useState("menu")
@@ -78,7 +79,9 @@ function Navigation() {
                 onSetOpen={onSetSidebarOpen}
                 options={{ width: 1000 }}
                 sidenav={
+
                     loginComponent === "menu" ? <Sidebar /> : loginComponent === "signUp" ? <SignUpForm /> : <LoginForm />
+
                 }
             >
             </Sidenav>
