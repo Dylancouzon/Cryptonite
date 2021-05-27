@@ -38,7 +38,7 @@ class Transaction {
     if (signingKey.getPublic('hex') !== this.fromAddress) {
       throw new Error('You cannot sign transactions for other wallets!');
     }
-    
+
 
     // Calculate the hash of this transaction, sign it with the key
     // and store it inside the transaction obect
@@ -127,9 +127,9 @@ class Block {
 
 class Blockchain {
   constructor() {
+    this.pendingTransactions = [];
     this.chain = [this.createGenesisBlock()];
     this.difficulty = 2;
-    this.pendingTransactions = [];
     this.miningReward = 100;
   }
 
@@ -137,7 +137,23 @@ class Blockchain {
    * @returns {Block}
    */
   createGenesisBlock() {
-    return new Block(Date.parse('2017-01-01'), [], '0');
+    const Genesis = new Block(Date.parse('2021-05-26'), [], '0');
+    //Give 100k coins to admin
+    const admin = new Transaction(null, "046dde2f0162157620e0b6a2347cb5522148f35809c871bad9cfa3843b4f40f48c4fe043ea8fee6b3e07234a044138afcfc240a0854e5eeb2d587686dc4a239bcb", 100000);
+    this.pendingTransactions.push(admin);
+
+    //Give 5000 coins to each one of us
+    // Security flaw that needs to be fixed.
+    const dylan = new Transaction(null, "046c6dbe58d175935e2d4db1b29a926f2ceaf8b362e97e63c5477e4e3d6fa0efeb8287b1538a7b61eb72140e9ff03a1e703ff6cdab53d19e9a49a9d8e162958978", 5000);
+    this.pendingTransactions.push(dylan);
+    const cheng = new Transaction(null, "046fb09bf6a546b32f95cd0d82f3c37c5fe0857086122d0d448f50e8dd260972178e05c0721e226cd85c180fe7869d66319d70122c79408b899f892af582e7c9a8", 5000);
+    this.pendingTransactions.push(cheng);
+    const liam = new Transaction(null, "0489e85126ff72d30b6118b6b6bcc0f4a7a7899bf191af80237d6e4784865aa7f5394f5a619351ecd0a76c78e5f989738351d41a5215a801ce4b8e36707047233f", 5000);
+    this.pendingTransactions.push(liam);
+    const jake = new Transaction(null, "04607ee359622c2e0a0fd8f963c68655968107dd3f8f538a911e50aa8a0bfc922130b584dd21c66c267ee38a6581146f95e8291c16fb053730764864e57a927f6f", 5000);
+    this.pendingTransactions.push(jake);
+
+    return Genesis;
   }
 
   /**
@@ -186,11 +202,11 @@ class Blockchain {
     if (!transaction.isValid()) {
       throw new Error('Cannot add invalid transaction to chain');
     }
-    
+
     if (transaction.amount <= 0) {
       throw new Error('Transaction amount should be higher than 0');
     }
-    
+
     // Making sure that the amount sent is not greater than existing balance
     if (this.getBalanceOfAddress(transaction.fromAddress) < transaction.amount) {
       throw new Error('Not enough balance');
