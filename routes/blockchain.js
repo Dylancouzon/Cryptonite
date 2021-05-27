@@ -44,8 +44,35 @@ console.log(`Balance of cheng is ${blockchain.getBalanceOfAddress("046fb09bf6a54
 console.log(`Balance of liam is ${blockchain.getBalanceOfAddress("0489e85126ff72d30b6118b6b6bcc0f4a7a7899bf191af80237d6e4784865aa7f5394f5a619351ecd0a76c78e5f989738351d41a5215a801ce4b8e36707047233f")}`);
 console.log(`Balance of jake is ${blockchain.getBalanceOfAddress("04607ee359622c2e0a0fd8f963c68655968107dd3f8f538a911e50aa8a0bfc922130b584dd21c66c267ee38a6581146f95e8291c16fb053730764864e57a927f6f")}`);
 
-router.get('/', async (req, res) => {
 
+
+// Routes
+router.get('/balance/:key', async (req, res) => {
+    const result = blockchain.getBalanceOfAddress(req.params.key);
+    res.json(result);
+});
+
+router.get('/transactions/:key', async (req, res) => {
+    const result = blockchain.getAllTransactionsForWallet(req.params.key);
+    res.json(result);
+});
+
+router.post('/transactions', async (req, res) => {
+    try {
+
+        const tx = new Transaction(req.body.from, req.body.to, req.body.amount);
+        const txKey = ec.keyFromPrivate(req.body.from);
+        tx.signTransaction(txKey);
+        blockchain.addTransaction(tx);
+        res.json(tx);
+
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+router.get('/valid', async (req, res) => {
+    res.json(blockchain.isChainValid());
 });
 
 module.exports = router;
