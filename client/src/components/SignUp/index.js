@@ -7,17 +7,21 @@ class SignUpForm extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
 
-        if (e.target[2].value === e.target[3].value) {
-            const submitData = {
-                username: e.target[1].value,
-                password: e.target[2].value,
-                email: e.target[0].value,
-                public_key: "123456788999"
-            }
-            API.signUp(submitData);
-        }else{
-            alert('The passwords does not match');
+        const submitData = {
+            username: e.target[1].value,
+            password: e.target[2].value,
+            confirm_password: e.target[3].value,
+            email: e.target[0].value,
+            public_key: "123456788999"
         }
+        API.signUp(submitData)
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                console.log(err.response.data.message);
+            });
+
     }
 
     render() {

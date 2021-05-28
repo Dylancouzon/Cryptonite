@@ -12,7 +12,13 @@ class SignUpForm extends React.Component {
             username: e.target[0].value,
             password: e.target[1].value,
         }
-        API.logIn(submitData);
+        API.logIn(submitData)
+        .then((res) => {
+            console.log(res);
+        })
+        .catch((err) => {
+            console.log(err.response.data.message);
+        });
     }
 
     render() {
