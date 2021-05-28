@@ -2,16 +2,17 @@ import React, { useContext, useState, useEffect } from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
 import SessionContext from '../../utils/sessionContext';
 import API from "../../utils/api";
+import { Container, Card } from 'react-bootstrap';
 
 // Table is able to be styled. This is generic boostrap styling for MVP.
 
 // THIS IS PLACEHOLDER DATA. WE NEED TO PASS AN ARRAY OF OBJECTS WITH THE VALUES
 // CHANGE THE KEYS ACCORDINGLY TO WHAT THE BLOCKCHAIN PROVIDES
 // {
-//   "from": "Sender Public Key",
-//   "private": "Sender Private Key",
-//   "to": "Recipient",
-//   "amount": amount
+//   "fromAddress": "From",
+//   "toAddress": "Recipient",
+//   "timestamp": "Timestamp",
+//   "amount": "Amount",
 //   "label": "whatever"
 // }
 
@@ -21,7 +22,7 @@ import API from "../../utils/api";
 
 function TransHist() { //hands props as parameter
 
-  const { publicKey } = useContext(SessionContext);
+  const { publicKey, username } = useContext(SessionContext);
   const [transactions, setTransactions] = useState([]);
 
   const timeConverter = (time) => {
@@ -38,15 +39,34 @@ function TransHist() { //hands props as parameter
         console.log(res.data);
           res.data.forEach(data => {
           data.timestamp = timeConverter(data.timestamp);
-          if(data.fromAddress === null) {
-            data.fromAddress = "System";
+          if(data.fromAddress === publicKey) {
+            data.fromAddress = username;
+            API.getUsername(data.toAddress)
+            .then(result => {
+              console.log(result.data.message);
+              data.toAddress = result.data.message;
+            });
+          };
+          if(data.toAddress === publicKey) {
+            data.toAddress = username;
+            if(data.fromAddress){
+              API.getUsername(data.fromAddress)
+              .then(result => {
+                console.log(result.data.message);
+                data.fromAddress = result.data.message;
+              })
+            } else {
+              data.fromAddress = "System";
+            }
           };
         });
         console.log(res.data);
-        setTransactions(res.data, res.data.valid = true);
+        setTimeout(() => {
+          setTransactions(res.data);
+        }, 500);
       }
       )
-}, [publicKey]);
+}, [publicKey, username]);
 
 
 const columns = [{
@@ -65,11 +85,13 @@ const columns = [{
   dataField: 'timestamp',
   text: 'Timestamp',
   sort: true
-}, {
-  dataField: 'valid',
-  text: 'Valid',
-  sort: true
-}];
+}
+// , {
+//   dataField: 'valid',
+//   text: 'Valid',
+//   sort: true
+// }
+];
 
 const expandRow = {
   renderer: row => (
@@ -95,18 +117,31 @@ const expandRow = {
     );
   }
 };
-
-return (
-  <BootstrapTable
-    keyField="id"  // Should change to value
-    data={ transactions }
-    columns={columns}
-    expandRow={expandRow}
-    striped
-    hover
-    condensed
-  />
-)
+console.log(transactions);
+if (transactions.length === 0) {
+  return(
+    <Container>
+            <Card body style={{textAlign: 'center'}}><h3>You have no Transactions yet!</h3></Card>
+    </Container>
+  )
+} else{
+  return (
+    <>
+    <Container>
+      <BootstrapTable
+        style={{textAlign: 'center'}}
+        keyField="id"  // Should change to value
+        data={ transactions }
+        columns={columns}
+        expandRow={expandRow}
+        striped
+        hover
+        condensed
+      />
+    </Container>
+    </>
+  )
+}
 }
 
 export default TransHist;
