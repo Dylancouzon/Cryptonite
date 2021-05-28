@@ -5,8 +5,8 @@ import BootstrapTable from 'react-bootstrap-table-next';
 
 // THIS IS PLACEHOLDER DATA. WE NEED TO PASS AN ARRAY OF OBJECTS WITH THE VALUES
 // CHANGE THE KEYS ACCORDINGLY TO WHAT THE BLOCKCHAIN PROVIDES
-function TransHist() {
-    const transaction = [
+function TransHist() { //hands props as parameter
+    const transaction = [ //Set this equal to the prop.transactions being passed in
         {
             id: 1,
             date: "04/07/21",
@@ -98,7 +98,7 @@ function TransHist() {
 
     return (
         <BootstrapTable
-            keyField="id"
+            keyField="id"  // Should change to value
             data={transaction}
             columns={columns}
             expandRow={ expandRow }
