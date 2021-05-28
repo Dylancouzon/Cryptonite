@@ -7,7 +7,6 @@ const mongoose = require("mongoose");
 var MongoDBStore = require('connect-mongodb-session')(session);
 
 
-
 require('dotenv').config();
 
 // Acces the Database for the sessions.
@@ -44,6 +43,11 @@ if (process.env.NODE_ENV === "production") {
     app.use(express.static("client/public"));
 }
 
+//Server side API routes.
+app.use('/api', require('./routes/api'));
+app.use('/api/blockchain', require('./routes/blockchain'));
+
+
 //Routes
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "./client/public/index.html"));
@@ -71,6 +75,7 @@ app.get("/seed", async (_req, _res) => {
 
 
 mongoose.connection.on('open', function () {
+    
     app.listen(process.env.PORT, () => {
         console.log(`🌎 ==> API server now on port ${process.env.PORT}!`);
     });
