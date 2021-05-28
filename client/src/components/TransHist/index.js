@@ -1,112 +1,112 @@
-import React from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
+import SessionContext from '../../utils/sessionContext';
+import API from "../../utils/api";
 
 // Table is able to be styled. This is generic boostrap styling for MVP.
 
 // THIS IS PLACEHOLDER DATA. WE NEED TO PASS AN ARRAY OF OBJECTS WITH THE VALUES
 // CHANGE THE KEYS ACCORDINGLY TO WHAT THE BLOCKCHAIN PROVIDES
-function TransHist() {
-    const transaction = [
-        {
-            id: 1,
-            date: "04/07/21",
-            sender: "Cheng",
-            recipient: "Jake",
-            amount: 450,
-            valid: true,
-            label: 'This is the reason why im sending the coin'
-        },
-        {
-            id: 2,
-            date: "04/07/21",
-            sender: "Cheng",
-            recipient: "Dylan",
-            amount: 305,
-            valid: true,
-            label: 'This is the reason why im sending the coin'
-        },
-        {
-            id: 3,
-            date: "04/07/21",
-            sender: "Cheng",
-            recipient: "Liam",
-            amount: 5000,
-            valid: false,
-            label: 'This is the reason why im sending the coin'
-        },
-        {
-            id: 4,
-            date: "04/06/21",
-            sender: "",
-            recipient: "Jake",
-            amount: 450,
-            valid: true,
-            label: 'This is the reason why im sending the coin'
-        }
-    ];
+// {
+//   "from": "Sender Public Key",
+//   "private": "Sender Private Key",
+//   "to": "Recipient",
+//   "amount": amount
+//   "label": "whatever"
+// }
 
-    const columns = [{
-        dataField: 'id',
-        text: 'Trans ID',
-        sort: true
-    }, {
-        dataField: 'date',
-        text: 'Date',
-        sort: true
-    }, {
-        dataField: 'sender',
-        text: 'Sender',
-        sort: true
-    }, {
-        dataField: 'recipient',
-        text: 'Recipient',
-        sort: true
-    }, {
-        dataField: 'amount',
-        text: 'Amount',
-        sort: true
-    }, {
-        dataField: 'valid',
-        text: 'Valid',
-        sort: true
-    }];
-    console.log(transaction.label);
-    const expandRow = {
-        renderer: row => (
-          <div>
-            <p>{`${row.label}`}</p>
-          </div>
-        ),
-        showExpandColumn: true,
-        expandHeaderColumnRenderer: ({ isAnyExpands }) => {
-          if (isAnyExpands) {
-            return <b>-</b>;
-          }
-          return <b>+</b>;
-        },
-        expandColumnRenderer: ({ expanded }) => {
-          if (expanded) {
-            return (
-              <b>-</b>
-            );
-          }
-          return (
-            <b>...</b>
-          );
-        }
-      };
 
+
+
+
+function TransHist() { //hands props as parameter
+
+  const { publicKey } = useContext(SessionContext);
+  const [transactions, setTransactions] = useState([]);
+
+  const timeConverter = (time) => {
+    const unixTime = time;
+    const dateObject = new Date(unixTime);
+    const dateFormat = dateObject.toLocaleString();
+    return dateFormat;
+  }
+
+  useEffect(() => {
+    console.log("hello");
+    API.getUserTransactions(publicKey)
+      .then(res => {
+        console.log(res.data);
+          res.data.forEach(data => {
+          data.timestamp = timeConverter(data.timestamp);
+          if(data.fromAddress === null) {
+            data.fromAddress = "System";
+          };
+        });
+        console.log(res.data);
+        setTransactions(res.data, res.data.valid = true);
+      }
+      )
+}, [publicKey]);
+
+
+const columns = [{
+  dataField: 'fromAddress',
+  text: 'From',
+  sort: true
+}, {
+  dataField: 'toAddress',
+  text: 'Recipient',
+  sort: true
+}, {
+  dataField: 'amount',
+  text: 'Amount',
+  sort: true
+}, {
+  dataField: 'timestamp',
+  text: 'Timestamp',
+  sort: true
+}, {
+  dataField: 'valid',
+  text: 'Valid',
+  sort: true
+}];
+
+const expandRow = {
+  renderer: row => (
+    <div>
+      <p>{row.amount}</p>
+    </div>
+  ),
+  showExpandColumn: true,
+  expandHeaderColumnRenderer: ({ isAnyExpands }) => {
+    if (isAnyExpands) {
+      return <b>-</b>;
+    }
+    return <b>+</b>;
+  },
+  expandColumnRenderer: ({ expanded }) => {
+    if (expanded) {
+      return (
+        <b>-</b>
+      );
+    }
     return (
-        <BootstrapTable
-            keyField="id"
-            data={transaction}
-            columns={columns}
-            expandRow={ expandRow }
-            striped
-            hover
-            condensed
-        />
-    )
+      <b>...</b>
+    );
+  }
+};
+
+return (
+  <BootstrapTable
+    keyField="id"  // Should change to value
+    data={ transactions }
+    columns={columns}
+    expandRow={expandRow}
+    striped
+    hover
+    condensed
+  />
+)
 }
 
 export default TransHist;

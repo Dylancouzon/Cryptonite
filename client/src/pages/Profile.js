@@ -1,6 +1,7 @@
 import React from "react";
 import WalletCoins from "../components/WalletCoins";
 import TransHist from "../components/TransHist";
+// import API from "../utils/api";
 
 
 function Profile() {

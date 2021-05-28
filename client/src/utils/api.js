@@ -12,6 +12,12 @@ export default {
     logIn: function (data) {
         return axios.post(`/api/logIn`, data)
     },
+    getAddressBalance: function (data) {
+        return axios.get('/api/blockchain/balance/' + data)
+    },
+    getUserTransactions: function (data) {
+        return axios.get('/api/blockchain/transactions/' + data)
+    }
 }
 
 // return axios.post(`http://localhost:3001/api/signUp`, data, {

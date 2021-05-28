@@ -7,68 +7,96 @@ const ec = new EC('secp256k1');
 //Not using the Controller as of right now.
 // const usersController = require("../controllers/usersController");
 
-const checkPass = async (pass1, pass2) => {
-  console.log("test");
-  return
-}
-
 router.post('/signUp', async (req, res) => {
-  const key = ec.genKeyPair();
-  const publicKey = key.getPublic('hex');
-  const privateKey = key.getPrivate('hex');
+
   try {
+    //Error checks.
+    if (req.body.username.length < 6) return res.status(400).json({ message: "Your Username should be at least 6 characters." });
+    if (req.body.password.length < 6) return res.status(400).json({ message: "Your Password should be at least 6 characters." });
+    if (req.body.password !== req.body.confirm_password) return res.status(400).json({ message: "Your passwords do not match" });
+
+    const key = ec.genKeyPair();
+    const publicKey = key.getPublic('hex');
+    const privateKey = key.getPrivate('hex');
     req.body.public_key = publicKey;
     req.body.password = await bcrypt.hash(req.body.password, 8);
-    const userData = await User.create(req.body);
+    User.create(req.body, (err, result) => {
+      if (err) {
+        // Return the different Mongoose erros.
+        if (err.code === 11000 && err.keyPattern.email) {
+          res.status(400).json({ message: "Email already in use." });
+        } else if (err.code === 11000 && err.keyPattern.username) {
+          res.status(400).json({ message: "Username already in use." });
+        } else {
+          res.status(400).json({ message: "MongoDB error" });
+        }
+      } else {
+        //Create the sessions & Return the private key
+        req.session.save(() => {
+          req.session.user_id = result._id;
+          req.session.username = result.username;
+          req.session.publicKey = publicKey;
+          req.session.logged_in = true;
 
-    //Create the sessions & Return the private key
-    req.session.save(() => {
-      req.session.user_id = userData._id;
-      req.session.username = userData.username;
-      req.session.publicKey = publicKey;
-      req.session.logged_in = true;
+          res.status(200).json({ message: privateKey });
+        });
 
-      res.status(200).json(privateKey);
+      }
     });
 
+
+
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).json({ message: "Server Error. Please try again." });
   }
 });
 
 router.post('/logIn', async (req, res) => {
   try {
-    const userData = await User.find({ username: req.body.username });
-
-    if (!userData) {
-      res.status(400).json({ message: 'Username not found!' });
-      return;
-    }
-
-    bcrypt.compare(req.body.password, userData[0].password, function (err, result) {
+    User.find({ username: req.body.username }, (err, userData) => {
+      //Checking if the user is in the DB
       if (err) {
-        res.status(400).json({ message: 'Error comparing the passwords' });
-      }
-      if (result) {
+        return res.status(400).json({ message: 'Server Error, Please try Again.' });
 
-        req.session.save(() => {
-          req.session.user_id = userData[0]._id;
-          req.session.username = userData[0].username;
-          req.session.publicKey = userData[0].publicKey;
-          req.session.logged_in = true;
+      } else if (!userData[0]) {
+        return res.status(400).json({ message: 'Username not Found.' });
 
-          res.status(200).json({ user: userData });
-        });
       } else {
-        // response is OutgoingMessage object that server response http request
-        return res.status(400).json({ message: 'Incorrect password' });
+        //Comparing the passwords
+        bcrypt.compare(req.body.password, userData[0].password, function (err, result) {
+          if (err) {
+            return res.status(400).json({ message: 'Error decrypting Password.' });
+          }
+          //Creating the sessions
+          if (result) {
+            req.session.save(() => {
+              req.session.user_id = userData[0]._id;
+              req.session.username = userData[0].username;
+              req.session.publicKey = userData[0].publicKey;
+              req.session.logged_in = true;
+
+              res.status(200).json({ user: userData });
+            });
+          } else {
+
+            return res.status(400).json({ message: 'Incorrect password.' });
+          }
+        });
       }
     });
 
-
-
   } catch (err) {
-    res.status(400).json(err);
+    res.status(500).json({ message: "Server Error, Please try Again." });
+  }
+});
+
+router.post('/logout', (req, res) => {
+  if (req.session.logged_in) {
+    req.session.destroy(() => {
+      res.status(204).end();
+    });
+  } else {
+    res.status(404).end();
   }
 });
 
