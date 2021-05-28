@@ -13,7 +13,9 @@ class Transaction {
     this.fromAddress = fromAddress;
     this.toAddress = toAddress;
     this.amount = amount;
+    this.label = "None";
     this.timestamp = Date.now();
+    this.error = "";
   }
 
   /**
@@ -22,7 +24,8 @@ class Transaction {
    * @returns {string}
    */
   calculateHash() {
-    return crypto.createHash('sha256').update(this.fromAddress + this.toAddress + this.amount + this.timestamp).digest('hex');
+    
+    return crypto.createHash('sha256').update(this.fromAddress + this.toAddress + this.amount + this.timestamp, this.label).digest('hex');
   }
 
   /**
@@ -36,15 +39,16 @@ class Transaction {
     // You can only send a transaction from the wallet that is linked to your
     // key. So here we check if the fromAddress matches your publicKey
     if (signingKey.getPublic('hex') !== this.fromAddress) {
-      return new Error('You cannot sign transactions for other wallets!');
+      return this.error = "Public & Private key not Matching.";
     }
 
 
     // Calculate the hash of this transaction, sign it with the key
     // and store it inside the transaction obect
     const hashTx = this.calculateHash();
+    
     const sig = signingKey.sign(hashTx, 'base64');
-
+    
     this.signature = sig.toDER('hex');
   }
 
@@ -61,7 +65,7 @@ class Transaction {
     if (this.fromAddress === null) return true;
 
     if (!this.signature || this.signature.length === 0) {
-      return new Error('No signature in this transaction');
+      return {error: this.error || "No Signature"};
     }
 
     const publicKey = ec.keyFromPublic(this.fromAddress, 'hex');
@@ -195,25 +199,26 @@ class Blockchain {
    */
   addTransaction(transaction) {
     if (!transaction.fromAddress || !transaction.toAddress) {
-      return ('Transaction must include from and to address');
+     
+      return  {error: 'Transaction must include from and to address'};      
     }
 
     // Verify the transactiion
     if (!transaction.isValid()) {
-      return ('Cannot add invalid transaction to chain');
+      return  {error: "Cannot add invalid transaction to chain"};
     }
 
     if (transaction.amount <= 0) {
-      return ('Transaction amount should be higher than 0');
+      return  {error: 'Transaction amount should be higher than 0'};
     }
 
     // Making sure that the amount sent is not greater than existing balance
     if (this.getBalanceOfAddress(transaction.fromAddress) < transaction.amount) {
-      return 'Not enough balance';
+      return  {error: 'Not enough balance'};
     }
 
     this.pendingTransactions.push(transaction);
-    debug('transaction added: %s', transaction);
+    return  {sucess: "Sucess"};
   }
 
   /**

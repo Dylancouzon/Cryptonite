@@ -100,4 +100,23 @@ router.post('/logout', (req, res) => {
   }
 });
 
+router.get('/username/:key', async (req, res) => {
+  try {
+
+    User.find({ public_key: req.params.key }, (err, userData) => {
+      console.log(userData);
+      //Checking if the user is in the DB
+      if (err) {
+        return res.status(400).json({ message: 'Server Error, Please try Again.' });
+
+      } else {
+        return res.status(200).json({ message: userData[0].username });
+      }
+    });
+  } catch (err) {
+    res.status(500).json({ message: "Server Error, Please try Again." });
+  }
+});
+
+
 module.exports = router;
