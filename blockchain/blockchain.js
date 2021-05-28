@@ -22,6 +22,7 @@ class Transaction {
    * @returns {string}
    */
   calculateHash() {
+    
     return crypto.createHash('sha256').update(this.fromAddress + this.toAddress + this.amount + this.timestamp).digest('hex');
   }
 
@@ -36,15 +37,16 @@ class Transaction {
     // You can only send a transaction from the wallet that is linked to your
     // key. So here we check if the fromAddress matches your publicKey
     if (signingKey.getPublic('hex') !== this.fromAddress) {
-      return new Error('You cannot sign transactions for other wallets!');
+      return {error: 'Wrong Private Key'};
     }
 
 
     // Calculate the hash of this transaction, sign it with the key
     // and store it inside the transaction obect
     const hashTx = this.calculateHash();
+    
     const sig = signingKey.sign(hashTx, 'base64');
-
+    
     this.signature = sig.toDER('hex');
   }
 
@@ -61,7 +63,7 @@ class Transaction {
     if (this.fromAddress === null) return true;
 
     if (!this.signature || this.signature.length === 0) {
-      return new Error('No signature in this transaction');
+      return {error: 'No signature in this transaction'};
     }
 
     const publicKey = ec.keyFromPublic(this.fromAddress, 'hex');

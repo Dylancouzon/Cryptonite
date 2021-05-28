@@ -50,6 +50,7 @@ console.log(`Balance of jake is ${blockchain.getBalanceOfAddress("04607ee359622c
 // Routes
 router.get('/balance/:key', async (req, res) => {
     const result = blockchain.getBalanceOfAddress(req.params.key);
+
     res.json(result);
 });
 
@@ -58,21 +59,27 @@ router.get('/transactions/:key', async (req, res) => {
     res.json(result);
 });
 
-// {
-//     "from": "Sender Public Key",
-//     "private": "Sender Private Key",
-//     "to": "Recipient",
-//     "amount": amount,
-//      "label": "Label"
-//     }
 router.post('/transactions', async (req, res) => {
     try {
         const tx = new Transaction(req.body.from, req.body.to, req.body.amount);
         const txKey = ec.keyFromPrivate(req.body.private);
         tx.signTransaction(txKey);
-        blockchain.addTransaction(tx);
-        res.json(tx);
-        
+
+        //Check if the transaction is valid.
+        const trans = tx.isValid();
+        if (trans === true) {
+            blockchain.addTransaction(tx);
+            res.status(200).json({ message: "Sucess" });
+        } else if (trans.error) {
+            res.status(400).json({ message: trans.error });
+        } else {
+            res.status(400).json({ message: "Unknown Error" });
+        }
+
+
+
+
+
     } catch (err) {
         res.status(500).json(err);
     }
