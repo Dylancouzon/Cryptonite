@@ -31,10 +31,11 @@ const PayInfo = () => {
             const { id } = paymentMethod;
             console.log(paymentMethod);
             try {
-                const { data } = await axios.post("/api/charge", { id, amount: 10});
+                const { data } = await axios.post("/api/stripe/charge", { id, amount: 1000});
                 console.log(data);
             }   catch (error) {
-                console.log(error);
+                console.log("hello---------------->")
+                console.log(error.response);
             }
         }
     };

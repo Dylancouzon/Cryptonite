@@ -46,7 +46,7 @@ if (process.env.NODE_ENV === "production") {
 //Server side API routes.
 app.use('/api', require('./routes/api'));
 app.use('/api/blockchain', require('./routes/blockchain'));
-
+app.use('/api/stripe', require('./routes/stripe'));
 
 //Routes
 app.get("*", (req, res) => {
