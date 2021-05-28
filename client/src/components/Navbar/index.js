@@ -6,6 +6,7 @@ import Sidebar from "../Sidebar";
 import SignUpForm from "../SignUp";
 import LoginForm from "../Login";
 import "./style.css";
+import SessionContext from '../../utils/sessionContext';
 
 
 function Navigation() {
@@ -36,7 +37,9 @@ function Navigation() {
     // }
 
     return (
-        <>
+        <SessionContext.Consumer>
+            {(state) => (
+            <>
             <Navbar className="container-fluid">
                 <Nav.Item>
                     <Link className="navbar-brand" to="/">
@@ -80,12 +83,14 @@ function Navigation() {
                 options={{ width: 1000 }}
                 sidenav={
 
-                    loginComponent === "menu" ? <Sidebar /> : loginComponent === "signUp" ? <SignUpForm /> : <LoginForm />
+                    loginComponent === "menu" ? <Sidebar /> : loginComponent === "signUp" ? <SignUpForm /> : <LoginForm {...state}/>
 
                 }
             >
             </Sidenav>
-        </>
+            </>
+            )}
+        </SessionContext.Consumer>
     )
 }
 
