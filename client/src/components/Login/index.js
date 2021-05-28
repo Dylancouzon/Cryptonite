@@ -14,17 +14,17 @@ function SignUpForm() {
             password: e.target[1].value,
         }
         API.logIn(submitData)
-        .then((req, res) => {
-            if(1 === 1) {
-                var username = req.data.user[0].username;
-                var publicKey = req.data.user[0].public_key;
-                var logged_in = true;
-                setSession({username, publicKey, logged_in});
-            } else {
-                alert(req.data.message);
-            }
+        .then((res) => {
+            var username = res.data.user[0].username; 
+            var publicKey = res.data.user[0].public_key;
+            var logged_in = true;
+            setSession({username, publicKey, logged_in});
+            console.log(res);
         })
-        
+        .catch((err) => {
+            // Error message, needs to be put inside an <Alert />
+            console.log(err.response.data.message);
+        });
     }
 
 
