@@ -6,16 +6,16 @@ var UsersSchema = new Schema({
     username: {
         type: String,
         minlength: 6,
-        required: true,
         unique: true
     },
     password: {
         type: String,
+        minlength: 6,
+        required: true,
     },
     email: {
         type: String,
         match: [/.+@.+\..+/, "Please enter a valid e-mail address"],
-        required: 'This Email adress is already being used.',
         unique: true
     },
     email_confirmed: {
@@ -24,7 +24,6 @@ var UsersSchema = new Schema({
     },
     public_key: {
         type: String,
-        required: 'URL can\'t be empty',
         unique: true
     }
 })
