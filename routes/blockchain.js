@@ -61,27 +61,44 @@ router.get('/transactions/:key', async (req, res) => {
 
 router.post('/transactions', async (req, res) => {
     try {
-        const tx = new Transaction(req.body.from, req.body.to, req.body.amount);
+        // Check if the user has enough coins to creat this transaction.
+        const balance = blockchain.getBalanceOfAddress(req.body.from);
+        if (!balance) return res.status(400).json({ message: "Cannot find your balance." });
+        if (req.body.amount > balance) return res.status(400).json({ message: "Insufficient funds." });
+
+        const tx = new Transaction(req.body.from, req.body.to, req.body.amount, req.body.label);
         const txKey = ec.keyFromPrivate(req.body.private);
         tx.signTransaction(txKey);
-
-        //Check if the transaction is valid.
+        /*
+        Security checks 
+            - All fields are completed
+            - Keys are Matching
+            - Amount > 0
+            - Balance > 0
+            - Balance > amount
+            - Hash succeded
+            - Check everything again before pushing into the block.
+        */
         const trans = tx.isValid();
         if (trans === true) {
-            blockchain.addTransaction(tx);
-            res.status(200).json({ message: "Sucess" });
+            lastCheck = blockchain.addTransaction(tx);
+
+            if (lastCheck.sucess) {
+                res.status(200).json({ message: "Sucess" });
+            } else if (lastCheck.error) {
+                return res.status(400).json({ message: lastCheck.error });
+            } else {
+                return res.status(400).json({ message: "Unknown Error" });
+            }
+
         } else if (trans.error) {
-            res.status(400).json({ message: trans.error });
+            return res.status(400).json({ message: trans.error });
         } else {
-            res.status(400).json({ message: "Unknown Error" });
+            return res.status(400).json({ message: "Unknown Error" });
         }
 
-
-
-
-
     } catch (err) {
-        res.status(500).json(err);
+        return res.status(500).json({ message: "Server Error" });
     }
 });
 

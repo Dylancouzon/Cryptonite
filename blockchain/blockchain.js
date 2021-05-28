@@ -13,7 +13,9 @@ class Transaction {
     this.fromAddress = fromAddress;
     this.toAddress = toAddress;
     this.amount = amount;
+    this.label = "None";
     this.timestamp = Date.now();
+    this.error = "";
   }
 
   /**
@@ -23,7 +25,7 @@ class Transaction {
    */
   calculateHash() {
     
-    return crypto.createHash('sha256').update(this.fromAddress + this.toAddress + this.amount + this.timestamp).digest('hex');
+    return crypto.createHash('sha256').update(this.fromAddress + this.toAddress + this.amount + this.timestamp, this.label).digest('hex');
   }
 
   /**
@@ -37,7 +39,7 @@ class Transaction {
     // You can only send a transaction from the wallet that is linked to your
     // key. So here we check if the fromAddress matches your publicKey
     if (signingKey.getPublic('hex') !== this.fromAddress) {
-      return {error: 'Wrong Private Key'};
+      return this.error = "Public & Private key not Matching.";
     }
 
 
@@ -63,7 +65,7 @@ class Transaction {
     if (this.fromAddress === null) return true;
 
     if (!this.signature || this.signature.length === 0) {
-      return {error: 'No signature in this transaction'};
+      return {error: this.error || "No Signature"};
     }
 
     const publicKey = ec.keyFromPublic(this.fromAddress, 'hex');
@@ -197,25 +199,26 @@ class Blockchain {
    */
   addTransaction(transaction) {
     if (!transaction.fromAddress || !transaction.toAddress) {
-      return ('Transaction must include from and to address');
+     
+      return  {error: 'Transaction must include from and to address'};      
     }
 
     // Verify the transactiion
     if (!transaction.isValid()) {
-      return ('Cannot add invalid transaction to chain');
+      return  {error: "Cannot add invalid transaction to chain"};
     }
 
     if (transaction.amount <= 0) {
-      return ('Transaction amount should be higher than 0');
+      return  {error: 'Transaction amount should be higher than 0'};
     }
 
     // Making sure that the amount sent is not greater than existing balance
     if (this.getBalanceOfAddress(transaction.fromAddress) < transaction.amount) {
-      return 'Not enough balance';
+      return  {error: 'Not enough balance'};
     }
 
     this.pendingTransactions.push(transaction);
-    debug('transaction added: %s', transaction);
+    return  {sucess: "Sucess"};
   }
 
   /**
