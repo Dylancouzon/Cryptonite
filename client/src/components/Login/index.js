@@ -23,8 +23,6 @@ function SignUpForm() {
             } else {
                 alert(req.data.message);
             }
-
-            // console.log(req.data.user);
         })
         
     }

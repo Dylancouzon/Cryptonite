@@ -26,9 +26,9 @@ class App extends Component {
       }))
     }
 
-    this.state = {
-      username: "",
-      publicKey: "",
+    this.state = {   // DELETE THE PLACEHOLDER VALUES WHEN FINISHED TESTING
+      username: "Jakenovelli",
+      publicKey: "04607ee359622c2e0a0fd8f963c68655968107dd3f8f538a911e50aa8a0bfc922130b584dd21c66c267ee38a6581146f95e8291c16fb053730764864e57a927f6f",
       logged_in: false,
       setSession: this.setSession,
     };
