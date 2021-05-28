@@ -58,6 +58,13 @@ router.get('/transactions/:key', async (req, res) => {
     res.json(result);
 });
 
+// {
+//     "from": "Sender Public Key",
+//     "private": "Sender Private Key",
+//     "to": "Recipient",
+//     "amount": amount,
+//      "label": "Label"
+//     }
 router.post('/transactions', async (req, res) => {
     try {
         const tx = new Transaction(req.body.from, req.body.to, req.body.amount);
@@ -65,7 +72,7 @@ router.post('/transactions', async (req, res) => {
         tx.signTransaction(txKey);
         blockchain.addTransaction(tx);
         res.json(tx);
-
+        
     } catch (err) {
         res.status(500).json(err);
     }
