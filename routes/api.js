@@ -57,7 +57,7 @@ router.post('/logIn', async (req, res) => {
       //Checking if the user is in the DB
       if (err) {
         return res.status(400).json({ message: 'Server Error, Please try Again.' });
-        
+
       } else if (!userData[0]) {
         return res.status(400).json({ message: 'Username not Found.' });
 
@@ -87,6 +87,16 @@ router.post('/logIn', async (req, res) => {
 
   } catch (err) {
     res.status(500).json({ message: "Server Error, Please try Again." });
+  }
+});
+
+router.post('/logout', (req, res) => {
+  if (req.session.logged_in) {
+    req.session.destroy(() => {
+      res.status(204).end();
+    });
+  } else {
+    res.status(404).end();
   }
 });
 
