@@ -96,7 +96,7 @@ const columns = [{
 const expandRow = {
   renderer: row => (
     <div>
-      <p>{row.amount}</p>
+      <p>{row.label}</p>
     </div>
   ),
   showExpandColumn: true,
