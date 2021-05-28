@@ -2,9 +2,9 @@ import React from 'react';
 import './style.css';
 import { Form, Button } from 'react-bootstrap';
 import { loadStripe } from '@stripe/stripe-js';
+import axios from 'axios';
 import {
     Elements,
-    CardElement,
     useStripe,
     useElements,
     CardNumberElement,
@@ -14,18 +14,31 @@ import {
 
 
 
-const PayInfo = () => {
-    // const stripe = useStripe();
-    // const elements = useElements();
 
-    // const handleSubmit = async (event) => {
-    //     event.preventDefault();
-    //     const { error, paymentMethod } = await stripe.createPaymentMethod({
-    //         type: 'card',
-    //         card: elements.getElement(CardElement),
-    //     });
-    // };
-    const stripePromise = loadStripe('pk_test_6pRNASCoBOKtIshFeQd4XMUh');
+const PayInfo = () => {
+    const stripe = useStripe();
+    const elements = useElements();
+    // const stripePromise = loadStripe('pk_test_6pRNASCoBOKtIshFeQd4XMUh');
+
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const {error, paymentMethod } = await stripe.createPaymentMethod({
+            type: 'card',
+            card: elements.getElement(CardNumberElement, CardExpiryElement, CardCvcElement),
+        });
+        if (!error) {
+            const { id } = paymentMethod;
+            console.log(paymentMethod);
+            try {
+                const { data } = await axios.post("/api/charge", { id, amount: 10});
+                console.log(data);
+            }   catch (error) {
+                console.log(error);
+            }
+        }
+    };
+    
     return (
         <div style={{ 
             border: '1px solid #ccc',
@@ -35,14 +48,7 @@ const PayInfo = () => {
             paddingLeft: '10px',
             paddingRight: '10px'
             }}>
-            <Elements stripe={stripePromise}>
-                <Form>
-                    {/* <Form.Group style={{
-                            padding: '10px',
-                            border: '1px solid #ccc'
-                        }}>
-                        <Form.Control type="text" placeholder="Name"/>
-                    </Form.Group> */}
+                <Form onSubmit={handleSubmit}>
                     <Form.Group className="input-box">
                         <CardNumberElement />
                     </Form.Group>
@@ -52,11 +58,11 @@ const PayInfo = () => {
                     <Form.Group className="input-box">
                         <CardCvcElement />
                     </Form.Group>
-                    <Button variant="primary" style={{ width: '50%' }}type="submit"> Submit Payment</Button>
+                    <Button variant="primary" style={{ width: '50%' }} type="submit" disabled={!stripe}> Submit Payment</Button>
                 </Form>
-            </Elements>
         </div>
     );
+    
 };
 
 export default PayInfo;
