@@ -14,9 +14,11 @@ class SignUpForm extends React.Component {
         }
         API.logIn(submitData)
         .then((res) => {
+            // Result 
             console.log(res);
         })
         .catch((err) => {
+            // Error message, needs to be put inside an <Alert />
             console.log(err.response.data.message);
         });
     }

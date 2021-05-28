@@ -16,9 +16,12 @@ class SignUpForm extends React.Component {
         }
         API.signUp(submitData)
             .then((res) => {
-                console.log(res);
+                //Need to redirect the user
+                //Private key rendered below
+                console.log(res.data.message);
             })
             .catch((err) => {
+                //Error message, need to be put in an <Alert />
                 console.log(err.response.data.message);
             });
 
