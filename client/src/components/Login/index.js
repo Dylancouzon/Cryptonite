@@ -15,7 +15,7 @@ function SignUpForm() {
         }
         API.logIn(submitData)
         .then((res) => {
-            var username = res.data.user[0].username;
+            var username = res.data.user[0].username; 
             var publicKey = res.data.user[0].public_key;
             var logged_in = true;
             setSession({username, publicKey, logged_in});
