@@ -21,8 +21,6 @@ function WalletCoins() {
             setCoin(res.data)
         })
       }
-      const test = getUserBalance();
-      console.log(test);
     return(
         <Container>
             <Card body style={{textAlign: 'center'}}><h3>Welcome, {username} !</h3></Card>
