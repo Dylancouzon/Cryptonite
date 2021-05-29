@@ -17,7 +17,10 @@ export default {
     },
     getUserTransactions: function (data) {
         return axios.get('/api/blockchain/transactions/' + data)
-    }
+    },
+    getUsername: function (data) {
+        return axios.get('/api/username/' + data)
+    },
 }
 
 // return axios.post(`http://localhost:3001/api/signUp`, data, {
