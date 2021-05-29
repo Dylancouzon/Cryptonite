@@ -1,10 +1,8 @@
 import React from 'react';
 import './style.css';
 import { Form, Button } from 'react-bootstrap';
-import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
 import {
-    Elements,
     useStripe,
     useElements,
     CardNumberElement,
@@ -12,14 +10,9 @@ import {
     CardCvcElement
 } from '@stripe/react-stripe-js';
 
-
-
-
 const PayInfo = () => {
     const stripe = useStripe();
     const elements = useElements();
-    // const stripePromise = loadStripe('pk_test_6pRNASCoBOKtIshFeQd4XMUh');
-
 
     const handleSubmit = async (event) => {
         event.preventDefault();
