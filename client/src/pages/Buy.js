@@ -8,8 +8,11 @@ import TransFailed from "../components/TransFailed";
 import KeysModal from "../components/KeysModal";
 import { Elements } from "@stripe/react-stripe-js";
 import {loadStripe} from '@stripe/stripe-js';
+const { REACT_APP_STRIPE_PUBLISHABLE_KEY, REACT_APP_STRIPE_TEST_PUBLISHABLE_KEY } = process.env; // This does not work right now something with the way i'm calling it
 
-const stripePromise = loadStripe('pk_test_6pRNASCoBOKtIshFeQd4XMUh');
+// const stripePromise = loadStripe(`"${REACT_APP_STRIPE_TEST_PUBLISHABLE_KEY}"`);
+const stripePromise = loadStripe("pk_test_51IwEE1IfEtVhtvHpZQWzNy4cQE7zFhRUh78vuNtKysm9Mc5Zjs9dAH4FRRClE3a4MDw85OPJhJBcykpHbfyaP0Dm00MsH0JIB7");
+
 
 function Buy() {
   return (
