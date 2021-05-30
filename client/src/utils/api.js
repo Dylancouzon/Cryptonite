@@ -21,6 +21,9 @@ export default {
     getUsername: function (data) {
         return axios.get('/api/username/' + data)
     },
+    sendTransaction: function (data) {
+        return axios.post('/api/blockchain/transactions', data)
+    },
 }
 
 // return axios.post(`http://localhost:3001/api/signUp`, data, {

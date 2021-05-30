@@ -1,10 +1,12 @@
 import React from "react";
-import WalletCoins from "../components/WalletCoins";
+import SendForm from "../components/SendForm";
+import WalletCoinsUser from "../components/WalletCoinsSend";
 
 function Send() {
   return (
     <>
-        <WalletCoins />
+        <WalletCoinsUser />
+        <SendForm />
     </>
   )
 }
