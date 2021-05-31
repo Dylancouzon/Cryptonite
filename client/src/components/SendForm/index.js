@@ -14,7 +14,7 @@ function SendForm() {
             obj[input.getAttribute('id')] = input.value
             return obj;
         }, {})
-        data.fromAddress = publicKey;
+        data.from = publicKey;
         console.log(data);
         console.log(Object.values(data).reduce((a, c) => a && !!c, true));
         if (!Object.values(data).reduce((result, value) => result && !!value, true)) {
@@ -33,7 +33,7 @@ function SendForm() {
         <Container>
             <Card>
                 <Form ref={formHandle}>
-                    <Form.Group as={Row} controlId="toAddress">
+                    <Form.Group as={Row} controlId="to">
                         <Col style={{ marginTop: 5 }} md={{ span: 7, offset: 2 }}>
                             <Form.Control type="text" placeholder="Recipient (Public Key)" />
                         </Col>
