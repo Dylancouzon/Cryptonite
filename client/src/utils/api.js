@@ -24,6 +24,9 @@ export default {
     sendTransaction: function (data) {
         return axios.post('/api/blockchain/transactions', data)
     },
+    getSessions: function (data) {
+        return axios.get('/api/sessions')
+    },
 }
 
 // return axios.post(`http://localhost:3001/api/signUp`, data, {

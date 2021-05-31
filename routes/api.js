@@ -72,7 +72,7 @@ router.post('/logIn', async (req, res) => {
             req.session.save(() => {
               req.session.user_id = userData[0]._id;
               req.session.username = userData[0].username;
-              req.session.publicKey = userData[0].publicKey;
+              req.session.publicKey = userData[0].public_key;
               req.session.logged_in = true;
 
               res.status(200).json({ user: userData });
@@ -115,6 +115,14 @@ router.get('/username/:key', async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({ message: "Server Error, Please try Again." });
+  }
+});
+
+router.get('/sessions', async (req, res) => {
+  if(req.session.logged_in && req.session.username && req.session.publicKey){
+    return res.status(200).json(req.session);
+  }else{
+    return res.status(200).json({logged_in:false});
   }
 });
 
