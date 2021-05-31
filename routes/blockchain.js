@@ -3,6 +3,7 @@ const { Blockchain, Transaction } = require('../blockchain/blockchain.js');
 const EC = require('elliptic').ec;
 const ec = new EC('secp256k1');
 const Transactions = require('../models/transactions');
+const User = require('../models/users');
 
 // Create the Blockchain instance
 const blockchain = new Blockchain();
@@ -110,18 +111,7 @@ router.get('/valid', async (req, res) => {
     res.status(200).json(blockchain.isChainValid());
 });
 
-// Check if the key matches for deletion
-router.get('/delete/:private', async (req, res) => {
 
-    const privateKey = req.params.private;
-    const publicKeyDel = ec.keyFromPrivate(privateKey);
-    if (publicKeyDel.getPublic('hex') !== req.session.publicKey) {
-        return res.status(400).json({ message: "Keys are not Matching" });
-      }else{
-        res.status(200).json({ message: "Sucess" });
-      }
-
-});
 
 //Returns the total number of coins
 router.get('/totalCoins', async (req, res) => {
@@ -130,37 +120,46 @@ router.get('/totalCoins', async (req, res) => {
 
 router.get('/coinValue', async (req, res) => {
     Transactions.find({}, (err, data) => {
-        if(err) return res.status(500).json({message : "Server Error"});
+        if (err) return res.status(500).json({ message: "Server Error" });
         let total = 0;
-        data.forEach(transaction =>{
+        data.forEach(transaction => {
             total += parseInt(transaction.amount);
         })
         const value = total / blockchain.getNumberOfCoins();
         res.status(200).json(value);
     });
-    
+
 });
 
+//Get the coin value day by day since it's creation
 router.get('/valueData', async (req, res) => {
 
-    let date = Date.now();
-    let dateMinus1 = Date.now() - 86400000;
-    console.log(dateMinus1);
-    let numberOfCoins = blockchain.getDatedCoins(date);
     let result = [];
-    Transactions.findOne({ date: { $lt: date} }, (err, data) => {
-        if(err) return res.status(500).json({message : "Server Error"});
+    const creationDate = 1621987200000;
+    const oneDay = 86400000;
 
+    // Start at now, decreate the date by one day at each iteration until we reach the creation date.
+    for (let nowDate = Date.now(); nowDate > creationDate; nowDate -= oneDay) {
+        //Find the sum of all transactions at a specific date.
+        Transactions.find({ date: { $lt: nowDate } }, (err, data) => {
+            if (err) return res.status(500).json({ message: err });
+            let total = 0;
+            for (let transaction of data) {
+                total += parseInt(transaction.amount);
+            }
+            const totalCoins = blockchain.getDatedCoins(nowDate);
+            const thisDateResult = {
+                date: nowDate,
+                total_value: total,
+                total_coins: totalCoins,
+                usd_value: total / totalCoins
+            }
+            result.push(thisDateResult)
 
-    });
-});
+        });
 
-router.get('/value', async (req, res) => {
-    res.json(blockchain.isChainValid());
-});
-
-router.get('/valueData', async (req, res) => {
-    res.json(blockchain.isChainValid());
+    }
+    setTimeout(() => res.status(200).json(result), 500)
 });
 
 module.exports = router;
