@@ -8,14 +8,12 @@ var TransactionSchema = new Schema({
         required: true,
     },
     amount: {
-        type: String,
-        minlength: 6,
+        type: Number,
         required: true,
     },
     date: {
-        type: Date,
-        required: true,
-        default: Date.now
+        type:Number, 
+        default: new Date().getTime()
       }
 })
 
