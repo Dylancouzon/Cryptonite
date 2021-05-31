@@ -142,4 +142,12 @@ router.get('/valueData', async (req, res) => {
     });
 });
 
+router.get('/value', async (req, res) => {
+    res.json(blockchain.isChainValid());
+});
+
+router.get('/valueData', async (req, res) => {
+    res.json(blockchain.isChainValid());
+});
+
 module.exports = router;
