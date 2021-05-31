@@ -135,6 +135,7 @@ class Blockchain {
     this.chain = [this.createGenesisBlock()];
     this.difficulty = 2;
     this.miningReward = 100;
+    this.numberOfBlocks = 0;
   }
 
   /**
@@ -186,6 +187,7 @@ class Blockchain {
 
     debug('Block successfully mined!');
     this.chain.push(block);
+    this.numberOfBlocks++;
 
     this.pendingTransactions = [];
   }
@@ -244,6 +246,11 @@ class Blockchain {
 
     debug('getBalanceOfAdrees: %s', balance);
     return balance;
+  }
+
+  getNumberOfCoins() {
+    let numberOfCoins = 120000 + (this.numberOfBlocks)*100;
+    return numberOfCoins;
   }
 
   /**
