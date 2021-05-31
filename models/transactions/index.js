@@ -14,11 +14,12 @@ var TransactionSchema = new Schema({
     },
     date: {
         type: Date,
+        required: true,
         default: Date.now
       }
 })
 
 
-var Transactions = mongoose.model('Transacations', TransactionSchema);
+var Transactions = mongoose.model('Transactions', TransactionSchema);
 
 module.exports = Transactions;
