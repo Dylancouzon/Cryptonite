@@ -11,7 +11,11 @@ var TransactionSchema = new Schema({
         type: String,
         minlength: 6,
         required: true,
-    }
+    },
+    date: {
+        type: Date,
+        default: Date.now
+      }
 })
 
 
