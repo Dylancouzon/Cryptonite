@@ -110,6 +110,19 @@ router.get('/valid', async (req, res) => {
     res.status(200).json(blockchain.isChainValid());
 });
 
+// Check if the key matches for deletion
+router.get('/delete/:private', async (req, res) => {
+
+    const privateKey = req.params.private;
+    const publicKeyDel = ec.keyFromPrivate(privateKey);
+    if (publicKeyDel.getPublic('hex') !== req.session.publicKey) {
+        return res.status(400).json({ message: "Keys are not Matching" });
+      }else{
+        res.status(200).json({ message: "Sucess" });
+      }
+
+});
+
 //Returns the total number of coins
 router.get('/totalCoins', async (req, res) => {
     res.status(200).json(blockchain.getNumberOfCoins());
@@ -129,16 +142,16 @@ router.get('/coinValue', async (req, res) => {
 });
 
 router.get('/valueData', async (req, res) => {
+
     let date = Date.now();
-    console.log(date);
-    Transactions.find({}, (err, data) => {
+    let dateMinus1 = Date.now() - 86400000;
+    console.log(dateMinus1);
+    let numberOfCoins = blockchain.getDatedCoins(date);
+    let result = [];
+    Transactions.findOne({ date: { $lt: date} }, (err, data) => {
         if(err) return res.status(500).json({message : "Server Error"});
-        let total = 0;
-        data.forEach(transaction =>{
-            total += parseInt(transaction.amount);
-        })
-        const value = total / blockchain.getNumberOfCoins();
-        res.status(200).json({message : value});
+
+
     });
 });
 
