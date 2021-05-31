@@ -61,6 +61,7 @@ router.get('/transactions/:key', async (req, res) => {
 
 router.post('/transactions', async (req, res) => {
     try {
+        console.log(req.body);
         // Check if the user has enough coins to creat this transaction.
         const balance = blockchain.getBalanceOfAddress(req.body.from);
         if (!balance) return res.status(400).json({ message: "Cannot find your balance." });
@@ -92,6 +93,7 @@ router.post('/transactions', async (req, res) => {
             }
 
         } else if (trans.error) {
+            console.log(trans.error);
             return res.status(400).json({ message: trans.error });
         } else {
             return res.status(400).json({ message: "Unknown Error" });
