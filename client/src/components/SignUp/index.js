@@ -1,10 +1,32 @@
-import React from 'react';
-import { Form, Button } from "react-bootstrap";
+import React, { useState } from 'react';
+import { Form, Button, Modal, Col, Row } from "react-bootstrap";
 import API from "../../utils/api";
 
-class SignUpForm extends React.Component {
+// STILL NEEDS STYLING
 
-    handleSubmit(e) {
+
+function SignUpForm() {
+    const [show, setShow] = useState(false);
+    const [copied, setCopied] = useState(false);
+    const [private_key, setPrivate] = useState("");
+
+    const handleShow = () => setShow(true);
+
+    const handleClose = () => {
+        if(copied === true) {
+            setShow(false);
+            document.location.replace("/profile");
+        } else {
+            alert("Please copy your Private Key");
+        }
+    }
+    
+    const copyToClipboard = (e) => {
+        navigator.clipboard.writeText(e.target.value);
+        setCopied(true);
+    }
+
+    const handleSubmit = (e) => {
         e.preventDefault();
 
         const submitData = {
@@ -16,24 +38,26 @@ class SignUpForm extends React.Component {
         }
         API.signUp(submitData)
             .then((res) => {
-                //Need to redirect the user
-                //Private key rendered below
                 console.log(res.data.message);
+                console.log(res.status);
+                if(res.status === 200) {
+                    setPrivate(res.data.message);
+                    handleShow();
+                };
             })
             .catch((err) => {
                 //Error message, need to be put in an <Alert />
-                console.log(err.response.data.message);
+                alert(err.response.data.message);
             });
 
     }
 
-    render() {
         return (
             <>
                 <div className="sidebar-header">
                     <h3>Sign-up</h3>
                 </div>
-                <Form onSubmit={(e) => this.handleSubmit(e)}>
+                <Form onSubmit={(e) => handleSubmit(e)}>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Control type="email" placeholder="Enter email" />
                     </Form.Group>
@@ -54,9 +78,40 @@ class SignUpForm extends React.Component {
                 </div>
                 {/* Need to add a type for button */}
                 <Button>Sign-up with Google</Button>
+
+                <Modal
+                copied={copied}
+                show={show}
+                onHide={handleClose}
+                backdrop="static"
+                keyboard={false}
+            >
+                <Modal.Header>
+                    <Modal.Title>
+                        <h3>Thank you for Signing Up!</h3>
+                        <h3 style={{ color: 'red' }}>WE WILL ONLY SHOW THIS ONCE</h3>
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form.Group as={Row} controlId="formPlaintextTotal">
+                        <Form.Label style={{ marginTop: 5 }} column md={4}>
+                            Private Key:
+                        </Form.Label>
+                        <Col style={{ marginTop: 5 }} md={{ span: 5, offset: 4 }}>
+                            <Button variant="primary" onClick={copyToClipboard}>
+                            <Form.Control plaintext readOnly value={private_key} />
+                            </Button>
+                        </Col>
+                    </Form.Group>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="primary" onClick={handleClose}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
             </>
         )
-    }
 
 }
 
