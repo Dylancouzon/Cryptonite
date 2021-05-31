@@ -1,6 +1,9 @@
 const router = require('express').Router();
+require('dotenv').config();
 const Stripe = require('stripe');
-const stripe = new Stripe('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
+const stripe = new Stripe(process.env.STRIPE_TEST_SECRET_KEY);
+// const stripe = new Stripe(process.env.STRIPE_SECRET_KEY); // This is our account tester
+
 
 router.post('/charge', async (req, res) => {
   const { id, amount } = req.body;
