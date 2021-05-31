@@ -2,6 +2,7 @@ import React from 'react';
 import './style.css';
 import { Form, Button } from 'react-bootstrap';
 import TransComplete from '../TransComplete';
+import TransFailed from '../TransFailed';
 import axios from 'axios';
 import {
     useStripe,
@@ -15,7 +16,7 @@ const PayInfo = ({success}) => {
     const stripe = useStripe();
     const elements = useElements();
     const [status, setStatus] = React.useState("ready");
-
+    console.log(success)
     const handleSubmit = async (event) => {
         event.preventDefault();
         const {error, paymentMethod } = await stripe.createPaymentMethod({
@@ -28,24 +29,14 @@ const PayInfo = ({success}) => {
             try {
                 const { data } = await axios.post("/api/stripe/charge", { id, amount: 1000});
                 console.log(data);
-                success();
+                setStatus('success');
             }   catch (error) {
-                console.log("hello---------------->")
-                console.log(error.response);
+                setStatus('failed');
+                console.log(error);
             }
         }
     };
     
-
-
-    if (status === "success") {
-        console.log(status);
-        return (
-            <div>Transaction complete</div>
-        )
-    }
-
-
     return (
         <div style={{ 
             border: '1px solid #ccc',
@@ -65,7 +56,8 @@ const PayInfo = ({success}) => {
                     <Form.Group className="input-box">
                         <CardCvcElement />
                     </Form.Group>
-                    <Button variant="primary" style={{ width: '50%' }} type="submit" disabled={!stripe}> Submit Payment</Button>
+                    {status === 'success' ? <TransComplete showState={true}/> : status === 'failed' && <TransFailed showState={true}/> }
+                    <Button variant={status === 'success' ? 'success' : status === 'failed' ? 'danger' : 'primary'}  style={{ width: '50%' }} type="submit" disabled={!stripe}> Submit Payment</Button>
                 </Form>
         </div>
     );
