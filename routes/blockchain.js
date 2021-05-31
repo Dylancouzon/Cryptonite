@@ -123,13 +123,23 @@ router.get('/coinValue', async (req, res) => {
             total += parseInt(transaction.amount);
         })
         const value = total / blockchain.getNumberOfCoins();
-        res.status(200).json({message : value});
+        res.status(200).json(value);
     });
     
 });
 
 router.get('/valueData', async (req, res) => {
-    res.json(blockchain.isChainValid());
+    let date = Date.now();
+    console.log(date);
+    Transactions.find({}, (err, data) => {
+        if(err) return res.status(500).json({message : "Server Error"});
+        let total = 0;
+        data.forEach(transaction =>{
+            total += parseInt(transaction.amount);
+        })
+        const value = total / blockchain.getNumberOfCoins();
+        res.status(200).json({message : value});
+    });
 });
 
 module.exports = router;
