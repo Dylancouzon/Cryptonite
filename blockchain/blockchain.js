@@ -135,6 +135,7 @@ class Blockchain {
     this.chain = [this.createGenesisBlock()];
     this.difficulty = 2;
     this.miningReward = 100;
+    this.numberOfBlocks = 0;
   }
 
   /**
@@ -186,6 +187,7 @@ class Blockchain {
 
     debug('Block successfully mined!');
     this.chain.push(block);
+    this.numberOfBlocks++;
 
     this.pendingTransactions = [];
   }
@@ -244,6 +246,22 @@ class Blockchain {
 
     debug('getBalanceOfAdrees: %s', balance);
     return balance;
+  }
+
+  //Returns the number of coins in circulation at a specific date.
+  getDatedCoins(time) {
+    let numberOfCoins = 120000;
+    for (const block of this.chain) {
+      if(block.timestamp > time) break;
+      
+      numberOfCoins += 100;
+    }
+    return numberOfCoins;
+  }
+
+  getNumberOfCoins() {
+    let numberOfCoins = 120000 + (this.numberOfBlocks)*100;
+    return numberOfCoins;
   }
 
   /**
