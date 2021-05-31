@@ -3,6 +3,7 @@ const { Blockchain, Transaction } = require('../blockchain/blockchain.js');
 const EC = require('elliptic').ec;
 const ec = new EC('secp256k1');
 const Transactions = require('../models/transactions');
+const User = require('../models/users');
 
 // Create the Blockchain instance
 const blockchain = new Blockchain();
@@ -110,18 +111,7 @@ router.get('/valid', async (req, res) => {
     res.status(200).json(blockchain.isChainValid());
 });
 
-// Check if the key matches for deletion
-router.get('/delete/:private', async (req, res) => {
 
-    const privateKey = req.params.private;
-    const publicKeyDel = ec.keyFromPrivate(privateKey);
-    if (publicKeyDel.getPublic('hex') !== req.session.publicKey) {
-        return res.status(400).json({ message: "Keys are not Matching" });
-    } else {
-        res.status(200).json({ message: "Sucess" });
-    }
-
-});
 
 //Returns the total number of coins
 router.get('/totalCoins', async (req, res) => {
@@ -169,7 +159,7 @@ router.get('/valueData', async (req, res) => {
         });
 
     }
-    setTimeout(()=> res.status(200).json(result), 500)
+    setTimeout(() => res.status(200).json(result), 500)
 });
 
 module.exports = router;
