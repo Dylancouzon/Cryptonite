@@ -14,7 +14,10 @@ import {loadStripe} from '@stripe/stripe-js';
 const stripePromise = loadStripe("pk_test_51IwEE1IfEtVhtvHpZQWzNy4cQE7zFhRUh78vuNtKysm9Mc5Zjs9dAH4FRRClE3a4MDw85OPJhJBcykpHbfyaP0Dm00MsH0JIB7");
 
 
+
 function Buy() {
+
+
   return (
     <>
       <CoinGraph />

@@ -1,6 +1,7 @@
 import React from 'react';
 import './style.css';
 import { Form, Button } from 'react-bootstrap';
+import TransComplete from '../TransComplete';
 import axios from 'axios';
 import {
     useStripe,
@@ -10,9 +11,10 @@ import {
     CardCvcElement
 } from '@stripe/react-stripe-js';
 
-const PayInfo = () => {
+const PayInfo = ({success}) => {
     const stripe = useStripe();
     const elements = useElements();
+    const [status, setStatus] = React.useState("ready");
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -26,6 +28,7 @@ const PayInfo = () => {
             try {
                 const { data } = await axios.post("/api/stripe/charge", { id, amount: 1000});
                 console.log(data);
+                success();
             }   catch (error) {
                 console.log("hello---------------->")
                 console.log(error.response);
@@ -33,6 +36,16 @@ const PayInfo = () => {
         }
     };
     
+
+
+    if (status === "success") {
+        console.log(status);
+        return (
+            <div>Transaction complete</div>
+        )
+    }
+
+
     return (
         <div style={{ 
             border: '1px solid #ccc',
@@ -42,7 +55,7 @@ const PayInfo = () => {
             paddingLeft: '10px',
             paddingRight: '10px'
             }}>
-                <Form onSubmit={handleSubmit}>
+                <Form success={() => {setStatus("success")}} onSubmit={handleSubmit} >
                     <Form.Group className="input-box">
                         <CardNumberElement />
                     </Form.Group>
