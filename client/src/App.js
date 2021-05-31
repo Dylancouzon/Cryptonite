@@ -8,7 +8,7 @@ import Send from "./pages/Send";
 import Mining from "./pages/Mining";
 import { Container } from "react-bootstrap";
 import SessionContext from "./utils/sessionContext";
-
+import API from "./utils/api";
 
 
 class App extends Component {
@@ -18,7 +18,7 @@ class App extends Component {
 
 
     this.setSession = ({username, publicKey, logged_in}) => {
-      console.log(username, publicKey);
+      console.log(username, publicKey, logged_in);
       this.setState(state => ({
         username: username,
         publicKey: publicKey,
@@ -26,13 +26,19 @@ class App extends Component {
       }))
     }
 
-    this.state = {   // DELETE THE PLACEHOLDER VALUES WHEN FINISHED TESTING
-      username: "Jakenovelli",
-      publicKey: "04607ee359622c2e0a0fd8f963c68655968107dd3f8f538a911e50aa8a0bfc922130b584dd21c66c267ee38a6581146f95e8291c16fb053730764864e57a927f6f",
-      logged_in: false,
+    this.state = {
       setSession: this.setSession,
     };
-    console.log(this.state);
+    
+    
+    if(!this.state.logged_in){
+      API.getSessions()
+      .then((res)=>{ 
+        if(res.data.logged_in){
+          this.setSession(res.data);
+        }
+      });
+    }
   }
 
   render() {
