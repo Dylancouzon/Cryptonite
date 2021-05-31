@@ -9,6 +9,9 @@ export default {
         console.log(data);
         return axios.post(`/api/signUp`, data)
     },
+    logOut: function(){
+        return axios.post(`/api/logout`)
+    },
     logIn: function (data) {
         return axios.post(`/api/logIn`, data)
     },

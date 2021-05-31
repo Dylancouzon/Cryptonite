@@ -5,7 +5,6 @@ import BuyForm from "../components/BuyForm";
 import PayInfo from "../components/PayInfo";
 import TransComplete from "../components/TransComplete";
 import TransFailed from "../components/TransFailed";
-import KeysModal from "../components/KeysModal";
 import { Elements } from "@stripe/react-stripe-js";
 import {loadStripe} from '@stripe/stripe-js';
 // const { REACT_APP_STRIPE_PUBLISHABLE_KEY, REACT_APP_STRIPE_TEST_PUBLISHABLE_KEY } = process.env; // This does not work right now something with the way i'm calling it
@@ -25,7 +24,6 @@ function Buy() {
       </Elements>
       <TransComplete />
       <TransFailed />
-      <KeysModal />
     </>
   )
 }
