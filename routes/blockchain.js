@@ -109,12 +109,12 @@ router.post('/transactions', async (req, res) => {
 //Return isChainValid
 router.get('/valid', async (req, res) => {
 
-    if(blockchain.isChainValid()){
+    if (blockchain.isChainValid()) {
         res.status(200).json({ message: "Sucess" });
-    }else{
+    } else {
         res.status(400).json({ message: "Blockhain Compromised!" });
     }
-    
+
 });
 
 
@@ -171,8 +171,16 @@ router.get('/valueData', async (req, res) => {
 router.get('/mine', async (req, res) => {
 
     blockchain.minePendingTransactions(req.session.publicKey);
-    console.log(blockchain.chain);
-    res.status(200).json("sucess");
-  });
+
+    const jsonChain = JSON.stringify(blockchain.chain)
+    fs.writeFile('./blockchain/chain.json', jsonChain, err => {
+        if (err) {
+            console.log('Error writing file', err)
+        } else {
+            res.status(200).json("sucess");
+        }
+    })
+    
+});
 
 module.exports = router;
