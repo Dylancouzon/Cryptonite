@@ -6,15 +6,17 @@ import { Modal, Button, Form, Col, Row } from 'react-bootstrap';
 // Find animations for failure.
 
 
-function TransFailed() {
-    const [show, setShow] = useState(false);
+function TransFailed({showState}) {
+    const [show, setShow] = useState(showState || false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     return (
         <div>
+            {!showState && 
             <Button variant="primary" onClick={handleShow}>
                 Continue
             </Button>
+            }
             <Modal
                 show={show}
                 onHide={handleClose}
@@ -23,7 +25,7 @@ function TransFailed() {
             >
                 <Modal.Header>
                     <Modal.Title>
-                        <h3>Transaction Complete</h3>
+                        <h3>Error</h3>
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
