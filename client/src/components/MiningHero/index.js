@@ -1,18 +1,29 @@
 import React, { useState, useRef } from 'react';
-import { Card, Button } from 'react-bootstrap';
+import { Card, Button, Modal, Form, Row } from 'react-bootstrap';
+import API from "../../utils/api";
 
 
 function MiningHero() {
 const [timer, setTimer] = useState(0)
 const [isActive, setIsActive] = useState(false)
 const countRef = useRef(null)
+const [show, setShow] = useState(false);
 
+    const handleClose = () => setShow(false);
 
     const handleStart = () => {
-        setIsActive(true)
+        setIsActive(true);
         countRef.current = setInterval(() => {
         setTimer((timer) => timer + 1)
         }, 1000)
+        API.startMining()
+        .then(res => {
+            clearInterval(countRef.current);
+            setIsActive(false);
+            setShow(true);
+            setTimer(0);
+            console.log(res.data);
+        })
     }
     const formatTime = () => {
         const getSeconds = `0${(timer % 60)}`.slice(-2)
@@ -37,7 +48,25 @@ const countRef = useRef(null)
                     {!isActive ? (<Button variant="dark" style={{width: '25%'}} onClick={() => handleStart()}>Start Mining</Button>) : <p>{formatTime()}</p>}
                 </Card.Body>
             </Card>
+            <Modal
+                show={show}
+                onHide={handleClose}
+                backdrop="static"
+                keyboard={false}
+            >
+                <Modal.Header>
+                    <Modal.Title>
+                        <h3 style={{textAlign: 'center'}}>Mining Success!</h3>
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Footer>
+                    <Button variant="primary" onClick={handleClose}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </div>
+        
     )
 }
 
