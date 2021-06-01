@@ -36,6 +36,9 @@ export default {
     getUSD: function (data) {
         return axios.get('/api/blockchain/coinValue')
     },
+    startMining: function () {
+        return axios.get('/api/blockchain/mine')
+    },
 }
 
 // return axios.post(`http://localhost:3001/api/signUp`, data, {
