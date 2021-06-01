@@ -111,7 +111,7 @@ router.delete('/delete/:private', async (req, res) => {
       User.deleteOne({ _id: req.session.user_id })
           .then(_ => {
               req.session.destroy(() => {
-                  res.status(200).json({ message: "Sucess" });
+                  res.status(200).json({ message: "User's account has been successfully deleted." });
               });
 
           })
