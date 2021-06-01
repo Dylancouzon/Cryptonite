@@ -30,6 +30,9 @@ export default {
     getSessions: function (data) {
         return axios.get('/api/sessions')
     },
+    checkPrivateKeyMatch: function (data) {
+        return axios.get(`/api/delete/` + data)
+    }
 }
 
 // return axios.post(`http://localhost:3001/api/signUp`, data, {
