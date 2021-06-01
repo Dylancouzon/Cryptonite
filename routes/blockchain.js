@@ -8,7 +8,7 @@ var fs = require('fs');
 
 // Create the Blockchain instance
 const blockchain = new Blockchain();
-blockchain.start();
+blockchain.populate();
 
 // Routes
 router.get('/balance/:key', async (req, res) => {
@@ -24,13 +24,12 @@ router.get('/transactions/:key', async (req, res) => {
 
 router.post('/transactions', async (req, res) => {
     try {
-        console.log(req.body);
         // Check if the user has enough coins to creat this transaction.
         const balance = blockchain.getBalanceOfAddress(req.body.from);
         if (!balance) return res.status(400).json({ message: "Cannot find your balance." });
         if (req.body.amount > balance) return res.status(400).json({ message: "Insufficient funds." });
 
-        const tx = new Transaction(req.body.from, req.body.to, req.body.amount, req.body.label);
+        const tx = new Transaction(req.body.from, req.body.private, req.body.to, parseInt(req.body.amount), req.body.label);
         const txKey = ec.keyFromPrivate(req.body.private);
         tx.signTransaction(txKey);
         /*
@@ -56,7 +55,6 @@ router.post('/transactions', async (req, res) => {
             }
 
         } else if (trans.error) {
-            console.log(trans.error);
             return res.status(400).json({ message: trans.error });
         } else {
             return res.status(400).json({ message: "Unknown Error" });
@@ -68,6 +66,7 @@ router.post('/transactions', async (req, res) => {
 });
 
 //Return isChainValid
+// WIP
 router.get('/valid', async (req, res) => {
 
     if (blockchain.isChainValid()) {
