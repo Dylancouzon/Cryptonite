@@ -19,6 +19,7 @@ function SignUpForm() {
             var publicKey = res.data.user[0].public_key;
             var logged_in = true;
             setSession({username, publicKey, logged_in});
+            document.location.replace("/");
             console.log(res);
         })
         .catch((err) => {

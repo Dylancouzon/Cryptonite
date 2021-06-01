@@ -18,14 +18,14 @@ function Buy() {
 
 
   return (
-    <>
+    <div style={{ overflow: "hidden"}}>
       <CoinGraph />
       {/* <CryptoTicker /> */}
       <BuyForm />
       <Elements stripe={stripePromise}>
         <PayInfo />
       </Elements>
-    </>
+    </div>
   )
 }
 
