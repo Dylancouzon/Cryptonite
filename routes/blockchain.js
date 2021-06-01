@@ -4,6 +4,7 @@ const EC = require('elliptic').ec;
 const ec = new EC('secp256k1');
 const Transactions = require('../models/transactions');
 const User = require('../models/users');
+var fs = require('fs');
 
 // Create the Blockchain instance
 const blockchain = new Blockchain();
@@ -170,6 +171,7 @@ router.get('/valueData', async (req, res) => {
 router.get('/mine', async (req, res) => {
 
     blockchain.minePendingTransactions(req.session.publicKey);
+    console.log(blockchain.chain);
     res.status(200).json("sucess");
   });
 
