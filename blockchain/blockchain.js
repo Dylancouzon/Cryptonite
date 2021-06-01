@@ -3,17 +3,17 @@ const EC = require('elliptic').ec;
 const ec = new EC('secp256k1');
 var fs = require('fs');
 
+/**
+ * Private Key is stored in the transaction so we can recreate the blockchain Hash when we restart the server
+ * Will be changed once the Crypto is decentralized.
+ */
 class Transaction {
-  /**
-   * @param {string} fromAddress
-   * @param {string} toAddress
-   * @param {number} amount
-   */
-  constructor(fromAddress, toAddress, amount) {
+  constructor(fromAddress, privateKey, toAddress, amount, label) {
     this.fromAddress = fromAddress;
+    this.privateKey = privateKey || null;
     this.toAddress = toAddress;
     this.amount = amount;
-    this.label = "None";
+    this.label = label || "None";
     this.timestamp = Date.now();
     this.error = "";
   }
@@ -72,11 +72,6 @@ class Transaction {
 }
 
 class Block {
-  /**
-   * @param {number} timestamp
-   * @param {Transaction[]} transactions
-   * @param {string} previousHash
-   */
   constructor(timestamp, transactions, previousHash = '') {
     this.previousHash = previousHash;
     this.timestamp = timestamp;
@@ -97,8 +92,6 @@ class Block {
   /**
    * Starts the mining process on the block. It changes the 'nonce' until the hash
    * of the block starts with enough zeros (= difficulty)
-   *
-   * @param {number} difficulty
    */
   mineBlock(difficulty) {
     while (this.hash.substring(0, difficulty) !== Array(difficulty + 1).join('0')) {
@@ -115,7 +108,7 @@ class Block {
    */
   hasValidTransactions() {
     for (const tx of this.transactions) {
-      if (!tx.isValid()) {
+      if (tx.isValid().error) {
         return false;
       }
     }
@@ -127,33 +120,66 @@ class Block {
 class Blockchain {
   constructor() {
     this.pendingTransactions = [];
-    this.chain = [];
+    this.chain = [this.createGenesisBlock()];
     this.difficulty = 5;
     this.miningReward = 100;
     this.numberOfBlocks = 0;
   }
 
-  start() {
+  /**
+   * Populate the Blockchain from JSON.
+   * Recreate each Block & Transaction from the data (Hence why we need to temporary store the PrivateKeys.)
+   */
+  populate() {
+    //Get the Data from the JSON file
     fs.readFile('./blockchain/chain.json', 'utf8', (err, chainString) => {
       if (err) {
         console.log("Error reading file from disk:", err)
         return
-    }
+      }
       try {
-        this.chain = JSON.parse(chainString);
+        const populateChain = JSON.parse(chainString);
+        //Iterate through each Block
+        for (let JSONblock of populateChain) {
+          // Iterate through each transaction
+          for (let transaction of JSONblock.transactions) {
+            
+            //Create a new transaction & Sign it.
+            const trans = new Transaction(transaction.fromAddress, transaction.privateKey, transaction.toAddress, transaction.amount);
+            if (transaction.fromAddress) {
+              const transKey = ec.keyFromPrivate(transaction.privateKey);
+              trans.signTransaction(transKey);
+            }
+            // If the transaction is valid, push it into the pending block.
+            if (trans.isValid()) {
+              this.pendingTransactions.push(trans);
+            }
 
+          }
+
+          //Push the block onto the Blockchain.
+          const block = new Block(JSONblock.timestamp, this.pendingTransactions, this.getLatestBlock().hash);
+          block.mineBlock(0);
+          this.chain.push(block);
+          this.numberOfBlocks++;
+          this.pendingTransactions = [];
+        }
+        
       } catch (err) {
         console.log('Error Reading the block file', err)
         return
       }
     })
-    console.log(this.chain);
   }
+
+  // Creates the first Block
+  createGenesisBlock() {
+    return new Block(Date.parse('2021-05-26'), [], '0');
+  }
+
   /**
    * Returns the latest block on our chain. Useful when you want to create a
    * new Block and you need the hash of the previous Block.
-   *
-   * 
    */
   getLatestBlock() {
     return this.chain[this.chain.length - 1];
@@ -163,11 +189,9 @@ class Blockchain {
    * Takes all the pending transactions, puts them in a Block and starts the
    * mining process. It also adds a transaction to send the mining reward to
    * the given address.
-   *
-   * @param {string} miningRewardAddress
    */
   minePendingTransactions(miningRewardAddress, difficulty) {
-    const rewardTx = new Transaction(null, miningRewardAddress, this.miningReward);
+    const rewardTx = new Transaction(null, null, miningRewardAddress, this.miningReward);
     this.pendingTransactions.push(rewardTx);
 
     const block = new Block(Date.now(), this.pendingTransactions, this.getLatestBlock().hash);
@@ -184,17 +208,16 @@ class Blockchain {
    * Add a new transaction to the list of pending transactions (to be added
    * next time the mining process starts). This verifies that the given
    * transaction is properly signed.
-   *
-   * @param {Transaction} transaction
    */
   addTransaction(transaction) {
+    transaction.amount = parseInt(transaction.amount);
     if (!transaction.fromAddress || !transaction.toAddress) {
 
       return { error: 'Transaction must include from and to address' };
     }
 
     // Verify the transactiion
-    if (!transaction.isValid()) {
+    if (transaction.isValid().error) {
       return { error: "Cannot add invalid transaction to chain" };
     }
 
@@ -213,7 +236,6 @@ class Blockchain {
 
   /**
    * Returns the balance of a given wallet address.
-   *
    */
   getBalanceOfAddress(address) {
     let balance = 0;
@@ -244,6 +266,7 @@ class Blockchain {
     return numberOfCoins;
   }
 
+  // Returns total number of coins on the Chain
   getNumberOfCoins() {
     let numberOfCoins = 120000 + (this.numberOfBlocks) * 100;
     return numberOfCoins;
@@ -252,9 +275,6 @@ class Blockchain {
   /**
    * Returns a list of all transactions that happened
    * to and from the given wallet address.
-   *
-   * @param  {string} address
-   * @return {Transaction[]}
    */
   getAllTransactionsForWallet(address) {
     const txs = [];
@@ -281,6 +301,7 @@ class Blockchain {
     // the output of createGenesisBlock with the first block on our chain
     const realGenesis = JSON.stringify(this.createGenesisBlock());
 
+
     if (realGenesis !== JSON.stringify(this.chain[0])) {
       return false;
     }
@@ -288,6 +309,7 @@ class Blockchain {
     // Check the remaining blocks on the chain to see if there hashes and
     // signatures are correct
     for (let i = 1; i < this.chain.length; i++) {
+      //console.log(this.chain[i]);
       const currentBlock = this.chain[i];
 
       if (!currentBlock.hasValidTransactions()) {
