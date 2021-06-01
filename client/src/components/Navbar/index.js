@@ -111,16 +111,6 @@ function Navigation() {
                                         setSidebarState("login")
                                     }}>Login
                         </Button>
-                                <Button
-                                    id="menu"
-                                    className="btn btn-info"
-                                    type="button"
-                                    onClick={() => {
-                                        onSetSidebarOpen(true)
-                                        setSidebarState("menu")
-                                    }}>
-                                    <i className="fas fa-bars"></i>
-                                </Button>
                             </Nav.Item>
                         </Navbar>
                     </Sidenav>
