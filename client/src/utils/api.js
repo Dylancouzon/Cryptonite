@@ -30,6 +30,9 @@ export default {
     getSessions: function (data) {
         return axios.get('/api/sessions')
     },
+    getUSD: function (data) {
+        return axios.get('/api/blockchain/coinValue')
+    },
 }
 
 // return axios.post(`http://localhost:3001/api/signUp`, data, {
