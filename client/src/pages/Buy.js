@@ -18,7 +18,7 @@ function Buy() {
 
 
   return (
-    <>
+    <div style={{ overflow: "hidden"}}>
       <CoinGraph />
       <CryptoTicker />
       <BuyForm />
@@ -27,7 +27,7 @@ function Buy() {
       </Elements>
       <TransComplete />
       <TransFailed />
-    </>
+    </div>
   )
 }
 
