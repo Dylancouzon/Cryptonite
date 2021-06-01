@@ -31,18 +31,20 @@ function DeleteAccount() {
       .then((res) => {
         if (res.status === 200) {
           // give success message to user and log them out
+          // console.log(res)
           console.log("deleting......")
-          // alert()
           handleShowSuccess();
           
         }
       })
       .catch((err) => {
         console.log(err);
-        if (err.status === 400) {
+        if (err.response.status === 400) {
           // alert user their account cannot be deleted at this time and to try again
-          
+          console.log(err.response)
+          alert("We could not delete your account. Please try again later.")
         }
+        
       })
 
     handleCloseConfirm();
