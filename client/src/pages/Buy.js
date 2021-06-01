@@ -20,13 +20,11 @@ function Buy() {
   return (
     <>
       <CoinGraph />
-      <CryptoTicker />
+      {/* <CryptoTicker /> */}
       <BuyForm />
       <Elements stripe={stripePromise}>
         <PayInfo />
       </Elements>
-      <TransComplete />
-      <TransFailed />
     </>
   )
 }
