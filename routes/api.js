@@ -13,7 +13,7 @@ router.post('/signUp', async (req, res) => {
     //Error checks.
     if (req.body.username.length < 6) return res.status(400).json({ message: "Your Username should be at least 6 characters." });
     if (req.body.password.length < 6) return res.status(400).json({ message: "Your Password should be at least 6 characters." });
-    if (req.body.password !== req.body.confirm_password) return res.status(400).json({ message: "Your passwords do not match" });
+    if (req.body.password !== req.body.confirm_password) return res.status(400).json({ message: "Your password does not match." });
 
     const key = ec.genKeyPair();
     const publicKey = key.getPublic('hex');
