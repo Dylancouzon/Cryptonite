@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import API from "../../utils/api";
-import { Redirect } from 'react-router-dom';
 
 function DeleteAccount() {
   // displays Delete Account modal
@@ -31,7 +30,6 @@ function DeleteAccount() {
     API.checkPrivateKeyMatch(privateKey)
       .then((res) => {
         if (res.status === 200) {
-          console.log(res.data)
           // give success message to user and log them out
           console.log("deleting......")
           // alert()
@@ -136,7 +134,6 @@ function DeleteAccount() {
         <Modal.Footer>
           <Button variant="primary" onClick={handleCloseSuccess}>Close</Button>
         </Modal.Footer>
-
       </Modal>
 
     </>
