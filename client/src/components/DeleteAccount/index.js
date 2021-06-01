@@ -46,7 +46,7 @@ function DeleteAccount() {
           handleShowFailure();
         }
       })
-    // Close Conifrm modal
+    // Close Confirm modal
     handleCloseConfirm();
   }
 
@@ -138,6 +138,8 @@ function DeleteAccount() {
         </Modal.Footer>
       </Modal>
 
+
+      {/* Failure Account Delete */}
       <Modal
         show={showFailure}
         onHide={handleCloseFailure}
