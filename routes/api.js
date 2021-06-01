@@ -100,6 +100,28 @@ router.post('/logout', (req, res) => {
   }
 });
 
+// Delete an user route
+router.delete('/delete/:private', async (req, res) => {
+
+  const privateKey = req.params.private;
+  const publicKeyDel = ec.keyFromPrivate(privateKey);
+  if (publicKeyDel.getPublic('hex') !== req.session.publicKey) {
+      return res.status(400).json({ message: "Keys are not Matching" });
+  } else {
+      User.deleteOne({ _id: req.session.user_id })
+          .then(_ => {
+              req.session.destroy(() => {
+                  res.status(200).json({ message: "Sucess" });
+              });
+
+          })
+          .catch(err => {
+              res.status(500).json({ message: err })
+          })
+  }
+
+});
+
 router.get('/username/:key', async (req, res) => {
   try {
 

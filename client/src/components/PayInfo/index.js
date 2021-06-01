@@ -1,6 +1,8 @@
 import React from 'react';
 import './style.css';
 import { Form, Button } from 'react-bootstrap';
+import TransComplete from '../TransComplete';
+import TransFailed from '../TransFailed';
 import axios from 'axios';
 import {
     useStripe,
@@ -10,10 +12,11 @@ import {
     CardCvcElement
 } from '@stripe/react-stripe-js';
 
-const PayInfo = () => {
+const PayInfo = ({success}) => {
     const stripe = useStripe();
     const elements = useElements();
-
+    const [status, setStatus] = React.useState("ready");
+    console.log(success)
     const handleSubmit = async (event) => {
         event.preventDefault();
         const {error, paymentMethod } = await stripe.createPaymentMethod({
@@ -26,9 +29,10 @@ const PayInfo = () => {
             try {
                 const { data } = await axios.post("/api/stripe/charge", { id, amount: 1000});
                 console.log(data);
+                setStatus('success');
             }   catch (error) {
-                console.log("hello---------------->")
-                console.log(error.response);
+                setStatus('failed');
+                console.log(error);
             }
         }
     };
@@ -42,7 +46,7 @@ const PayInfo = () => {
             paddingLeft: '10px',
             paddingRight: '10px'
             }}>
-                <Form onSubmit={handleSubmit}>
+                <Form success={() => {setStatus("success")}} onSubmit={handleSubmit} >
                     <Form.Group className="input-box">
                         <CardNumberElement />
                     </Form.Group>
@@ -52,7 +56,8 @@ const PayInfo = () => {
                     <Form.Group className="input-box">
                         <CardCvcElement />
                     </Form.Group>
-                    <Button variant="primary" style={{ width: '50%' }} type="submit" disabled={!stripe}> Submit Payment</Button>
+                    {status === 'success' ? <TransComplete showState={true}/> : status === 'failed' && <TransFailed showState={true}/> }
+                    <Button variant={status === 'success' ? 'success' : status === 'failed' ? 'danger' : 'primary'}  style={{ width: '50%' }} type="submit" disabled={!stripe}> Submit Payment</Button>
                 </Form>
         </div>
     );

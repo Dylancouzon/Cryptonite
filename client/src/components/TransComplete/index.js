@@ -5,15 +5,17 @@ import { Modal, Button, Form, Row, Col } from 'react-bootstrap';
 // Styling not complete.
 // Find animations for success.
 
-function TransComplete() {
-    const [show, setShow] = useState(false);
+function TransComplete({showState}) {
+    const [show, setShow] = useState(showState || false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     return (
         <div>
+            {!showState &&
             <Button variant="primary" onClick={handleShow}>
                 Continue
             </Button>
+            }
             <Modal
                 show={show}
                 onHide={handleClose}

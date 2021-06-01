@@ -3,6 +3,7 @@ const { Blockchain, Transaction } = require('../blockchain/blockchain.js');
 const EC = require('elliptic').ec;
 const ec = new EC('secp256k1');
 const Transactions = require('../models/transactions');
+const User = require('../models/users');
 
 // Create the Blockchain instance
 const blockchain = new Blockchain();
@@ -10,14 +11,14 @@ const blockchain = new Blockchain();
 //Create the first few transactions.
 
 //Mine the Genesis block
-blockchain.minePendingTransactions("046dde2f0162157620e0b6a2347cb5522148f35809c871bad9cfa3843b4f40f48c4fe043ea8fee6b3e07234a044138afcfc240a0854e5eeb2d587686dc4a239bcb");
+blockchain.minePendingTransactions("046dde2f0162157620e0b6a2347cb5522148f35809c871bad9cfa3843b4f40f48c4fe043ea8fee6b3e07234a044138afcfc240a0854e5eeb2d587686dc4a239bcb", 0);
 console.log("Genesis Block mined!");
 
 
 console.log("Coins generated");
 
 
-blockchain.minePendingTransactions("0489e85126ff72d30b6118b6b6bcc0f4a7a7899bf191af80237d6e4784865aa7f5394f5a619351ecd0a76c78e5f989738351d41a5215a801ce4b8e36707047233f");
+blockchain.minePendingTransactions("0489e85126ff72d30b6118b6b6bcc0f4a7a7899bf191af80237d6e4784865aa7f5394f5a619351ecd0a76c78e5f989738351d41a5215a801ce4b8e36707047233f", 0);
 console.log("Block Mined by Liam");
 
 //Admin send 100 coins to Dylan
@@ -30,13 +31,12 @@ console.log("Admin sends 100 coins to Dylan");
 //Liam sends 500 coins to Jake
 const tx2 = new Transaction('0489e85126ff72d30b6118b6b6bcc0f4a7a7899bf191af80237d6e4784865aa7f5394f5a619351ecd0a76c78e5f989738351d41a5215a801ce4b8e36707047233f', '04607ee359622c2e0a0fd8f963c68655968107dd3f8f538a911e50aa8a0bfc922130b584dd21c66c267ee38a6581146f95e8291c16fb053730764864e57a927f6f', 50000);
 const tx2Key = ec.keyFromPrivate('1ec87e0d86f325d124d08b3515bccb59a92cc5c6cfbfb0dc69e26a5e8c730a40');
-test = tx2.signTransaction(tx2Key);
+tx2.signTransaction(tx2Key);
 blockchain.addTransaction(tx2);
 
-console.log(test);
 
 //Cheng Mines the block
-blockchain.minePendingTransactions("046fb09bf6a546b32f95cd0d82f3c37c5fe0857086122d0d448f50e8dd260972178e05c0721e226cd85c180fe7869d66319d70122c79408b899f892af582e7c9a8");
+blockchain.minePendingTransactions("046fb09bf6a546b32f95cd0d82f3c37c5fe0857086122d0d448f50e8dd260972178e05c0721e226cd85c180fe7869d66319d70122c79408b899f892af582e7c9a8", 0);
 console.log("Cheng Mines the Block");
 
 
@@ -107,21 +107,16 @@ router.post('/transactions', async (req, res) => {
 
 //Return isChainValid
 router.get('/valid', async (req, res) => {
-    res.status(200).json(blockchain.isChainValid());
-});
 
-// Check if the key matches for deletion
-router.get('/delete/:private', async (req, res) => {
-
-    const privateKey = req.params.private;
-    const publicKeyDel = ec.keyFromPrivate(privateKey);
-    if (publicKeyDel.getPublic('hex') !== req.session.publicKey) {
-        return res.status(400).json({ message: "Keys are not Matching" });
-      }else{
+    if(blockchain.isChainValid()){
         res.status(200).json({ message: "Sucess" });
-      }
-
+    }else{
+        res.status(400).json({ message: "Blockhain Compromised!" });
+    }
+    
 });
+
+
 
 //Returns the total number of coins
 router.get('/totalCoins', async (req, res) => {
@@ -130,37 +125,52 @@ router.get('/totalCoins', async (req, res) => {
 
 router.get('/coinValue', async (req, res) => {
     Transactions.find({}, (err, data) => {
-        if(err) return res.status(500).json({message : "Server Error"});
+        if (err) return res.status(500).json({ message: "Server Error" });
         let total = 0;
-        data.forEach(transaction =>{
+        data.forEach(transaction => {
             total += parseInt(transaction.amount);
         })
         const value = total / blockchain.getNumberOfCoins();
         res.status(200).json(value);
     });
-    
+
 });
 
+//Get the coin value day by day since it's creation
 router.get('/valueData', async (req, res) => {
 
-    let date = Date.now();
-    let dateMinus1 = Date.now() - 86400000;
-    console.log(dateMinus1);
-    let numberOfCoins = blockchain.getDatedCoins(date);
     let result = [];
-    Transactions.findOne({ date: { $lt: date} }, (err, data) => {
-        if(err) return res.status(500).json({message : "Server Error"});
+    const creationDate = 1621987200000;
+    const oneDay = 86400000;
 
+    // Start at now, decreate the date by one day at each iteration until we reach the creation date.
+    for (let nowDate = Date.now(); nowDate > creationDate; nowDate -= oneDay) {
+        //Find the sum of all transactions at a specific date.
+        Transactions.find({ date: { $lt: nowDate } }, (err, data) => {
+            if (err) return res.status(500).json({ message: err });
+            let total = 0;
+            for (let transaction of data) {
+                total += parseInt(transaction.amount);
+            }
+            const totalCoins = blockchain.getDatedCoins(nowDate);
+            const thisDateResult = {
+                date: nowDate,
+                total_value: total,
+                total_coins: totalCoins,
+                usd_value: total / totalCoins
+            }
+            result.push(thisDateResult)
 
-    });
+        });
+
+    }
+    setTimeout(() => res.status(200).json(result), 500)
 });
 
-router.get('/value', async (req, res) => {
-    res.json(blockchain.isChainValid());
-});
+router.get('/mine', async (req, res) => {
 
-router.get('/valueData', async (req, res) => {
-    res.json(blockchain.isChainValid());
-});
+    blockchain.minePendingTransactions(req.session.publicKey);
+    res.status(200).json("sucess");
+  });
 
 module.exports = router;

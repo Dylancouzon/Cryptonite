@@ -32,7 +32,10 @@ export default {
     },
     checkPrivateKeyMatch: function (data) {
         return axios.get(`/api/delete/` + data)
-    }
+    },
+    getUSD: function (data) {
+        return axios.get('/api/blockchain/coinValue')
+    },
 }
 
 // return axios.post(`http://localhost:3001/api/signUp`, data, {
