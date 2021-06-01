@@ -30,6 +30,9 @@ export default {
     getSessions: function (data) {
         return axios.get('/api/sessions')
     },
+    checkPrivateKeyMatch: function (data) {
+        return axios.get(`/api/delete/` + data)
+    },
     getUSD: function (data) {
         return axios.get('/api/blockchain/coinValue')
     },
