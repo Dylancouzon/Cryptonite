@@ -24,7 +24,7 @@ class Transaction {
    * @returns {string}
    */
   calculateHash() {
-    
+
     return crypto.createHash('sha256').update(this.fromAddress + this.toAddress + this.amount + this.timestamp, this.label).digest('hex');
   }
 
@@ -46,9 +46,9 @@ class Transaction {
     // Calculate the hash of this transaction, sign it with the key
     // and store it inside the transaction obect
     const hashTx = this.calculateHash();
-    
+
     const sig = signingKey.sign(hashTx, 'base64');
-    
+
     this.signature = sig.toDER('hex');
   }
 
@@ -65,7 +65,7 @@ class Transaction {
     if (this.fromAddress === null) return true;
 
     if (!this.signature || this.signature.length === 0) {
-      return {error: this.error || "No Signature"};
+      return { error: this.error || "No Signature" };
     }
 
     const publicKey = ec.keyFromPublic(this.fromAddress, 'hex');
@@ -133,7 +133,7 @@ class Blockchain {
   constructor() {
     this.pendingTransactions = [];
     this.chain = [this.createGenesisBlock()];
-    this.difficulty = 2;
+    this.difficulty = 5;
     this.miningReward = 100;
     this.numberOfBlocks = 0;
   }
@@ -178,12 +178,13 @@ class Blockchain {
    *
    * @param {string} miningRewardAddress
    */
-  minePendingTransactions(miningRewardAddress) {
+  minePendingTransactions(miningRewardAddress, difficulty) {
     const rewardTx = new Transaction(null, miningRewardAddress, this.miningReward);
     this.pendingTransactions.push(rewardTx);
 
     const block = new Block(Date.now(), this.pendingTransactions, this.getLatestBlock().hash);
-    block.mineBlock(this.difficulty);
+    if (difficulty !== 0) { difficulty = this.difficulty; }
+    block.mineBlock(difficulty);
 
     debug('Block successfully mined!');
     this.chain.push(block);
@@ -201,26 +202,26 @@ class Blockchain {
    */
   addTransaction(transaction) {
     if (!transaction.fromAddress || !transaction.toAddress) {
-     
-      return  {error: 'Transaction must include from and to address'};      
+
+      return { error: 'Transaction must include from and to address' };
     }
 
     // Verify the transactiion
     if (!transaction.isValid()) {
-      return  {error: "Cannot add invalid transaction to chain"};
+      return { error: "Cannot add invalid transaction to chain" };
     }
 
     if (transaction.amount <= 0) {
-      return  {error: 'Transaction amount should be higher than 0'};
+      return { error: 'Transaction amount should be higher than 0' };
     }
 
     // Making sure that the amount sent is not greater than existing balance
     if (this.getBalanceOfAddress(transaction.fromAddress) < transaction.amount) {
-      return  {error: 'Not enough balance'};
+      return { error: 'Not enough balance' };
     }
 
     this.pendingTransactions.push(transaction);
-    return  {sucess: "Sucess"};
+    return { sucess: "Sucess" };
   }
 
   /**
@@ -252,15 +253,15 @@ class Blockchain {
   getDatedCoins(time) {
     let numberOfCoins = 120000;
     for (const block of this.chain) {
-      if(block.timestamp > time) break;
-      
+      if (block.timestamp > time) break;
+
       numberOfCoins += 100;
     }
     return numberOfCoins;
   }
 
   getNumberOfCoins() {
-    let numberOfCoins = 120000 + (this.numberOfBlocks)*100;
+    let numberOfCoins = 120000 + (this.numberOfBlocks) * 100;
     return numberOfCoins;
   }
 
