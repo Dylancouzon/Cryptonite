@@ -32,7 +32,6 @@ class Transaction {
    * object that contains a private key). The signature is then stored inside the
    * transaction object and later stored on the blockchain.
    *
-   * @param {string} signingKey
    */
   signTransaction(signingKey) {
     // You can only send a transaction from the wallet that is linked to your
@@ -42,8 +41,7 @@ class Transaction {
     }
 
 
-    // Calculate the hash of this transaction, sign it with the key
-    // and store it inside the transaction obect
+    // Calculate the hash of this transaction then sign it with the key
     const hashTx = this.calculateHash();
 
     const sig = signingKey.sign(hashTx, 'base64');
@@ -72,11 +70,11 @@ class Transaction {
 }
 
 class Block {
-  constructor(timestamp, transactions, previousHash = '') {
+  constructor(timestamp, transactions, previousHash = '', nonce = 0) {
     this.previousHash = previousHash;
     this.timestamp = timestamp;
     this.transactions = transactions;
-    this.nonce = 0;
+    this.nonce = nonce;
     this.hash = this.calculateHash();
   }
 
@@ -129,6 +127,7 @@ class Blockchain {
   /**
    * Populate the Blockchain from JSON.
    * Recreate each Block & Transaction from the data (Hence why we need to temporary store the PrivateKeys.)
+   * Try to use serialization npm dumdum.
    */
   populate() {
     //Get the Data from the JSON file
@@ -158,7 +157,7 @@ class Blockchain {
           }
 
           //Push the block onto the Blockchain.
-          const block = new Block(JSONblock.timestamp, this.pendingTransactions, this.getLatestBlock().hash);
+          const block = new Block(JSONblock.timestamp, this.pendingTransactions, this.getLatestBlock().hash, this.getLatestBlock().nonce);
           block.mineBlock(0);
           this.chain.push(block);
           this.numberOfBlocks++;
@@ -194,7 +193,7 @@ class Blockchain {
     const rewardTx = new Transaction(null, null, miningRewardAddress, this.miningReward);
     this.pendingTransactions.push(rewardTx);
 
-    const block = new Block(Date.now(), this.pendingTransactions, this.getLatestBlock().hash);
+    const block = new Block(Date.now(), this.pendingTransactions, this.getLatestBlock().hash, this.getLatestBlock().nonce);
     if (difficulty !== 0) { difficulty = this.difficulty; }
     block.mineBlock(difficulty);
 
