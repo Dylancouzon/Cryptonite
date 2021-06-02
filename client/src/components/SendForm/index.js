@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Form, Col, Row, Container, Button, Card } from 'react-bootstrap';
 import SessionContext from "../../utils/sessionContext";
 import API from "../../utils/api";
@@ -6,7 +6,35 @@ import API from "../../utils/api";
 
 function SendForm() {
     const formHandle = useRef();
+    const cost = useRef(0);
     const { publicKey } = useContext(SessionContext);
+    const [coinVal, setCoinVal] = useState(0);
+    const [coinAmount, setCoinAmount] = useState(0);
+    const [toggle, setToggle] = useState(false);
+    const [usdVal, setUSDVal] = useState(0);
+    const [usdAmount, setUSDAmount] = useState(0);
+    
+
+    useEffect(() => {
+         API.getUSD(1)
+        .then(res => {
+            setCoinVal(res.data);
+            const div = 1 / res.data;
+            setUSDVal(div);
+            console.log(res.data);
+        })
+    })
+    const getValue = (amount) => {
+       console.log(amount);
+       const value = amount * coinVal;
+       setCoinAmount(value); 
+    }
+
+    const getUSD = (amount) => {
+        console.log(amount);
+        const value = amount * usdVal;
+        setUSDAmount(value); 
+     }
 
     const submitForm = (e) => {
         e.preventDefault();
@@ -32,6 +60,10 @@ function SendForm() {
     return (
         <Container>
             <Card>
+                    <h2>{toggle ? "Enter Coin Amount" : "Enter USD Amount"}</h2>
+                <Button onClick={() => setToggle(!toggle)}>
+                    Switch Payment Types
+                </Button>
                 <Form ref={formHandle}>
                     <Form.Group as={Row} controlId="to">
                         <Col style={{ marginTop: 5 }} md={{ span: 7, offset: 2 }}>
@@ -53,7 +85,10 @@ function SendForm() {
                             Amount of Coins:
                         </Form.Label>
                         <Col style={{ marginTop: 5 }} md={{ span: 4, offset: 4 }}>
-                            <Form.Control type="text" />
+                            {toggle 
+                            ? <Form.Control ref={cost} type="text" onChange={(e) => getValue(e.target.value)}/>
+                            : <Form.Control ref={cost} type="text" value={usdAmount}/>
+                        }
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} controlId="cost">
@@ -61,7 +96,10 @@ function SendForm() {
                             Cost USD:
                         </Form.Label>
                         <Col style={{ marginTop: 5 }} md={{ span: 4, offset: 4 }}>
-                            <Form.Control type="text" />
+                            {toggle 
+                            ? <Form.Control type="text" value={coinAmount}/>
+                            : <Form.Control type="text" onChange={(e) => getUSD(e.target.value)}/>
+                        }
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} controlId="formPlaintextTransFees">
@@ -77,7 +115,7 @@ function SendForm() {
                             Total:
                         </Form.Label>
                         <Col style={{ marginTop: 5 }} md={{ span: 4, offset: 4 }}>
-                            <Form.Control plaintext readOnly defaultValue="27.50" />
+                            <Form.Control plaintext readOnly value={(cost.current.value || 0) * (toggle ? 1 : 10)} />
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row}>
