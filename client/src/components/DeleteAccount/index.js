@@ -21,6 +21,11 @@ function DeleteAccount() {
   }
   const handleShowSuccess = () => setShowSuccess(true);
 
+  // display Delete Unsuccessful modal
+  const [showFailure, setShowFailure] = useState(false);
+  const handleCloseFailure = () => setShowFailure(false);
+  const handleShowFailure = () => setShowFailure(true);
+
   // Handle private key and compare
   const handleSubmit = e => {
     e.preventDefault()
@@ -30,23 +35,18 @@ function DeleteAccount() {
     API.checkPrivateKeyMatch(privateKey)
       .then((res) => {
         if (res.status === 200) {
-          // give success message to user and log them out
-          // console.log(res)
-          console.log("deleting......")
+          // User Account successfully deleted
+          console.log(res.data)
           handleShowSuccess();
-          
         }
       })
       .catch((err) => {
-        console.log(err);
         if (err.response.status === 400) {
-          // alert user their account cannot be deleted at this time and to try again
           console.log(err.response)
-          alert("We could not delete your account. Please try again later.")
+          handleShowFailure();
         }
-        
       })
-
+    // Close Confirm modal
     handleCloseConfirm();
   }
 
@@ -70,7 +70,7 @@ function DeleteAccount() {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h4 style={{ color: "red" }}>Are you sure you want to <bold>delete your account?</bold></h4>
+          <h4 style={{ color: "red" }}>Are you sure you want to delete your account?</h4>
         </Modal.Body>
         <Modal.Footer>
           {/* Confirmation modal */}
@@ -131,13 +131,34 @@ function DeleteAccount() {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            <p>Thank you for using CryptoCoin</p>
+          <p>Thank you for using CryptoCoin</p>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={handleCloseSuccess}>Close</Button>
         </Modal.Footer>
       </Modal>
 
+
+      {/* Failure Account Delete */}
+      <Modal
+        show={showFailure}
+        onHide={handleCloseFailure}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header>
+          <Modal.Title>
+            <h3>Your account could not be deleted at this time. Please try again, later.</h3>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>Sorry for the inconveinence.</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleCloseFailure}>Close</Button>
+        </Modal.Footer>
+
+      </Modal>
     </>
   )
 }

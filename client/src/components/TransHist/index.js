@@ -3,6 +3,7 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import SessionContext from '../../utils/sessionContext';
 import API from "../../utils/api";
 import { Container, Card } from 'react-bootstrap';
+import "./style.css";
 
 // Table is able to be styled. This is generic boostrap styling for MVP.
 
@@ -24,6 +25,8 @@ function TransHist() { //hands props as parameter
 
   const { publicKey, username } = useContext(SessionContext);
   const [transactions, setTransactions] = useState([]);
+  const headerSortingStyle = { backgroundColor: '#c8e6c9' };
+  
 
   const timeConverter = (time) => {
     const unixTime = time;
@@ -37,7 +40,9 @@ function TransHist() { //hands props as parameter
     API.getUserTransactions(publicKey)
       .then(res => {
         console.log(res.data);
+        let count = 0;
           res.data.forEach(data => {
+            data.key = count;
           data.timestamp = timeConverter(data.timestamp);
           if(data.fromAddress === publicKey) {
             data.fromAddress = username;
@@ -58,6 +63,7 @@ function TransHist() { //hands props as parameter
             } else {
               data.fromAddress = "System";
             }
+            count ++;
           };
         });
         console.log(res.data);
@@ -72,19 +78,47 @@ function TransHist() { //hands props as parameter
 const columns = [{
   dataField: 'fromAddress',
   text: 'From',
-  sort: true
+  sort: true,
+  headerSortingStyle,
+  sortCaret: (order, column) => {
+    if (!order) return (<span>&nbsp;&nbsp;<i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></span>);
+    else if (order === 'asc') return (<span>&nbsp;&nbsp;<i class="fas fa-sort-up"></i><i class="fas fa-sort-down active"></i></span>);
+    else if (order === 'desc') return (<span>&nbsp;&nbsp;<i class="fas fa-sort-up active"></i><i class="fas fa-sort-down"></i></span>);
+    return null;
+  }
 }, {
   dataField: 'toAddress',
   text: 'Recipient',
-  sort: true
+  sort: true,
+  headerSortingStyle,
+  sortCaret: (order, column) => {
+    if (!order) return (<span>&nbsp;&nbsp;<i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></span>);
+    else if (order === 'asc') return (<span>&nbsp;&nbsp;<i class="fas fa-sort-up"></i><i class="fas fa-sort-down active"></i></span>);
+    else if (order === 'desc') return (<span>&nbsp;&nbsp;<i class="fas fa-sort-up active"></i><i class="fas fa-sort-down"></i></span>);
+    return null;
+  }
 }, {
   dataField: 'amount',
   text: 'Amount',
-  sort: true
+  sort: true,
+  headerSortingStyle,
+  sortCaret: (order, column) => {
+    if (!order) return (<span>&nbsp;&nbsp;<i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></span>);
+    else if (order === 'asc') return (<span>&nbsp;&nbsp;<i class="fas fa-sort-up"></i><i class="fas fa-sort-down active"></i></span>);
+    else if (order === 'desc') return (<span>&nbsp;&nbsp;<i class="fas fa-sort-up active"></i><i class="fas fa-sort-down"></i></span>);
+    return null;
+  }
 }, {
   dataField: 'timestamp',
   text: 'Timestamp',
-  sort: true
+  sort: true,
+  headerSortingStyle,
+  sortCaret: (order, column) => {
+    if (!order) return (<span>&nbsp;&nbsp;<i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></span>);
+    else if (order === 'asc') return (<span>&nbsp;&nbsp;<i class="fas fa-sort-up"></i><i class="fas fa-sort-down active"></i></span>);
+    else if (order === 'desc') return (<span>&nbsp;&nbsp;<i class="fas fa-sort-up active"></i><i class="fas fa-sort-down"></i></span>);
+    return null;
+  }
 }
 // , {
 //   dataField: 'valid',
@@ -130,7 +164,7 @@ if (transactions.length === 0) {
     <Container>
       <BootstrapTable
         style={{textAlign: 'center'}}
-        keyField="id"  // Should change to value
+        keyField="key"  // Should change to value
         data={ transactions }
         columns={columns}
         expandRow={expandRow}

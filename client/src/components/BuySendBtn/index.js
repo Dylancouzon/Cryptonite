@@ -8,6 +8,7 @@ function BuySendBtn() {
             <Card body style={{textAlign: 'center'}}>
                 <Button style={{margin: 10}} href="/buy">Buy</Button>
                 <Button style={{margin: 10}} href="/send">Send</Button>
+                <Button style={{margin: 10}} href="/mining">Mine</Button>
             </Card>
         </Container>
     )
