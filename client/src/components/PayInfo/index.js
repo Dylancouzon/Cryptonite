@@ -58,13 +58,20 @@ const PayInfo = (info) => {
                             from: "046dde2f0162157620e0b6a2347cb5522148f35809c871bad9cfa3843b4f40f48c4fe043ea8fee6b3e07234a044138afcfc240a0854e5eeb2d587686dc4a239bcb",
                             private: "8b13559111bb98f7e34d6ffa55784336c829d6ae969680ee6a49b3e6408f96c0",
                             to: publicKey,
-                            label: "Bought for: $"+ info.data.total,
+                            label: "Bought for: $" + info.data.total,
                             amount: info.data.coins
                         }
-                        API.sendTransaction(trans)
+                        API.addTransaction(trans)
                             .then(res => {
-                                handleClose();
-                                handleShowSuccess();
+                                API.sendTransaction(trans)
+                                    .then(res => {
+                                        handleClose();
+                                        handleShowSuccess();
+                                    }).catch(err => {
+                                        console.log(err);
+                                        handleClose();
+                                        handleShowFailed();
+                                    });
                             }).catch(err => {
                                 console.log(err);
                                 handleClose();
