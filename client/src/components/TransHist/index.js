@@ -63,8 +63,8 @@ function TransHist() { //hands props as parameter
             } else {
               data.fromAddress = "System";
             }
-            count ++;
           };
+          count ++;
         });
         console.log(res.data);
         setTimeout(() => {
