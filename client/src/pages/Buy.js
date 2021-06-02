@@ -1,10 +1,6 @@
 import React from "react";
 import CoinGraph from "../components/CoinGraph";
-import CryptoTicker from "../components/CryptoTicker";
 import BuyForm from "../components/BuyForm";
-import PayInfo from "../components/PayInfo";
-import TransComplete from "../components/TransComplete";
-import TransFailed from "../components/TransFailed";
 import { Elements } from "@stripe/react-stripe-js";
 import {loadStripe} from '@stripe/stripe-js';
 // const { REACT_APP_STRIPE_PUBLISHABLE_KEY, REACT_APP_STRIPE_TEST_PUBLISHABLE_KEY } = process.env; // This does not work right now something with the way i'm calling it
@@ -19,14 +15,10 @@ function Buy() {
 
   return (
     <div style={{ overflow: "hidden"}}>
-      <CoinGraph />
-      <CryptoTicker />
-      <BuyForm />
       <Elements stripe={stripePromise}>
-        <PayInfo />
+      <CoinGraph />
+      <BuyForm />
       </Elements>
-      <TransComplete />
-      <TransFailed />
     </div>
   )
 }
