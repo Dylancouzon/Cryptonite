@@ -1,10 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
+import PayInfo from '../PayInfo';
 import { Form, Col, Row, Container, Button } from 'react-bootstrap';
 
 function BuyForm() {
+    const [show, setShow] = useState(false);
+    const [data, setData] = useState({});
+
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setData({ total: e.target[3].value, coins: e.target[0].value, show: true })
+        setShow(true);
+    }
+
     return (
         <Container>
-            <Form>
+            <Form onSubmit={handleSubmit}>
                 <Form.Group as={Row} controlId="formPlaintextPassword">
                     <Form.Label style={{marginTop: 5}} column md={4}>
                         Amount of Coins:
@@ -26,7 +38,7 @@ function BuyForm() {
                         Trans Fees:
                         </Form.Label>
                     <Col style={{marginTop: 5}} md={{ span: 4, offset: 4 }}>
-                        <Form.Control plaintext readOnly defaultValue="$5.00" />
+                        <Form.Control plaintext readOnly defaultValue="5.00" />
                     </Col>
                 </Form.Group>
                 <Form.Group as={Row} controlId="formPlaintextTotal">
@@ -34,16 +46,18 @@ function BuyForm() {
                         Total:
                         </Form.Label>
                     <Col style={{marginTop: 5}} md={{ span: 4, offset: 4 }}>
-                        <Form.Control plaintext readOnly defaultValue="$27.50" />
+                        <Form.Control plaintext readOnly defaultValue="27.50" />
                     </Col>
                 </Form.Group>
                 <Form.Group style={{marginTop: 5}} as={Row}>
                     <Col style={{marginTop: 5}} md={{ span: 10, offset: 5 }}>
-                        <Button type="submit">Continue</Button>
+                        <Button type="submit" onClick={() => setShow(true)}>Continue</Button>
                     </Col>
                 </Form.Group>
             </Form>
+            <PayInfo data={data} show={data.show}/>
         </Container>
+        
     )
 }
 
