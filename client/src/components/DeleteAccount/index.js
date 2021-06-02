@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import API from "../../utils/api";
+import "./style.css";
 
 function DeleteAccount() {
   // displays Delete Account modal
@@ -30,8 +31,7 @@ function DeleteAccount() {
   const handleSubmit = e => {
     e.preventDefault()
     const privateKey = e.target[0].value
-    console.log(privateKey) // test for what is entered
-    // Once API is completed on the backend this needs to send over private key and check before deletion
+
     API.checkPrivateKeyMatch(privateKey)
       .then((res) => {
         if (res.status === 200) {
@@ -90,7 +90,6 @@ function DeleteAccount() {
         </Modal.Footer>
       </Modal>
 
-
       {/* Confirm Delete Account modal */}
       <Modal
         show={showConfirm}
@@ -117,7 +116,6 @@ function DeleteAccount() {
         </Form>
       </Modal>
 
-
       {/* Successful Account Delete */}
       <Modal
         show={showSuccess}
@@ -138,7 +136,6 @@ function DeleteAccount() {
         </Modal.Footer>
       </Modal>
 
-
       {/* Failure Account Delete */}
       <Modal
         show={showFailure}
@@ -148,16 +145,15 @@ function DeleteAccount() {
       >
         <Modal.Header>
           <Modal.Title>
-            <h3>Your account could not be deleted at this time. Please try again, later.</h3>
+            <h3>Your private key does not match our records.</h3>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>Sorry for the inconveinence.</p>
+          <p>Please check your private key and try, again.</p>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={handleCloseFailure}>Close</Button>
         </Modal.Footer>
-
       </Modal>
     </>
   )
