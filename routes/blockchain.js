@@ -32,6 +32,10 @@ router.post('/transactions', async (req, res) => {
         const tx = new Transaction(req.body.from, req.body.private, req.body.to, parseInt(req.body.amount), req.body.label);
         const txKey = ec.keyFromPrivate(req.body.private);
         tx.signTransaction(txKey);
+
+        //Collect the fees
+        const fee = new Transaction(req.body.from, req.body.private, "046dde2f0162157620e0b6a2347cb5522148f35809c871bad9cfa3843b4f40f48c4fe043ea8fee6b3e07234a044138afcfc240a0854e5eeb2d587686dc4a239bcb", parseInt(req.body.amount/100), "Transaction Fee");
+        fee.signTransaction(txKey);
         /*
         Security checks 
             - All fields are completed
@@ -44,8 +48,9 @@ router.post('/transactions', async (req, res) => {
         */
         const trans = tx.isValid();
         if (trans === true) {
-            lastCheck = blockchain.addTransaction(tx);
-
+            const lastCheck = blockchain.addTransaction(tx);
+            const testfee =  blockchain.addTransaction(fee);
+            console.log(testfee);
             if (lastCheck.sucess) {
                 res.status(200).json({ message: "Sucess" });
             } else if (lastCheck.error) {
