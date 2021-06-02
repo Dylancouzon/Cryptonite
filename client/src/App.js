@@ -31,6 +31,10 @@ class App extends Component {
     };
     
     
+    
+  }
+
+  componentDidMount() {
     if(!this.state.logged_in){
       API.getSessions()
       .then((res)=>{ 
@@ -40,9 +44,6 @@ class App extends Component {
       });
     }
   }
-
-
-
 
   render() {
     return (
