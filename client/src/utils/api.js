@@ -39,6 +39,9 @@ export default {
     startMining: function () {
         return axios.get('/api/blockchain/mine')
     },
+    addTransaction: function (data) {
+        return axios.post('/api/blockchain/addTransaction', data)
+    },
 }
 
 // return axios.post(`http://localhost:3001/api/signUp`, data, {

@@ -101,6 +101,24 @@ router.get('/coinValue', async (req, res) => {
 
 });
 
+
+router.post('/addTransaction', async (req, res) => {
+    const trans = {
+        public_key: req.session.publicKey,
+        date: Date.now(),
+        amount: req.body.amount
+    };
+    Transactions.create(trans, (err, result) => {
+        if (err) {
+            res.status(400).json({ message: "MongoDB error" });
+        } else {
+            console.log(result);
+            res.status(200).json({ message: "Sucess" });
+        }
+      });
+
+});
+
 //Get the coin value day by day since it's creation
 router.get('/valueData', async (req, res) => {
 

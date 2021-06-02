@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './style.css';
 import { Form, Button, Modal, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
+import API from "../../utils/api";
+import SessionContext from "../../utils/sessionContext";
 import {
     useStripe,
     useElements,
@@ -11,6 +13,8 @@ import {
 } from '@stripe/react-stripe-js';
 
 const PayInfo = (info) => {
+
+    const { publicKey } = useContext(SessionContext);
     const stripe = useStripe();
     const elements = useElements();
 
@@ -35,8 +39,6 @@ const PayInfo = (info) => {
     useEffect(() => {
         if (info.data.show === true) {
             setShow(true);
-        } else {
-            setShow(false)
         }
     }, [info.data.show]);
 
@@ -49,13 +51,39 @@ const PayInfo = (info) => {
         });
         if (!error) {
             const { id } = paymentMethod;
-            console.log(paymentMethod);
-            console.log(info.data.total*100)
             try {
-                const { data } = await axios.post("/api/stripe/charge", { id, amount: info.data.total*100});
-                console.log(data);
-                handleClose();
-                handleShowSuccess();
+                await axios.post("/api/stripe/charge", { id, amount: info.data.total * 100 })
+                    .then((_) => {
+                        const trans = {
+                            from: "046dde2f0162157620e0b6a2347cb5522148f35809c871bad9cfa3843b4f40f48c4fe043ea8fee6b3e07234a044138afcfc240a0854e5eeb2d587686dc4a239bcb",
+                            private: "8b13559111bb98f7e34d6ffa55784336c829d6ae969680ee6a49b3e6408f96c0",
+                            to: publicKey,
+                            label: "Bought for: $" + info.data.total,
+                            amount: info.data.coins
+                        }
+                        API.addTransaction(trans)
+                            .then(res => {
+                                API.sendTransaction(trans)
+                                    .then(res => {
+                                        handleClose();
+                                        handleShowSuccess();
+                                    }).catch(err => {
+                                        console.log(err);
+                                        handleClose();
+                                        handleShowFailed();
+                                    });
+                            }).catch(err => {
+                                console.log(err);
+                                handleClose();
+                                handleShowFailed();
+                            });
+                    }).catch((err) => {
+                        console.log(err);
+                        handleClose();
+                        handleShowFailed();
+                    });
+
+
             } catch (error) {
                 handleClose();
                 handleShowFailed();
