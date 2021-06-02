@@ -66,7 +66,6 @@ router.post('/transactions', async (req, res) => {
 });
 
 //Return isChainValid
-// WIP
 router.get('/valid', async (req, res) => {
 
     if (blockchain.isChainValid()) {

@@ -3,10 +3,6 @@ const EC = require('elliptic').ec;
 const ec = new EC('secp256k1');
 var fs = require('fs');
 
-/**
- * Private Key is stored in the transaction so we can recreate the blockchain Hash when we restart the server
- * Will be changed once the Crypto is decentralized.
- */
 class Transaction {
   constructor(fromAddress, privateKey, toAddress, amount, label) {
     this.fromAddress = fromAddress;
@@ -20,10 +16,8 @@ class Transaction {
 
   /**
    * Creates a SHA256 hash of the transaction
-   *
    */
   calculateHash() {
-
     return crypto.createHash('sha256').update(this.fromAddress + this.toAddress + this.amount + this.timestamp, this.label).digest('hex');
   }
 
@@ -31,8 +25,6 @@ class Transaction {
    * Signs a transaction with the given signingKey (which is an Elliptic keypair
    * object that contains a private key). The signature is then stored inside the
    * transaction object and later stored on the blockchain.
-   *
-   * @param {string} signingKey
    */
   signTransaction(signingKey) {
     // You can only send a transaction from the wallet that is linked to your
@@ -42,19 +34,17 @@ class Transaction {
     }
 
 
-    // Calculate the hash of this transaction, sign it with the key
-    // and store it inside the transaction obect
+    // Calculate the hash of this transaction then sign it with the key
     const hashTx = this.calculateHash();
 
     const sig = signingKey.sign(hashTx, 'base64');
-
+    
     this.signature = sig.toDER('hex');
   }
 
   /**
    * Checks if the signature is valid (transaction has not been tampered with).
    * It uses the fromAddress as the public key.
-   *
    */
   isValid() {
     // If the transaction doesn't have a from address we assume it's a
@@ -72,18 +62,16 @@ class Transaction {
 }
 
 class Block {
-  constructor(timestamp, transactions, previousHash = '') {
+  constructor(timestamp, transactions, previousHash = '', nonce = 0) {
     this.previousHash = previousHash;
     this.timestamp = timestamp;
     this.transactions = transactions;
-    this.nonce = 0;
+    this.nonce = nonce;
     this.hash = this.calculateHash();
   }
 
   /**
-   * Returns the SHA256 of this block (by processing all the data stored
-   * inside this block)
-   *
+   * Returns the SHA256 of this block (by processing all the data stored inside this block)
    */
   calculateHash() {
     return crypto.createHash('sha256').update(this.previousHash + this.timestamp + JSON.stringify(this.transactions) + this.nonce).digest('hex');
@@ -95,6 +83,7 @@ class Block {
    */
   mineBlock(difficulty) {
     while (this.hash.substring(0, difficulty) !== Array(difficulty + 1).join('0')) {
+     // console.log(this.hash.substring(0, difficulty));
       this.nonce++;
       this.hash = this.calculateHash();
     }
@@ -128,7 +117,9 @@ class Blockchain {
 
   /**
    * Populate the Blockchain from JSON.
+   * Temporary fix since Heroku stops the server after a while and does not allow to use differents ports to create nodes.
    * Recreate each Block & Transaction from the data (Hence why we need to temporary store the PrivateKeys.)
+   * Looking into serialization solution but I have not found anything that would be able to serialize nested objects yet.
    */
   populate() {
     //Get the Data from the JSON file
@@ -154,11 +145,10 @@ class Blockchain {
             if (trans.isValid()) {
               this.pendingTransactions.push(trans);
             }
-
           }
 
           //Push the block onto the Blockchain.
-          const block = new Block(JSONblock.timestamp, this.pendingTransactions, this.getLatestBlock().hash);
+          const block = new Block(JSONblock.timestamp, this.pendingTransactions, this.getLatestBlock().hash, this.getLatestBlock().nonce);
           block.mineBlock(0);
           this.chain.push(block);
           this.numberOfBlocks++;
@@ -194,7 +184,7 @@ class Blockchain {
     const rewardTx = new Transaction(null, null, miningRewardAddress, this.miningReward);
     this.pendingTransactions.push(rewardTx);
 
-    const block = new Block(Date.now(), this.pendingTransactions, this.getLatestBlock().hash);
+    const block = new Block(Date.now(), this.pendingTransactions, this.getLatestBlock().hash, this.getLatestBlock().nonce);
     if (difficulty !== 0) { difficulty = this.difficulty; }
     block.mineBlock(difficulty);
 
