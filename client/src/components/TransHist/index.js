@@ -81,9 +81,9 @@ const columns = [{
   sort: true,
   headerSortingStyle,
   sortCaret: (order, column) => {
-    if (!order) return (<span>&nbsp;&nbsp;<i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></span>);
-    else if (order === 'asc') return (<span>&nbsp;&nbsp;<i class="fas fa-sort-up"></i><i class="fas fa-sort-down active"></i></span>);
-    else if (order === 'desc') return (<span>&nbsp;&nbsp;<i class="fas fa-sort-up active"></i><i class="fas fa-sort-down"></i></span>);
+    if (!order) return (<span>&nbsp;&nbsp;<i className="fas fa-sort-up"></i><i className="fas fa-sort-down"></i></span>);
+    else if (order === 'asc') return (<span>&nbsp;&nbsp;<i className="fas fa-sort-up"></i><i className="fas fa-sort-down active"></i></span>);
+    else if (order === 'desc') return (<span>&nbsp;&nbsp;<i className="fas fa-sort-up active"></i><i className="fas fa-sort-down"></i></span>);
     return null;
   }
 }, {
@@ -92,9 +92,9 @@ const columns = [{
   sort: true,
   headerSortingStyle,
   sortCaret: (order, column) => {
-    if (!order) return (<span>&nbsp;&nbsp;<i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></span>);
-    else if (order === 'asc') return (<span>&nbsp;&nbsp;<i class="fas fa-sort-up"></i><i class="fas fa-sort-down active"></i></span>);
-    else if (order === 'desc') return (<span>&nbsp;&nbsp;<i class="fas fa-sort-up active"></i><i class="fas fa-sort-down"></i></span>);
+    if (!order) return (<span>&nbsp;&nbsp;<i className="fas fa-sort-up"></i><i className="fas fa-sort-down"></i></span>);
+    else if (order === 'asc') return (<span>&nbsp;&nbsp;<i className="fas fa-sort-up"></i><i className="fas fa-sort-down active"></i></span>);
+    else if (order === 'desc') return (<span>&nbsp;&nbsp;<i className="fas fa-sort-up active"></i><i className="fas fa-sort-down"></i></span>);
     return null;
   }
 }, {
@@ -103,9 +103,9 @@ const columns = [{
   sort: true,
   headerSortingStyle,
   sortCaret: (order, column) => {
-    if (!order) return (<span>&nbsp;&nbsp;<i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></span>);
-    else if (order === 'asc') return (<span>&nbsp;&nbsp;<i class="fas fa-sort-up"></i><i class="fas fa-sort-down active"></i></span>);
-    else if (order === 'desc') return (<span>&nbsp;&nbsp;<i class="fas fa-sort-up active"></i><i class="fas fa-sort-down"></i></span>);
+    if (!order) return (<span>&nbsp;&nbsp;<i className="fas fa-sort-up"></i><i className="fas fa-sort-down"></i></span>);
+    else if (order === 'asc') return (<span>&nbsp;&nbsp;<i className="fas fa-sort-up"></i><i className="fas fa-sort-down active"></i></span>);
+    else if (order === 'desc') return (<span>&nbsp;&nbsp;<i className="fas fa-sort-up active"></i><i className="fas fa-sort-down"></i></span>);
     return null;
   }
 }, {
@@ -114,9 +114,9 @@ const columns = [{
   sort: true,
   headerSortingStyle,
   sortCaret: (order, column) => {
-    if (!order) return (<span>&nbsp;&nbsp;<i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></span>);
-    else if (order === 'asc') return (<span>&nbsp;&nbsp;<i class="fas fa-sort-up"></i><i class="fas fa-sort-down active"></i></span>);
-    else if (order === 'desc') return (<span>&nbsp;&nbsp;<i class="fas fa-sort-up active"></i><i class="fas fa-sort-down"></i></span>);
+    if (!order) return (<span>&nbsp;&nbsp;<i className="fas fa-sort-up"></i><i className="fas fa-sort-down"></i></span>);
+    else if (order === 'asc') return (<span>&nbsp;&nbsp;<i className="fas fa-sort-up"></i><i className="fas fa-sort-down active"></i></span>);
+    else if (order === 'desc') return (<span>&nbsp;&nbsp;<i className="fas fa-sort-up active"></i><i className="fas fa-sort-down"></i></span>);
     return null;
   }
 }
