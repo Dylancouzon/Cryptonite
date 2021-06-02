@@ -69,7 +69,7 @@ function TransHist() { //hands props as parameter
         console.log(res.data);
         setTimeout(() => {
           setTransactions(res.data);
-        }, 1000);
+        }, 2000);
       }
       )
 }, [publicKey, username]);
