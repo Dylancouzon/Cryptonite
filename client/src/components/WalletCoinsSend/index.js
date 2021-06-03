@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Container, Card } from 'react-bootstrap';
 import SessionContext from "../../utils/sessionContext";
 import API from "../../utils/api";
+import "./style.css";
 
 // Passprops to the wallet coins in order to render the amount associated to the public key.
 
@@ -34,7 +35,11 @@ function WalletCoinsUser() {
 
     return (
         <Container>
-            <Card body style={{ textAlign: 'center' }}><h3>Coin: {coin} | USD: {USD}</h3></Card>
+            <Card className="walletCard" body style={{ textAlign: 'center' }}>
+                <h2>Send Coins</h2>
+                <h3 style={{float: 'left'}}>Coin: {coin} </h3>
+                <h3 style={{float: 'right'}}>USD: ${USD}</h3>
+            </Card>
         </Container>
     )
 }
