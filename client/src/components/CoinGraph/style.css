@@ -1,3 +1,11 @@
 canvas {
-  background-color: white;
+  /* background-color: white; */
+}
+
+.coinHeader {
+  margin-bottom: 50px;
+}
+
+.chart {
+  margin-bottom: 20px;
 }
