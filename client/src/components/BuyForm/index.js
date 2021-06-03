@@ -86,8 +86,8 @@ function BuyForm() {
                         </Form.Label>
                         <Col style={{ marginTop: 5 }} md={{ span: 4, offset: 4 }}>
                             {toggle
-                                ? <Form.Control ref={cost} type="number" onChange={(e) => getValue(e.target.value)} />
-                                : <Form.Control ref={cost} type="number" onFocus={(e) => toggleListener(true, e.target.value)} value={coinAmount} />
+                                ? <Form.Control ref={cost} type="text" onChange={(e) => getValue(e.target.value)} />
+                                : <Form.Control ref={cost} type="text" onFocus={(e) => toggleListener(true, e.target.value)} value={coinAmount} />
                             }
                         </Col>
                     </Form.Group>
@@ -97,8 +97,8 @@ function BuyForm() {
                     </Form.Label>
                         <Col style={{ marginTop: 5 }} md={{ span: 4, offset: 4 }}>
                             {toggle
-                                ? <Form.Control type="number" onFocus={(e) => toggleListener(false, e.target.value)} value={usdAmount} />
-                                : <Form.Control type="number" onChange={(e) => getUSD(e.target.value)} />
+                                ? <Form.Control type="text" onFocus={(e) => toggleListener(false, e.target.value)} value={usdAmount} />
+                                : <Form.Control type="text" onChange={(e) => getUSD(e.target.value)} />
                             }
                         </Col>
                     </Form.Group>
