@@ -93,14 +93,7 @@ const PayInfo = (info) => {
     };
 
     return (
-        <div style={{
-            border: '1px solid #ccc',
-            textAlign: 'center',
-            padding: '10px',
-            paddingTop: '20px',
-            paddingLeft: '10px',
-            paddingRight: '10px'
-        }}>
+        <div>
             {/* payment modal */}
             <Modal
                 show={show}

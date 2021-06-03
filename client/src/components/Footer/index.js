@@ -9,7 +9,7 @@ function Footer() {
             className="text-center" bg="dark" text="white">
                 <Card.Body>
                     <Card.Text>
-                        Coin Name created by : 
+                        Cryptonite created by : 
                         <a href="https://github.com/cheng21tang" target="blank"> Cheng Tang </a> | 
                         <a href="https://github.com/Dylancouzon" target="blank"> Dylan Couzon </a> |
                         <a href="https://github.com/dnovelli1" target="blank"> Jake Novelli</a> |
