@@ -1,6 +1,7 @@
 import React from "react";
 import { Accordion, Card, Row, Col } from "react-bootstrap";
 import { isMobile } from 'react-device-detect';
+import "./style.css";
 
 
 const title = "About";
@@ -13,7 +14,7 @@ const body = (
       into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
      Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
     </Col>
-    <Col md={4}><img src={'./assets/images/coin.jpeg'} className="image round" alt='Coin' /></Col>
+    <Col md={4}><img src={'./assets/images/coin.jpeg'} style={{width: 400, height: 275}}className="image round" alt='Coin' /></Col>
   </Row>
 );
 
@@ -21,7 +22,7 @@ function About() {
 
   if (isMobile) {
     return (
-      <Card>
+      <Card className="aboutCard">
         <Accordion.Toggle as={Card.Header} eventKey="0">
           {title}
         </Accordion.Toggle>
