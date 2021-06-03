@@ -1,0 +1,11 @@
+.inputBox {
+    background: rgb(255, 255, 255) !important;
+    color: rgb(53, 53, 53) !important;
+}
+
+.cardStyle {
+    margin-top: 10px;
+    background: rgb(217, 217, 217) !important;
+    color: rgb(53, 53, 53) !important;
+    margin-bottom: 10px;
+}

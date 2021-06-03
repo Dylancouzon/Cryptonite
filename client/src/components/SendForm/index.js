@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Form, Col, Row, Container, Button, Card, Alert } from 'react-bootstrap';
 import SessionContext from "../../utils/sessionContext";
 import API from "../../utils/api";
+import "./style.css";
 
 
 function SendForm() {
@@ -97,7 +98,7 @@ function SendForm() {
 
     return (
         <Container >
-            <Card style={{padding: 50}}>
+            <Card className="cardStyle" style={{padding: 50}}>
                 <Alert
                     show={showAlert}
                     variant={showAlertVariant}
@@ -105,21 +106,20 @@ function SendForm() {
                 >
                     <p>{showAlertMessage}</p>
                 </Alert>
-                <h2>Send Coins</h2>
                 <Form ref={formHandle}>
                     <Form.Group as={Row} controlId="to">
                         <Col style={{ marginTop: 5 }} md={{ span: 7, offset: 2 }}>
-                            <Form.Control type="text" placeholder="Recipient (Public Key)" />
+                            <Form.Control className="inputBox" type="text" placeholder="Recipient (Public Key)" />
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} controlId="private">
                         <Col style={{ marginTop: 5 }} md={{ span: 7, offset: 2 }}>
-                            <Form.Control type="text" placeholder="Private Key" />
+                            <Form.Control className="inputBox" type="text" placeholder="Private Key" />
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} controlId="label">
                         <Col style={{ marginTop: 5 }} md={{ span: 7, offset: 2 }}>
-                            <Form.Control type="text" placeholder="Label"/>
+                            <Form.Control className="inputBox" type="text" placeholder="Label"/>
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} controlId="amount">
@@ -128,8 +128,8 @@ function SendForm() {
                         </Form.Label>
                         <Col style={{ marginTop: 5 }} md={{ span: 4, offset: 4 }}>
                             {toggle
-                                ? <Form.Control ref={cost} type="text" onChange={(e) => getValue(e.target.value)} />
-                                : <Form.Control ref={cost} type="text" onFocus={(e) => toggleListener(true, e.target.value)} value={coinAmount} />
+                                ? <Form.Control className="inputBox" ref={cost} type="text" onChange={(e) => getValue(e.target.value)} />
+                                : <Form.Control className="inputBox" ref={cost} type="text" onFocus={(e) => toggleListener(true, e.target.value)} value={coinAmount} />
                             }
                         </Col>
                     </Form.Group>
@@ -139,8 +139,8 @@ function SendForm() {
                         </Form.Label>
                         <Col style={{ marginTop: 5 }} md={{ span: 4, offset: 4 }}>
                             {toggle
-                                ? <Form.Control type="text" onFocus={(e) => toggleListener(false, e.target.value)} value={usdAmount} />
-                                : <Form.Control type="text" onChange={(e) => getUSD(e.target.value)} />
+                                ? <Form.Control className="inputBox" type="text" onFocus={(e) => toggleListener(false, e.target.value)} value={usdAmount} />
+                                : <Form.Control className="inputBox" type="text" onChange={(e) => getUSD(e.target.value)} />
                             }
                         </Col>
                     </Form.Group>
@@ -149,7 +149,7 @@ function SendForm() {
                             Trans Fees 1%:
                         </Form.Label>
                         <Col style={{ marginTop: 5 }} md={{ span: 4, offset: 4 }}>
-                            <Form.Control plaintext readOnly value={fees} />
+                            <Form.Control readOnly value={fees} />
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} controlId="formPlaintextTotal">
@@ -157,7 +157,7 @@ function SendForm() {
                             Total(coins):
                         </Form.Label>
                         <Col style={{ marginTop: 5 }} md={{ span: 4, offset: 4 }}>
-                            <Form.Control plaintext readOnly value={(total)} />
+                            <Form.Control readOnly value={(total)} />
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row}>
