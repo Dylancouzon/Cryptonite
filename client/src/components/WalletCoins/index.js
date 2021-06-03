@@ -35,7 +35,7 @@ function WalletCoins() {
         <Container>
             <Card body className="walletCoin" style={{ textAlign: 'center' }}>
                 <h3>Welcome, {username}!</h3>
-                <h3>Coin: {coin} <br /> USD: ${USD}</h3>
+                <h3 style={{float: 'left'}}>Coin: {coin}</h3> <h3 style={{float: 'right'}}> USD: ${USD}</h3>
             </Card>
             <Card body className="walletCoin" style={{ textAlign: 'center' }}>
                 <Form.Label><h3>Public Key:</h3></Form.Label>

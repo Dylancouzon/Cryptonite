@@ -17,7 +17,7 @@ function SignUpForm() {
         setShowAlertMessage("");
     }
     const handleAlertMessage = (message) => {
-        if(message) {
+        if (message) {
             setShowAlert(true);
             setShowAlertMessage(message);
         }
@@ -87,17 +87,19 @@ function SignUpForm() {
 
     return (
         <>
-            <Alert 
+            <Alert
                 show={showAlert}
                 variant="warning"
                 dismissible="true"
-                onClose={() => {handleCloseAlert()}}
+                onClose={() => { handleCloseAlert() }}
             >
                 <p>{showAlertMessage}</p>
             </Alert>
-            <div className="sidebar-header">
+
+            <div className="sidebar-header" style={{ marginTop: 20, marginBottom: 30, color: "whitesmoke" }}>
                 <h3>Sign-up</h3>
             </div>
+
             <Form onSubmit={(e) => handleSubmit(e)}>
                 <Form.Group controlId="formBasicEmail">
                     <Form.Control type="email" placeholder="Enter email" />
@@ -111,14 +113,30 @@ function SignUpForm() {
                 <Form.Group controlId="formBasicConfirm">
                     <Form.Control type="password" placeholder="Confirm password" />
                 </Form.Group>
-                <Button type="submit" value="Submit">Sign-Up</Button>
+                <Button
+                    type="submit"
+                    value="Submit"
+                    className="sidebutton"
+                    block
+                    variant="outline-light"
+                >Sign-Up
+                </Button>
             </Form>
 
             <div>
                 <h3>--- Or ---</h3>
             </div>
+
             {/* Need to add a type for button */}
-            <Button>Sign-up with Google</Button>
+            <Button
+                id="googleBtn"
+                type="submit"
+                className="sidebutton"
+                block
+                variant="outline-light"
+                style={{ marginTop: 15 }}
+            >Sign-up with Google
+            </Button>
 
             <Modal
                 copied={copied}
@@ -151,8 +169,6 @@ function SignUpForm() {
                     </Button>
                 </Modal.Footer>
             </Modal>
-
-            
 
         </>
     )

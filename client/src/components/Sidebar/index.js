@@ -43,13 +43,6 @@ function Sidebar() {
         variant="outline-light"
       >Mine Coin
         </Button>
-
-
-      {/* <li><Link to="/profile">Profile</Link></li>
-        <li><Link to="/buy">Buy Coin</Link></li>
-        <li><Link to="/send">Send Coin</Link></li>
-        <li><Link to="/mining">Mine Coin</Link></li> */}
-
       <DeleteAccount block />
     </div>
   )

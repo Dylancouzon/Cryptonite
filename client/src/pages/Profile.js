@@ -1,7 +1,7 @@
 import React from "react";
 import WalletCoins from "../components/WalletCoins";
 import TransHist from "../components/TransHist";
-import BuySendBtn from "../components/BuySendBtn";
+// import BuySendBtn from "../components/BuySendBtn";
 
 
 
@@ -10,7 +10,7 @@ function Profile() {
     <>
       <WalletCoins />
       <TransHist />
-      <BuySendBtn />
+      {/* <BuySendBtn /> */}
     </>
   )
 }

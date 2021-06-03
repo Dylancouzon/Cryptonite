@@ -53,7 +53,7 @@ function DeleteAccount() {
   return (
     <>
       {/* Delete Account Button on Sidebar */}
-      <Button className="deletebtn" variant="dark" variant="outline-danger" onClick={handleShow} block>
+      <Button className="deletebtn" variant="outline-danger" onClick={handleShow} block>
         Delete Account
       </Button>
 
@@ -65,20 +65,19 @@ function DeleteAccount() {
         keyboard={false}
       >
         <Modal.Header>
-          <Modal.Title>
+          <Modal.Title >
             <h3>Delete Account</h3>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h4 style={{ color: "red" }}>Are you sure you want to delete your account?</h4>
+          <h5 style={{ color: "red" }}>Are you sure you want to delete your account?</h5>
         </Modal.Body>
         <Modal.Footer>
           {/* Confirmation modal */}
-          <Button variant="primary" onClick={handleClose}>
+          <Button onClick={handleClose}>
             Cancel
           </Button>
           <Button
-            variant="danger"
             onClick={() => {
               // handle closing Delete Account modal and opening Confirm modal
               handleClose();
@@ -105,13 +104,14 @@ function DeleteAccount() {
         <Form id="privateKey" onSubmit={(e) => handleSubmit(e)}>
           <Modal.Body>
             <Form.Group>
+              <Form.Label style={{ fontSize: 14 }}>To delete your account, please enter your private key:</Form.Label>
               <Form.Control type="text" placeholder="Private Key" />
-              <Form.Text style={{ color: "red" }}>Please note! This cannot be undone</Form.Text>
+              <Form.Text style={{ color: "red", fontWeight: "bold" }}>Please note: This cannot be undone!</Form.Text>
             </Form.Group>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="primary" onClick={handleCloseConfirm}>Cancel</Button>
-            <Button variant="danger" type="submit">Confirm</Button>
+            <Button onClick={handleCloseConfirm}>Cancel</Button>
+            <Button id="confirmBtn" type="submit">Confirm</Button>
           </Modal.Footer>
         </Form>
       </Modal>
@@ -129,10 +129,10 @@ function DeleteAccount() {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>Thank you for using CryptoCoin</p>
+          <h5>Thank you for using CryptoCoin!</h5>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" onClick={handleCloseSuccess}>Close</Button>
+          <Button onClick={handleCloseSuccess}>Close</Button>
         </Modal.Footer>
       </Modal>
 
@@ -152,7 +152,7 @@ function DeleteAccount() {
           <p>Please check your private key and try, again.</p>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" onClick={handleCloseFailure}>Close</Button>
+          <Button onClick={handleCloseFailure}>Close</Button>
         </Modal.Footer>
       </Modal>
     </>

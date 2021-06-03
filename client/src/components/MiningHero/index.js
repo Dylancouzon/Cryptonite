@@ -1,15 +1,17 @@
 import React, { useState, useRef } from 'react';
 import { Card, Button, Modal } from 'react-bootstrap';
 import API from "../../utils/api";
-
+import "./style.css";
 
 function MiningHero() {
 const [timer, setTimer] = useState(0)
 const [isActive, setIsActive] = useState(false)
 const countRef = useRef(null)
 const [show, setShow] = useState(false);
+const [showFail, setShowFail] = useState(false);
 
     const handleClose = () => setShow(false);
+    const handleCloseFail = () => setShowFail(false);
 
     const handleStart = () => {
         setIsActive(true);
@@ -34,10 +36,10 @@ const [show, setShow] = useState(false);
     }
     
     return (
-        <div>
+        <>
             {/* Need to change size of image/card */}
-            <Card className="text-center" style={{ width: '100%' }}>
-                <Card.Img variant="" src='./assets/MiningGif.gif' />
+            <Card.Img variant="" src='./assets/MiningGif.gif' />
+            <Card className="text-center">
                 <Card.Body>
                     <Card.Text>
                         Information about mining: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
@@ -48,6 +50,7 @@ const [show, setShow] = useState(false);
                     {!isActive ? (<Button variant="dark" style={{width: '25%'}} onClick={() => handleStart()}>Start Mining</Button>) : <p>{formatTime()}</p>}
                 </Card.Body>
             </Card>
+            {/* Successfully Mined modal */}
             <Modal
                 show={show}
                 onHide={handleClose}
@@ -56,16 +59,45 @@ const [show, setShow] = useState(false);
             >
                 <Modal.Header>
                     <Modal.Title>
-                        <h3 style={{textAlign: 'center'}}>Mining Success!</h3>
+                        <h3>Mining Success!</h3>
                     </Modal.Title>
                 </Modal.Header>
+                <Modal.Body>
+                    <h3 className="mineIcon">⛏️</h3>
+                    <p>Your mining reward of <strong>100 Cryptocoins</strong> was added to the pending transactions and will be awarded when it is mined.</p>
+                    <p>Thanks for mining!</p>
+                </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="primary" onClick={handleClose}>
+                    <Button onClick={handleClose}>
                         Close
                     </Button>
                 </Modal.Footer>
             </Modal>
-        </div>
+
+            {/* Failed Mined modal */}
+            <Modal
+                show={showFail}
+                onHide={handleCloseFail}
+                backdrop="static"
+                keyboard={false}
+            >
+                <Modal.Header>
+                    <Modal.Title>
+                        <h3>Mining unsuccessful!</h3>
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <h3 className="mineIcon">⛏️</h3>
+                    <p>Someone else mined the transaction.</p>
+                    <p>Thanks for mining. Please, try again!</p>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button onClick={handleCloseFail}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+        </>
         
     )
 }
