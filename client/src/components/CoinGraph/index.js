@@ -1,59 +1,70 @@
 import React, { useEffect, useState } from 'react';
+import { Card } from "react-bootstrap";
 import API from '../../utils/api';
 import { Line } from 'react-chartjs-2';
-// import { Chart } from 'chart.js';
-import 'chartjs-adapter-luxon';
-// import { registerables } from 'chart.js';
+import { DateTime } from 'luxon';
 import "./style.css";
 
-const { DateTime } = require("luxon");
+function CoinGraph() {
+    const [xAxis, setxAxis] = useState([]);
+    const [yAxis, setYAxis] = useState([]);
+    const [totalCoins, setTotalCoins] = useState([]);
 
-const data = {
+    useEffect(() => {
+        API.getValueData()
+            .then((result) => {
+                console.log(result);
+                let label = [];
+                let dataTemp = [];
+                for (var i = 0; i < result.data.length; i++) {
+                    // looping through results and getting 'date' value and pushing it into 'label' array
+                    label.push(DateTime.fromMillis(result.data[i].date).toLocaleString({ month: 'short', day: 'numeric' }))
+                    // looping through results and getting 'usd_value' and pushing it into 'dataTemp' array
+                    dataTemp.push(result.data[i].usd_value)
+                }
+                setxAxis(label);
+                setYAxis(dataTemp);
+                setTotalCoins(result.data[result.data.length - 1].total_coins)
+            });
+    }, []);
 
-    labels: (function() {
-        const label = [];
-        for(var i = 0; i < 7; i++) {
-            // set date to 'today' and pushes 'today' and the 'last 6 days' into the 'labels' array for our x-axis
-            let date = new Date();
-            label.unshift(DateTime.fromMillis(date.setDate(date.getDate() - i)).toLocaleString({ month: 'short', day: 'numeric' }))
-        }
-        return label
-    })(),
-    datasets: [
-        {
-            label: 'Coin Value',
-            data: [12, 19, 3, 5, 2, 3, 7],
-            // Need to loop and unshift value of coin into 'data' array for each of the 7 days here!!! -Cheng
-            fill: false,
-            backgroundColor: 'rgb(255, 99, 132)',
-            borderColor: 'rgba(255, 99, 132, 0.2)',
-            
-        },
-    ],
-};
-
-
-const options = {
-    scales: {
-        yAxes: [
+    const data = {
+        labels: xAxis,
+        datasets: [
             {
-                ticks: {
-                    beginAtZero: true,
-                },
+                label: 'USD $',
+                data: yAxis,
+                fill: false,
+                backgroundColor: 'rgba(60, 110, 113, 1)',
+                borderColor: 'rgba(60, 110, 113, 0.3)',
+                yAxisID: 'y'
             },
         ],
-    },
-}
+    };
 
-
-function CoinGraph() {
+    const options = {
+        scales: {
+            y: [
+                {
+                    ticks: {
+                        beginAtZero: true,
+                    },
+                },
+            ],
+        },
+    }
 
     return (
         <>
-            <div className='header'>
-                <h1 className='title'>History</h1>
-            </div>
-            <Line data={data} options={options} />
+            <Card className="px-3 coinHeader">
+                <div className='header'>
+                    <h3>Coins in circulation: {totalCoins}</h3>
+                </div>
+            </Card>
+            <Card className="px-3 chart">
+                <h6 className='title'>History</h6>
+                <Line data={data} options={options} />
+            </Card>
         </>
     )
 }

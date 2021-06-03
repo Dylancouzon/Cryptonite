@@ -147,7 +147,7 @@ router.get('/valueData', async (req, res) => {
         });
 
     }
-    setTimeout(() => res.status(200).json(result), 500)
+    setTimeout(() => res.status(200).json(result.sort((a,b)=> (a.date > b.date ? 1 : -1))), 500)
 });
 
 router.get('/mine', async (req, res) => {

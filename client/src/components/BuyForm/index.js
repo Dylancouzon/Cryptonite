@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PayInfo from '../PayInfo';
-import { Form, Col, Row, Container, Button } from 'react-bootstrap';
+import { Form, Col, Row, Container, Button, Card } from 'react-bootstrap';
 import API from "../../utils/api";
 
 function BuyForm() {
@@ -26,9 +26,9 @@ function BuyForm() {
     //Input is coins
     const getValue = (amount) => {
         const value = amount * coinVal;
-        
+
         setUSDAmount(value.toFixed(2));
-        
+
 
         const fee = value / 100;
         setFees(fee);
@@ -66,54 +66,56 @@ function BuyForm() {
     }
 
     return (
-        <Container>
-            <Form onSubmit={handleSubmit}>
-                <Form.Group as={Row} controlId="formPlaintextPassword">
-                    <Form.Label style={{ marginTop: 5 }} column md={4}>
-                        Amount of Coins:
+        <>
+            <Card>
+                <Form onSubmit={handleSubmit}>
+                    <Form.Group as={Row} controlId="formPlaintextPassword">
+                        <Form.Label style={{ marginTop: 5 }} column md={4}>
+                            Amount of Coins:
                         </Form.Label>
-                    <Col style={{ marginTop: 5 }} md={{ span: 4, offset: 4 }}>
-                        {toggle
-                            ? <Form.Control ref={cost} type="text" onChange={(e) => getValue(e.target.value)} />
-                            : <Form.Control ref={cost} type="text" onFocus={(e) => toggleListener(true, e.target.value)} value={coinAmount} />
-                        }
-                    </Col>
-                </Form.Group>
-                <Form.Group as={Row} controlId="formPlaintextCost">
-                    <Form.Label style={{ marginTop: 5 }} column md={4}>
-                        Cost USD:
+                        <Col style={{ marginTop: 5 }} md={{ span: 4, offset: 4 }}>
+                            {toggle
+                                ? <Form.Control ref={cost} type="text" onChange={(e) => getValue(e.target.value)} />
+                                : <Form.Control ref={cost} type="text" onFocus={(e) => toggleListener(true, e.target.value)} value={coinAmount} />
+                            }
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} controlId="formPlaintextCost">
+                        <Form.Label style={{ marginTop: 5 }} column md={4}>
+                            Cost USD:
                     </Form.Label>
-                    <Col style={{ marginTop: 5 }} md={{ span: 4, offset: 4 }}>
-                        {toggle
-                            ? <Form.Control type="text" onFocus={(e) => toggleListener(false, e.target.value)} value={usdAmount} />
-                            : <Form.Control type="text" onChange={(e) => getUSD(e.target.value)} />
-                        }
-                    </Col>
-                </Form.Group>
-                <Form.Group as={Row} controlId="formPlaintextTransFees">
-                    <Form.Label style={{ marginTop: 5 }} column md={4}>
-                        Trans Fees:
+                        <Col style={{ marginTop: 5 }} md={{ span: 4, offset: 4 }}>
+                            {toggle
+                                ? <Form.Control type="text" onFocus={(e) => toggleListener(false, e.target.value)} value={usdAmount} />
+                                : <Form.Control type="text" onChange={(e) => getUSD(e.target.value)} />
+                            }
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} controlId="formPlaintextTransFees">
+                        <Form.Label style={{ marginTop: 5 }} column md={4}>
+                            Trans Fees:
                         </Form.Label>
-                    <Col style={{ marginTop: 5 }} md={{ span: 4, offset: 4 }}>
-                        <Form.Control plaintext readOnly value={fees} />
-                    </Col>
-                </Form.Group>
-                <Form.Group as={Row} controlId="formPlaintextTotal">
-                    <Form.Label style={{ marginTop: 5 }} column md={4}>
-                        Total(USD):
+                        <Col style={{ marginTop: 5 }} md={{ span: 4, offset: 4 }}>
+                            <Form.Control plaintext readOnly value={fees} />
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} controlId="formPlaintextTotal">
+                        <Form.Label style={{ marginTop: 5 }} column md={4}>
+                            Total(USD):
                         </Form.Label>
-                    <Col style={{ marginTop: 5 }} md={{ span: 4, offset: 4 }}>
-                        <Form.Control plaintext readOnly value={(total)} />
-                    </Col>
-                </Form.Group>
-                <Form.Group style={{ marginTop: 5 }} as={Row}>
-                    <Col style={{ marginTop: 5 }} md={{ span: 10, offset: 5 }}>
-                        <Button type="submit" onClick={() => setShow(true)}>Continue</Button>
-                    </Col>
-                </Form.Group>
-            </Form>
+                        <Col style={{ marginTop: 5 }} md={{ span: 4, offset: 4 }}>
+                            <Form.Control plaintext readOnly value={(total)} />
+                        </Col>
+                    </Form.Group>
+                    <Form.Group style={{ marginTop: 5 }} as={Row}>
+                        <Col style={{ marginTop: 5 }} md={{ span: 10, offset: 5 }}>
+                            <Button type="submit" onClick={() => setShow(true)}>Continue</Button>
+                        </Col>
+                    </Form.Group>
+                </Form>
+            </Card>
             <PayInfo data={data} />
-        </Container>
+        </>
 
     )
 }

@@ -28,3 +28,7 @@ nav {
 .navigation {
   background-color: rgb(53, 53, 53) !important;
 }
+
+#logo {
+  z-index: 100;
+}
