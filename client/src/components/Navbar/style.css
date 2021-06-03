@@ -1,3 +1,30 @@
-#signup, #login {
-  margin-right: 5px;
+.navbar-brand {
+  color: whitesmoke !important;
+}
+
+.btn {
+  margin-right: 10px;
+}
+
+nav {
+  height: 75px;
+}
+
+.hamburger {
+  padding: 0 !important;
+  font-weight: bolder;
+}
+
+#sidenav {
+  background-color: rgb(53, 53, 53) !important;
+}
+
+.styles_sidenav__35_7Q{
+  background-color: rgb(53, 53, 53);
+  width: 300px;
+  padding: 0px 20px;
+}
+
+.navigation {
+  background-color: rgb(53, 53, 53) !important;
 }

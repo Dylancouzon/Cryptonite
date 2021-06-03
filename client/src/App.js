@@ -9,6 +9,7 @@ import Mining from "./pages/Mining";
 import { Container } from "react-bootstrap";
 import SessionContext from "./utils/sessionContext";
 import API from "./utils/api";
+import "./app.css";
 
 
 class App extends Component {
@@ -17,7 +18,7 @@ class App extends Component {
 
 
 
-    this.setSession = ({username, publicKey, logged_in}) => {
+    this.setSession = ({ username, publicKey, logged_in }) => {
       console.log(username, publicKey, logged_in);
       this.setState(state => ({
         username: username,
@@ -29,38 +30,38 @@ class App extends Component {
     this.state = {
       setSession: this.setSession,
     };
-    
-    
-    
+
+
+
   }
 
   componentDidMount() {
-    if(!this.state.logged_in){
+    if (!this.state.logged_in) {
       API.getSessions()
-      .then((res)=>{ 
-        if(res.data.logged_in){
-          this.setSession(res.data);
-        }
-      });
+        .then((res) => {
+          if (res.data.logged_in) {
+            this.setSession(res.data);
+          }
+        });
     }
   }
 
   render() {
     return (
-      <Container>
+      <SessionContext.Provider value={this.state}>
         <Router>
-        <SessionContext.Provider value={this.state}>
           <Navigation />
-          <Switch>
+          <Container>
+            <Switch>
               <Route exact path="/" component={Home} />
               <Route exact path="/profile" component={Profile} />
               <Route exact path="/buy" component={Buy} />
               <Route exact path="/send" component={Send} />
               <Route exact path="/mining" component={Mining} />
-          </Switch>
-          </SessionContext.Provider>
+            </Switch>
+          </Container>
         </Router>
-      </Container>
+      </SessionContext.Provider>
     );
   }
 }

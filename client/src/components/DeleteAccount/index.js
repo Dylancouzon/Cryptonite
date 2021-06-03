@@ -36,13 +36,13 @@ function DeleteAccount() {
       .then((res) => {
         if (res.status === 200) {
           // User Account successfully deleted
-          console.log(res.data)
+          // console.log(res.data) // debugging
           handleShowSuccess();
         }
       })
       .catch((err) => {
         if (err.response.status === 400) {
-          console.log(err.response)
+          // console.log(err.response) // debugging
           handleShowFailure();
         }
       })
@@ -53,7 +53,7 @@ function DeleteAccount() {
   return (
     <>
       {/* Delete Account Button on Sidebar */}
-      <Button variant="danger" onClick={handleShow}>
+      <Button className="deletebtn" variant="dark" variant="outline-danger" onClick={handleShow} block>
         Delete Account
       </Button>
 

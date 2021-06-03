@@ -5,3 +5,8 @@ h3 {
 p {
   text-align: center;
 }
+
+.deletebtn {
+  font-size: 16px !important;
+  font-weight: 500 !important;
+}
