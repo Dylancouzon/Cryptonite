@@ -1,11 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import DeleteAccount from "../DeleteAccount";
 import "./style.css";
 
 function Sidebar() {
-
 
   return (
     <div>
@@ -15,7 +13,7 @@ function Sidebar() {
         className="sidebutton"
         href="/profile"
         block
-        variant="dark"
+
         variant="outline-light"
       >Profile
         </Button>
@@ -23,7 +21,6 @@ function Sidebar() {
         className="sidebutton"
         href="/buy"
         block
-        variant="dark"
         variant="outline-light"
       >Buy Coin
         </Button>
@@ -31,7 +28,6 @@ function Sidebar() {
         className="sidebutton"
         href="/send"
         block
-        variant="dark"
         variant="outline-light"
       >Send
         </Button>
@@ -39,7 +35,6 @@ function Sidebar() {
         className="sidebutton"
         href="/mining"
         block
-        variant="dark"
         variant="outline-light"
       >Mine Coin
         </Button>

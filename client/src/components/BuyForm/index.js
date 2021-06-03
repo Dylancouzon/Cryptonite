@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PayInfo from '../PayInfo';
-import { Form, Col, Row, Container, Button, Card } from 'react-bootstrap';
+import { Form, Col, Row, Button, Card } from 'react-bootstrap';
 import API from "../../utils/api";
 
 function BuyForm() {
