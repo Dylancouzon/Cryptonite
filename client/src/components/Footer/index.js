@@ -5,12 +5,9 @@ import './style.css';
 function Footer() {
     return (
         <div>
-            <Card 
+            <Card id="footer"
             className="text-center" bg="dark" text="white">
                 <Card.Body>
-                <Card.Text>
-                    Coin about: blah blah blah
-                </Card.Text>
                     <Card.Text>
                         Coin Name created by : 
                         <a href="https://github.com/cheng21tang" target="blank"> Cheng Tang </a> | 
