@@ -2,10 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Card } from "react-bootstrap";
 import API from '../../utils/api';
 import { Line } from 'react-chartjs-2';
-import 'chartjs-adapter-luxon';
-import "./style.css";
 import { DateTime } from 'luxon';
-import { set } from 'mongoose';
+import "./style.css";
 
 function CoinGraph() {
     const [xAxis, setxAxis] = useState([]);
@@ -18,19 +16,14 @@ function CoinGraph() {
                 console.log(result);
                 let label = [];
                 let dataTemp = [];
-                let totalCoins = [];
                 for (var i = 0; i < result.data.length; i++) {
                     // looping through results and getting 'date' value and pushing it into 'label' array
                     label.push(DateTime.fromMillis(result.data[i].date).toLocaleString({ month: 'short', day: 'numeric' }))
                     // looping through results and getting 'usd_value' and pushing it into 'dataTemp' array
                     dataTemp.push(result.data[i].usd_value)
-                    // totalCoins.push(result.data[i].total_coins)
-
                 }
-                // console.log(dataTemp);
                 setxAxis(label);
                 setYAxis(dataTemp);
-                // setTotalCoins(totalCoins);
                 setTotalCoins(result.data[result.data.length - 1].total_coins)
             });
     }, []);
@@ -48,7 +41,6 @@ function CoinGraph() {
             },
         ],
     };
-
 
     const options = {
         scales: {
