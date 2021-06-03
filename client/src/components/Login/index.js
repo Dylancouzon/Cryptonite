@@ -61,6 +61,7 @@ function SignUpForm() {
                 >
                     <p>{showAlertMessage}</p>
                 </Alert>
+
                 <div className="sidebar-header" style={{ marginTop: 20, marginBottom: 30, color: "whitesmoke" }}>
                     <h3>Login</h3>
                 </div>
@@ -76,7 +77,6 @@ function SignUpForm() {
                         type="submit"
                         className="sidebutton"
                         block
-                        variant="dark"
                         variant="outline-light"
                     >Login
                     </Button>
@@ -85,13 +85,13 @@ function SignUpForm() {
                 <div>
                     <h3>--- Or ---</h3>
                 </div>
+                
                 {/* Need to add a type for button */}
                 <Button
                     id="googleBtn"
                     type="submit"
                     className="sidebutton"
                     block
-                    variant="dark"
                     variant="outline-light"
                     style={{ marginTop: 15 }}
                 >Sign-up with Google
