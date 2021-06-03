@@ -3,8 +3,14 @@ canvas {
 }
 
 .coinHeader {
-  margin-bottom: 50px;
+  padding-top: 20px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  height: 75px;
+  vertical-align: middle;
+  background-color: rgb(217, 217, 217,) !important;
 }
+
 
 .chart {
   margin-bottom: 20px;

@@ -67,7 +67,18 @@ function BuyForm() {
 
     return (
         <>
-            <Card>
+            <Card style={{ 
+                backgroundColor: 'gainsboro',
+                color: 'rgb(53, 53, 53)',
+                width: '100%',
+                paddingTop: '45px',
+                paddingLeft: '55px',
+                paddingRight: '55px',
+                alignContent: 'center',
+                marginLeft: 'auto',
+                marginRight: 'auto',
+                marginBottom: '20px',
+                }}>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group as={Row} controlId="formPlaintextPassword">
                         <Form.Label style={{ marginTop: 5 }} column md={4}>
@@ -75,8 +86,8 @@ function BuyForm() {
                         </Form.Label>
                         <Col style={{ marginTop: 5 }} md={{ span: 4, offset: 4 }}>
                             {toggle
-                                ? <Form.Control ref={cost} type="text" onChange={(e) => getValue(e.target.value)} />
-                                : <Form.Control ref={cost} type="text" onFocus={(e) => toggleListener(true, e.target.value)} value={coinAmount} />
+                                ? <Form.Control ref={cost} type="number" onChange={(e) => getValue(e.target.value)} />
+                                : <Form.Control ref={cost} type="number" onFocus={(e) => toggleListener(true, e.target.value)} value={coinAmount} />
                             }
                         </Col>
                     </Form.Group>
@@ -86,8 +97,8 @@ function BuyForm() {
                     </Form.Label>
                         <Col style={{ marginTop: 5 }} md={{ span: 4, offset: 4 }}>
                             {toggle
-                                ? <Form.Control type="text" onFocus={(e) => toggleListener(false, e.target.value)} value={usdAmount} />
-                                : <Form.Control type="text" onChange={(e) => getUSD(e.target.value)} />
+                                ? <Form.Control type="number" onFocus={(e) => toggleListener(false, e.target.value)} value={usdAmount} />
+                                : <Form.Control type="number" onChange={(e) => getUSD(e.target.value)} />
                             }
                         </Col>
                     </Form.Group>
@@ -96,7 +107,7 @@ function BuyForm() {
                             Trans Fees:
                         </Form.Label>
                         <Col style={{ marginTop: 5 }} md={{ span: 4, offset: 4 }}>
-                            <Form.Control plaintext readOnly value={fees} />
+                            <Form.Control readOnly value={fees} />
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} controlId="formPlaintextTotal">
@@ -104,7 +115,7 @@ function BuyForm() {
                             Total(USD):
                         </Form.Label>
                         <Col style={{ marginTop: 5 }} md={{ span: 4, offset: 4 }}>
-                            <Form.Control plaintext readOnly value={(total)} />
+                            <Form.Control type="number"readOnly value={(total)} />
                         </Col>
                     </Form.Group>
                     <Form.Group style={{ marginTop: 5 }} as={Row}>
