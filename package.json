@@ -16,6 +16,7 @@
     "express-session": "^1.17.2",
     "mongoose": "^5.12.11",
     "react-bootstrap": "^1.6.0",
+    "react-bootstrap-table2-paginator": "^2.1.2",
     "react-router-dom": "^5.2.0",
     "stripe": "^8.149.0"
   },

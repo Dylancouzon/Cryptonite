@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
+import paginationFactory from 'react-bootstrap-table2-paginator';
 import SessionContext from '../../utils/sessionContext';
 import API from "../../utils/api";
 import { Container, Card } from 'react-bootstrap';
@@ -21,12 +22,13 @@ import "./style.css";
 
 
 
-function TransHist() { //hands props as parameter
+function TransHist() {
 
   const { publicKey, username } = useContext(SessionContext);
   const [transactions, setTransactions] = useState([]);
   const headerSortingStyle = { backgroundColor: '#c8e6c9' };
-  
+  // ^^^ background color of column when clicked. 
+
 
   const timeConverter = (time) => {
     const unixTime = time;
@@ -41,30 +43,30 @@ function TransHist() { //hands props as parameter
       .then(res => {
         console.log(res.data);
         let count = 0;
-          res.data.forEach(data => {
-            data.key = count;
+        res.data.forEach(data => {
+          data.key = count;
           data.timestamp = timeConverter(data.timestamp);
-          if(data.fromAddress === publicKey) {
+          if (data.fromAddress === publicKey) {
             data.fromAddress = username;
             API.getUsername(data.toAddress)
-            .then(result => {
-              console.log(result.data.message);
-              data.toAddress = result.data.message;
-            });
-          };
-          if(data.toAddress === publicKey) {
-            data.toAddress = username;
-            if(data.fromAddress){
-              API.getUsername(data.fromAddress)
               .then(result => {
                 console.log(result.data.message);
-                data.fromAddress = result.data.message;
-              })
+                data.toAddress = result.data.message;
+              });
+          };
+          if (data.toAddress === publicKey) {
+            data.toAddress = username;
+            if (data.fromAddress) {
+              API.getUsername(data.fromAddress)
+                .then(result => {
+                  console.log(result.data.message);
+                  data.fromAddress = result.data.message;
+                })
             } else {
               data.fromAddress = "System";
             }
           };
-          count ++;
+          count++;
         });
         console.log(res.data);
         setTimeout(() => {
@@ -72,110 +74,107 @@ function TransHist() { //hands props as parameter
         }, 2000);
       }
       )
-}, [publicKey, username]);
+  }, [publicKey, username]);
 
 
-const columns = [{
-  dataField: 'fromAddress',
-  text: 'From',
-  sort: true,
-  headerSortingStyle,
-  sortCaret: (order, column) => {
-    if (!order) return (<span>&nbsp;&nbsp;<i className="fas fa-sort-up"></i><i className="fas fa-sort-down"></i></span>);
-    else if (order === 'asc') return (<span>&nbsp;&nbsp;<i className="fas fa-sort-up"></i><i className="fas fa-sort-down active"></i></span>);
-    else if (order === 'desc') return (<span>&nbsp;&nbsp;<i className="fas fa-sort-up active"></i><i className="fas fa-sort-down"></i></span>);
-    return null;
-  }
-}, {
-  dataField: 'toAddress',
-  text: 'Recipient',
-  sort: true,
-  headerSortingStyle,
-  sortCaret: (order, column) => {
-    if (!order) return (<span>&nbsp;&nbsp;<i className="fas fa-sort-up"></i><i className="fas fa-sort-down"></i></span>);
-    else if (order === 'asc') return (<span>&nbsp;&nbsp;<i className="fas fa-sort-up"></i><i className="fas fa-sort-down active"></i></span>);
-    else if (order === 'desc') return (<span>&nbsp;&nbsp;<i className="fas fa-sort-up active"></i><i className="fas fa-sort-down"></i></span>);
-    return null;
-  }
-}, {
-  dataField: 'amount',
-  text: 'Amount',
-  sort: true,
-  headerSortingStyle,
-  sortCaret: (order, column) => {
-    if (!order) return (<span>&nbsp;&nbsp;<i className="fas fa-sort-up"></i><i className="fas fa-sort-down"></i></span>);
-    else if (order === 'asc') return (<span>&nbsp;&nbsp;<i className="fas fa-sort-up"></i><i className="fas fa-sort-down active"></i></span>);
-    else if (order === 'desc') return (<span>&nbsp;&nbsp;<i className="fas fa-sort-up active"></i><i className="fas fa-sort-down"></i></span>);
-    return null;
-  }
-}, {
-  dataField: 'timestamp',
-  text: 'Timestamp',
-  sort: true,
-  headerSortingStyle,
-  sortCaret: (order, column) => {
-    if (!order) return (<span>&nbsp;&nbsp;<i className="fas fa-sort-up"></i><i className="fas fa-sort-down"></i></span>);
-    else if (order === 'asc') return (<span>&nbsp;&nbsp;<i className="fas fa-sort-up"></i><i className="fas fa-sort-down active"></i></span>);
-    else if (order === 'desc') return (<span>&nbsp;&nbsp;<i className="fas fa-sort-up active"></i><i className="fas fa-sort-down"></i></span>);
-    return null;
-  }
-}
-// , {
-//   dataField: 'valid',
-//   text: 'Valid',
-//   sort: true
-// }
-];
-
-const expandRow = {
-  renderer: row => (
-    <div>
-      <p>{row.label}</p>
-    </div>
-  ),
-  showExpandColumn: true,
-  expandHeaderColumnRenderer: ({ isAnyExpands }) => {
-    if (isAnyExpands) {
-      return <b>-</b>;
+  const columns = [{
+    dataField: 'fromAddress',
+    text: 'From',
+    sort: true,
+    headerSortingStyle,
+    sortCaret: (order, column) => {
+      if (!order) return (<span>&nbsp;&nbsp;<i className="fas fa-sort-up"></i><i className="fas fa-sort-down"></i></span>);
+      else if (order === 'asc') return (<span>&nbsp;&nbsp;<i className="fas fa-sort-up"></i><i className="fas fa-sort-down active"></i></span>);
+      else if (order === 'desc') return (<span>&nbsp;&nbsp;<i className="fas fa-sort-up active"></i><i className="fas fa-sort-down"></i></span>);
+      return null;
     }
-    return <b>+</b>;
-  },
-  expandColumnRenderer: ({ expanded }) => {
-    if (expanded) {
+  }, {
+    dataField: 'toAddress',
+    text: 'Recipient',
+    sort: true,
+    headerSortingStyle,
+    sortCaret: (order, column) => {
+      if (!order) return (<span>&nbsp;&nbsp;<i className="fas fa-sort-up"></i><i className="fas fa-sort-down"></i></span>);
+      else if (order === 'asc') return (<span>&nbsp;&nbsp;<i className="fas fa-sort-up"></i><i className="fas fa-sort-down active"></i></span>);
+      else if (order === 'desc') return (<span>&nbsp;&nbsp;<i className="fas fa-sort-up active"></i><i className="fas fa-sort-down"></i></span>);
+      return null;
+    }
+  }, {
+    dataField: 'amount',
+    text: 'Amount',
+    sort: true,
+    headerSortingStyle,
+    sortCaret: (order, column) => {
+      if (!order) return (<span>&nbsp;&nbsp;<i className="fas fa-sort-up"></i><i className="fas fa-sort-down"></i></span>);
+      else if (order === 'asc') return (<span>&nbsp;&nbsp;<i className="fas fa-sort-up"></i><i className="fas fa-sort-down active"></i></span>);
+      else if (order === 'desc') return (<span>&nbsp;&nbsp;<i className="fas fa-sort-up active"></i><i className="fas fa-sort-down"></i></span>);
+      return null;
+    }
+  }, {
+    dataField: 'timestamp',
+    text: 'Timestamp',
+    sort: true,
+    headerSortingStyle,
+    sortCaret: (order, column) => {
+      if (!order) return (<span>&nbsp;&nbsp;<i className="fas fa-sort-up"></i><i className="fas fa-sort-down"></i></span>);
+      else if (order === 'asc') return (<span>&nbsp;&nbsp;<i className="fas fa-sort-up"></i><i className="fas fa-sort-down active"></i></span>);
+      else if (order === 'desc') return (<span>&nbsp;&nbsp;<i className="fas fa-sort-up active"></i><i className="fas fa-sort-down"></i></span>);
+      return null;
+    }
+  }
+  ];
+
+  const expandRow = {
+    renderer: row => (
+      <div>
+        <p>{row.label}</p>
+      </div>
+    ),
+    showExpandColumn: true,
+    expandHeaderColumnRenderer: ({ isAnyExpands }) => {
+      if (isAnyExpands) {
+        return <b>-</b>;
+      }
+      return <b>+</b>;
+    },
+    expandColumnRenderer: ({ expanded }) => {
+      if (expanded) {
+        return (
+          <b>-</b>
+        );
+      }
       return (
-        <b>-</b>
+        <b>...</b>
       );
     }
+  };
+  console.log(transactions);
+  if (transactions.length === 0) {
     return (
-      <b>...</b>
-    );
+      <Container>
+        <Card body style={{ textAlign: 'center' }}><h3>You have no Transactions yet!</h3></Card>
+      </Container>
+    )
+  } else {
+    return (
+      <>
+        <Container>
+          <BootstrapTable
+            className="table"
+            style={{ textAlign: 'center' }}
+            keyField="key"  // Should change to value
+            data={transactions}
+            columns={columns}
+            expandRow={expandRow}
+            pagination={paginationFactory()}
+            striped
+            hover
+            condensed
+          />
+        </Container>
+      </>
+    )
   }
-};
-console.log(transactions);
-if (transactions.length === 0) {
-  return(
-    <Container>
-            <Card body style={{textAlign: 'center'}}><h3>You have no Transactions yet!</h3></Card>
-    </Container>
-  )
-} else{
-  return (
-    <>
-    <Container>
-      <BootstrapTable
-        style={{textAlign: 'center'}}
-        keyField="key"  // Should change to value
-        data={ transactions }
-        columns={columns}
-        expandRow={expandRow}
-        striped
-        hover
-        condensed
-      />
-    </Container>
-    </>
-  )
-}
 }
 
 export default TransHist;

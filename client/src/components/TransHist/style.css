@@ -5,3 +5,28 @@ i {
 .active {
     color: black;
 }
+
+/* Page Indicator */
+.page-link {
+    background: red !important;
+    border-color: red !important;
+    /* color: whatever color */
+}
+
+/* Change class name of other buttons on the page. Tables buttons have set classes that can not be altered. */
+.btn {
+    background: red !important;
+    border-color: red !important;
+    /* color: whatever; */
+}
+
+th {
+    background: blue;
+    color: white;
+}
+
+td {
+    background: blue;
+    color: white;
+}
+
