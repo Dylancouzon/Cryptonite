@@ -53,7 +53,7 @@ function DeleteAccount() {
   return (
     <>
       {/* Delete Account Button on Sidebar */}
-      <Button variant="danger" onClick={handleShow}>
+      <Button className="deletebtn" variant="dark" variant="outline-danger" onClick={handleShow} block>
         Delete Account
       </Button>
 

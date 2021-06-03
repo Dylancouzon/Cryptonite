@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Link } from "react-router-dom";
-import { Navbar, Button, Nav } from "react-bootstrap";
+import { Container, Navbar, Button, Nav } from "react-bootstrap";
 import Sidenav from "sidenavjs";
 import Sidebar from "../Sidebar";
 import SignUpForm from "../SignUp";
@@ -38,36 +38,48 @@ function Navigation() {
                         <Sidenav
                             open={sidebarOpen}
                             onSetOpen={onSetSidebarOpen}
-                            options={{ width: 1000 }}
+                            // options={{ sidenavStyle: {
+                            //     backgroundColor: "red"
+                            // }}}
                             sidenav={
                                 loginComponent === "menu" ? <Sidebar /> : loginComponent === "signUp" ? <SignUpForm /> : <LoginForm {...state} />
                             }
                         >
-                        <Navbar className="container-fluid">
-                            <Nav.Item>
-                                <Link className="navbar-brand" to="/">
-                                    <img src="./assets/logo-25.svg" alt="brand-logo" />
+                            <Navbar className="container-fluid mb-2 navigation">
+                                <Container>
+                                    <Nav.Item>
+                                        <Link className="navbar-brand" to="/">
+                                            <img src="./assets/logo-25.svg" alt="brand-logo" />
                                 CryptoCoin
                                 </Link>
-                            </Nav.Item>
-                            <Nav.Item className="d-flex">
-                                <Button
-                                    id="logout"
-                                    type="button"
-                                    onClick={handleLogout}>Logout
-                                </Button>
-                                <Button
-                                    id="menu"
-                                    className="btn btn-info"
-                                    type="button"
-                                    onClick={() => {
-                                        onSetSidebarOpen(true)
-                                        setSidebarState("menu")
-                                    }}>
-                                    <i className="fas fa-bars"></i>
-                                </Button>
-                            </Nav.Item>
-                        </Navbar>
+                                    </Nav.Item>
+                                    <Nav className="ml-auto">
+                                        <Nav.Item className="d-flex">
+                                            <Button
+                                                id="logout"
+                                                variant="dark"
+                                                variant="outline-light"
+                                                type="button"
+                                                onClick={handleLogout}>Logout
+                                        </Button>
+                                            <Button
+                                                id="menu"
+                                                className="btn hamburger"
+                                                variant="dark"
+                                                // variant="outline-light"
+                                                type="button"
+                                                onClick={() => {
+                                                    onSetSidebarOpen(true)
+                                                    setSidebarState("menu")
+                                                }}>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="33" height="33" fill="currentColor" className="bi bi-list hamburger" viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+                                                </svg>
+                                            </Button>
+                                        </Nav.Item>
+                                    </Nav>
+                                </Container>
+                            </Navbar>
                         </Sidenav>
                     </>
                 )}
@@ -87,31 +99,37 @@ function Navigation() {
                             loginComponent === "menu" ? <Sidebar /> : loginComponent === "signUp" ? <SignUpForm /> : <LoginForm {...state} />
                         }
                     >
-                        <Navbar className="container-fluid">
-                            <Nav.Item>
-                                <Link className="navbar-brand" to="/">
-                                    <img src="./assets/logo-25.svg" alt="brand-logo" />
+                        <Navbar className="container-fluid mb-2">
+                            <Container>
+                                <Nav.Item>
+                                    <Link className="navbar-brand" to="/">
+                                        <img src="./assets/logo-25.svg" alt="brand-logo" />
                         CryptoCoin
                         </Link>
-                            </Nav.Item>
-                            <Nav.Item className="d-flex">
-                                <Button
-                                    id="signup"
-                                    type="button"
-                                    onClick={() => {
-                                        onSetSidebarOpen(true)
-                                        setSidebarState("signUp")
-                                    }}>Sign-up
-                        </Button>
-                                <Button
-                                    id="login"
-                                    type="button"
-                                    onClick={() => {
-                                        onSetSidebarOpen(true)
-                                        setSidebarState("login")
-                                    }}>Login
-                        </Button>
-                            </Nav.Item>
+                                </Nav.Item>
+                                <Nav.Item className="d-flex">
+                                    <Button
+                                        id="signup"
+                                        type="button"
+                                        variant="dark"
+                                        variant="outline-light"
+                                        onClick={() => {
+                                            onSetSidebarOpen(true)
+                                            setSidebarState("signUp")
+                                        }}>Sign-up
+                                </Button>
+                                    <Button
+                                        id="login"
+                                        type="button"
+                                        variant="dark"
+                                        variant="outline-light"
+                                        onClick={() => {
+                                            onSetSidebarOpen(true)
+                                            setSidebarState("login")
+                                        }}>Login
+                                </Button>
+                                </Nav.Item>
+                            </Container>
                         </Navbar>
                     </Sidenav>
                 </>
