@@ -8,6 +8,7 @@ import Send from "./pages/Send";
 import Mining from "./pages/Mining";
 import { Container } from "react-bootstrap";
 import SessionContext from "./utils/sessionContext";
+import Footer from "./components/Footer";
 import API from "./utils/api";
 import "./app.css";
 
@@ -60,6 +61,7 @@ class App extends Component {
               <Route exact path="/mining" component={Mining} />
             </Switch>
           </Container>
+          <Footer />
         </Router>
       </SessionContext.Provider>
     );
