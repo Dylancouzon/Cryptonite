@@ -16,8 +16,8 @@ function Buy() {
   return (
     <div style={{ overflow: "hidden"}}>
       <Elements stripe={stripePromise}>
-      <CoinGraph />
-      <BuyForm />
+        <CoinGraph />
+        <BuyForm />
       </Elements>
     </div>
   )

@@ -49,7 +49,7 @@ function Navigation() {
                                 <Container>
                                     <Nav.Item>
                                         <Link className="navbar-brand" to="/">
-                                            <img src="./assets/logo-25.svg" alt="brand-logo" />
+                                            <img id="logo" src="./assets/cryptonite-logo-2.PNG" alt="brand-logo"/>
                                 CryptoCoin
                                 </Link>
                                     </Nav.Item>
