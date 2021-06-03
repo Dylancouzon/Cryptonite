@@ -41,7 +41,10 @@ export default {
     },
     getValueData: function(data) {
         return axios.get('/api/blockchain/valueData')
-    }
+    },
+    addTransaction: function (data) {
+        return axios.post('/api/blockchain/addTransaction', data)
+    },
 }
 
 // return axios.post(`http://localhost:3001/api/signUp`, data, {

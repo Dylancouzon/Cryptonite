@@ -127,7 +127,6 @@ router.get('/username/:key', async (req, res) => {
   try {
 
     User.find({ public_key: req.params.key }, (err, userData) => {
-      console.log(userData);
       //Checking if the user is in the DB
       if (err) {
         return res.status(400).json({ message: 'Server Error, Please try Again.' });
