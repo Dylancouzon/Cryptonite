@@ -39,6 +39,9 @@ export default {
     startMining: function () {
         return axios.get('/api/blockchain/mine')
     },
+    getValueData: function(data) {
+        return axios.get('/api/blockchain/valueData')
+    },
     addTransaction: function (data) {
         return axios.post('/api/blockchain/addTransaction', data)
     },
