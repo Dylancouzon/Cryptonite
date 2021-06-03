@@ -104,10 +104,9 @@ const PayInfo = (info) => {
             {/* payment modal */}
             <Modal
                 show={show}
-                backdrop="static"
                 onHide={handleClose}
                 keyboard={false}>
-                <Modal.Header closeButton>
+                <Modal.Header style={{ justifyContent: "center" }} >
                     <Modal.Title>
                         <h3>Payment Information</h3>
                     </Modal.Title>
@@ -123,7 +122,7 @@ const PayInfo = (info) => {
                         <Form.Group className="input-box">
                             <CardCvcElement />
                         </Form.Group>
-                        <Button style={{ width: '50%', textAlign: 'center' }} type="submit" disabled={!stripe}> Submit Payment</Button>
+                        <Button style={{ width: '50%', float: 'right' }} type="submit" disabled={!stripe}> Submit Payment</Button>
                     </Form>
                 </Modal.Body>
             </Modal>
@@ -134,7 +133,7 @@ const PayInfo = (info) => {
                 onHide={handleCloseSuccess}
                 keyboard={false}
             >
-                <Modal.Header>
+                <Modal.Header style={{ justifyContent: "center" }}>
                     <Modal.Title>
                         <h3>Transaction Complete</h3>
                     </Modal.Title>
@@ -159,7 +158,7 @@ const PayInfo = (info) => {
                 onHide={handleShow}
                 keyboard={false}
             >
-                <Modal.Header>
+                <Modal.Header style={{ justifyContent: "center" }}>
                     <Modal.Title>
                         <h3>Error</h3>
                     </Modal.Title>
