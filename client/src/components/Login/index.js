@@ -61,7 +61,8 @@ function SignUpForm() {
                 >
                     <p>{showAlertMessage}</p>
                 </Alert>
-                <div className="sidebar-header">
+
+                <div className="sidebar-header" style={{ marginTop: 20, marginBottom: 30, color: "whitesmoke" }}>
                     <h3>Login</h3>
                 </div>
 
@@ -72,14 +73,29 @@ function SignUpForm() {
                     <Form.Group controlId="formBasicPassword">
                         <Form.Control type="password" placeholder="Pasword" />
                     </Form.Group>
-                    <Button type="submit">Login</Button>
+                    <Button 
+                        type="submit"
+                        className="sidebutton"
+                        block
+                        variant="outline-light"
+                    >Login
+                    </Button>
                 </Form>
 
                 <div>
                     <h3>--- Or ---</h3>
                 </div>
+                
                 {/* Need to add a type for button */}
-                <Button>Sign-up with Google</Button>
+                <Button
+                    id="googleBtn"
+                    type="submit"
+                    className="sidebutton"
+                    block
+                    variant="outline-light"
+                    style={{ marginTop: 15 }}
+                >Sign-up with Google
+                </Button>
             </>
         )
 }
