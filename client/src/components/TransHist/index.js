@@ -18,15 +18,11 @@ import "./style.css";
 //   "label": "whatever"
 // }
 
-
-
-
-
 function TransHist() {
 
   const { publicKey, username } = useContext(SessionContext);
   const [transactions, setTransactions] = useState([]);
-  const headerSortingStyle = { backgroundColor: '#c8e6c9' };
+  const headerSortingStyle = { backgroundColor: '#353535', color: 'white' };
   // ^^^ background color of column when clicked. 
 
 
@@ -152,7 +148,7 @@ function TransHist() {
   if (transactions.length === 0) {
     return (
       <Container>
-        <Card body style={{ textAlign: 'center' }}><h3>You have no Transactions yet!</h3></Card>
+        <Card body style={{ textAlign: 'center', backgroundColor: '#D9D9D9', color: '#353535' }}><h3>You have no Transactions yet!</h3></Card>
       </Container>
     )
   } else {
@@ -162,7 +158,7 @@ function TransHist() {
           <BootstrapTable
             className="table"
             style={{ textAlign: 'center' }}
-            keyField="key"  // Should change to value
+            keyField="key"  
             data={transactions}
             columns={columns}
             expandRow={expandRow}
