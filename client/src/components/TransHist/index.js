@@ -23,6 +23,10 @@ function TransHist() {
   const { publicKey, username } = useContext(SessionContext);
   const [transactions, setTransactions] = useState([]);
   const headerSortingStyle = { backgroundColor: '#353535', color: 'white' };
+  const defaultSorted = [{
+    dataField: 'timestamp',
+    order: 'desc'
+  }];
   // ^^^ background color of column when clicked. 
 
 
@@ -165,6 +169,7 @@ function TransHist() {
             columns={columns}
             expandRow={expandRow}
             pagination={paginationFactory()}
+            defaultSorted={defaultSorted}
             striped
             hover
             condensed
