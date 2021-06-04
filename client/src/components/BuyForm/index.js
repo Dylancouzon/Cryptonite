@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PayInfo from '../PayInfo';
-import { Form, Col, Row, Container, Button, Card } from 'react-bootstrap';
+import { Form, Col, Row, Button, Card } from 'react-bootstrap';
 import API from "../../utils/api";
 
 function BuyForm() {
@@ -67,7 +67,18 @@ function BuyForm() {
 
     return (
         <>
-            <Card>
+            <Card style={{ 
+                backgroundColor: 'gainsboro',
+                color: 'rgb(53, 53, 53)',
+                width: '100%',
+                paddingTop: '45px',
+                paddingLeft: '55px',
+                paddingRight: '55px',
+                alignContent: 'center',
+                marginLeft: 'auto',
+                marginRight: 'auto',
+                marginBottom: '20px',
+                }}>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group as={Row} controlId="formPlaintextPassword">
                         <Form.Label style={{ marginTop: 5 }} column md={4}>
@@ -96,7 +107,7 @@ function BuyForm() {
                             Trans Fees:
                         </Form.Label>
                         <Col style={{ marginTop: 5 }} md={{ span: 4, offset: 4 }}>
-                            <Form.Control plaintext readOnly value={fees} />
+                            <Form.Control readOnly value={fees} />
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} controlId="formPlaintextTotal">
@@ -104,7 +115,7 @@ function BuyForm() {
                             Total(USD):
                         </Form.Label>
                         <Col style={{ marginTop: 5 }} md={{ span: 4, offset: 4 }}>
-                            <Form.Control plaintext readOnly value={(total)} />
+                            <Form.Control type="number"readOnly value={(total)} />
                         </Col>
                     </Form.Group>
                     <Form.Group style={{ marginTop: 5 }} as={Row}>

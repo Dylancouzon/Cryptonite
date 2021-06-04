@@ -34,9 +34,10 @@ function CoinGraph() {
             {
                 label: 'USD $',
                 data: yAxis,
-                fill: false,
+                fill: true,
                 backgroundColor: 'rgba(60, 110, 113, 1)',
-                borderColor: 'rgba(60, 110, 113, 0.3)',
+                pointBackgroundColor: 'rgb(53, 53, 53)',
+                borderColor: 'rgba(52, 94, 97, 1)',
                 yAxisID: 'y'
             },
         ],
@@ -56,13 +57,21 @@ function CoinGraph() {
 
     return (
         <>
-            <Card className="px-3 coinHeader">
+            <Card className="px-3 chart" style={{
+                backgroundColor: 'gainsboro',
+                color: 'rgb(53, 53, 53)',
+                paddingBottom: '20px',
+                marginTop: '10px'
+            }}>
                 <div className='header'>
-                    <h3>Coins in circulation: {totalCoins}</h3>
+                    <h3>Total coins in circulation: {totalCoins}</h3>
                 </div>
-            </Card>
-            <Card className="px-3 chart">
-                <h6 className='title'>History</h6>
+
+                <h6 className='title' style={{ 
+                    textAlign: 'center',
+                    paddingTop: '10px',
+                    fontSize: '20px'
+                }}>History of Cryptonite</h6>
                 <Line data={data} options={options} />
             </Card>
         </>

@@ -2,9 +2,11 @@ canvas {
   /* background-color: white; */
 }
 
-.coinHeader {
-  margin-bottom: 50px;
+.header {
+  padding-top: 20px;
+  padding-bottom: 30px;
 }
+
 
 .chart {
   margin-bottom: 20px;

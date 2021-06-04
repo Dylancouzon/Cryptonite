@@ -51,9 +51,9 @@ function Navigation() {
                                 <Container>
                                     <Nav.Item>
                                         <Link className="navbar-brand" to="/">
-                                            <img id="logo" src="./assets/cryptonite-logo-2.PNG" alt="brand-logo" />
-                                        CryptoCoin
-                                        </Link>
+                                            <img id="logo" src="./assets/cryptonite-logo-2.PNG" alt="brand-logo"/>
+                                Cryptonite
+                                </Link>
                                     </Nav.Item>
                                     <Nav className="ml-auto">
                                         <Nav.Item className="d-flex">
@@ -73,7 +73,7 @@ function Navigation() {
                                                     setSidebarState("menu")
                                             }}>
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="33" height="33" fill="currentColor" className="bi bi-list hamburger" viewBox="0 0 16 16">
-                                                    <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+                                                    <path fillRule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
                                                 </svg>
                                             </Button>
                                         </Nav.Item>
@@ -103,7 +103,7 @@ function Navigation() {
                                 <Nav.Item>
                                     <Link className="navbar-brand" to="/">
                                         <img id="logo" src="./assets/cryptonite-logo-2.PNG" alt="brand-logo" />
-                                    CryptoCoin
+                                    Cryptonite
                                     </Link>
                                 </Nav.Item>
                                 <Nav.Item className="d-flex">

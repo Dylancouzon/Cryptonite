@@ -17,10 +17,8 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-
-
     this.setSession = ({ username, publicKey, logged_in }) => {
-      console.log(username, publicKey, logged_in);
+      // console.log(username, publicKey, logged_in);
       this.setState(state => ({
         username: username,
         publicKey: publicKey,
@@ -31,9 +29,6 @@ class App extends Component {
     this.state = {
       setSession: this.setSession,
     };
-
-
-
   }
 
   componentDidMount() {

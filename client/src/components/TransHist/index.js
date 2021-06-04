@@ -44,6 +44,7 @@ function TransHist() {
           data.timestamp = timeConverter(data.timestamp);
           if (data.fromAddress === publicKey) {
             data.fromAddress = username;
+            data.amount = " - " + data.amount;
             API.getUsername(data.toAddress)
               .then(result => {
                 console.log(result.data.message);
@@ -52,6 +53,7 @@ function TransHist() {
           };
           if (data.toAddress === publicKey) {
             data.toAddress = username;
+            data.amount = " + " + data.amount;
             if (data.fromAddress) {
               API.getUsername(data.fromAddress)
                 .then(result => {

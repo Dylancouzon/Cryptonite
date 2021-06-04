@@ -1,0 +1,26 @@
+h3 {
+  text-align: center;
+}
+
+div.text-center.card {
+  margin-top: 20px;
+  width: 100%;
+}
+
+img.card-img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  width: 80%;
+}
+
+div.text-center.card {
+  background: rgb(217, 217, 217) !important;
+  margin-top: 20px;
+  color: rgb(53, 53, 53);
+}
+
+.mineIcon {
+  margin-bottom: 15px;
+}
