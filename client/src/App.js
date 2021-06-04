@@ -35,6 +35,7 @@ class App extends Component {
     if (!this.state.logged_in) {
       API.getSessions()
         .then((res) => {
+          console.log(res);
           if (res.data.logged_in) {
             this.setSession(res.data);
           }

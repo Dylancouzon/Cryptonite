@@ -8,7 +8,7 @@ import LoginForm from "../Login";
 import "./style.css";
 import SessionContext from '../../utils/sessionContext';
 import API from "../../utils/api";
-
+import { privateKey } from '../../utils/googleOauth';
 
 function Navigation() {
     const { logged_in } = useContext(SessionContext);
@@ -26,7 +26,12 @@ function Navigation() {
     const onSetSidebarOpen = (open) => {
         setSidebarOpen(open)
     }
-
+    setTimeout(() => {
+        if (privateKey) {
+            onSetSidebarOpen(true)
+            setSidebarState("signUp")
+        }
+    }, 2000)
     const setSidebarState = (buttons) => {
         setLoginComponent(buttons)
     }

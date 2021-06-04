@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, Button, Modal, InputGroup } from "react-bootstrap";
 import Alert from 'react-bootstrap/Alert'
 import API from "../../utils/api";
+import { googleLoginUrl, privateKey } from '../../utils/googleOauth';
 import "./style.css";
+
+
 
 function SignUpForm() {
     const [show, setShow] = useState(false);
@@ -10,20 +13,37 @@ function SignUpForm() {
     const [private_key, setPrivate] = useState("");
 
     // Alert states and functions
+    const [showCopyAlert, setCopyAlert] = useState(false);
+    const [showCopyAlertMessage, setShowCopyAlertMessage] = useState("");
     const [showAlert, setShowAlert] = useState(false);
     const [showAlertMessage, setShowAlertMessage] = useState("");
     const handleCloseAlert = () => {
         setShowAlert(false);
         setShowAlertMessage("");
     }
+
+    const handleCopyClose = () => {
+        setCopyAlert(false);
+    }
+
+
     const handleAlertMessage = (message) => {
         if (message) {
             setShowAlert(true);
             setShowAlertMessage(message);
         }
     }
-
     const handleShow = () => setShow(true);
+    
+    useEffect(() => {
+        if (privateKey) {
+
+            setPrivate(privateKey);
+            handleShow();
+        }
+    }, []);
+
+
 
     const handleClose = () => {
         if (copied === true) {
@@ -31,7 +51,8 @@ function SignUpForm() {
             document.location.replace("/profile");
             setPrivate("");
         } else {
-            alert("Please copy your Private Key");
+            setCopyAlert(true);
+            setShowCopyAlertMessage("Please Copy your key!");
         }
     }
 
@@ -128,14 +149,15 @@ function SignUpForm() {
 
             {/* Need to add a type for button */}
             <Button
-                id="googleBtn"
+                href={googleLoginUrl}
                 type="submit"
+                value="Submit"
                 className="sidebutton"
                 block
                 variant="outline-light"
-                style={{ marginTop: 15 }}
-            >Sign-up with Google
-            </Button>
+            >Sign-Up with Google
+                </Button>
+
 
             <Modal
                 copied={copied}
@@ -164,6 +186,14 @@ function SignUpForm() {
                                 </Button>
                             </InputGroup.Append>
                         </InputGroup>
+                        <Alert 
+                        variant="warning"
+                        dismissible="true"
+                        onClose={handleCopyClose}
+                        show={showCopyAlert}
+                        >
+                        <p>{showCopyAlertMessage}</p>
+                        </Alert>
                     </Form.Group>
                 </Modal.Body>
                 <Modal.Footer>
