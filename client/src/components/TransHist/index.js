@@ -3,7 +3,7 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import SessionContext from '../../utils/sessionContext';
 import API from "../../utils/api";
-import { Container, Card } from 'react-bootstrap';
+import { Container, Card, Button } from 'react-bootstrap';
 import "./style.css";
 
 // Table is able to be styled. This is generic boostrap styling for MVP.
@@ -154,7 +154,12 @@ function TransHist() {
   if (transactions.length === 0) {
     return (
       <Container>
-        <Card body style={{ textAlign: 'center', backgroundColor: '#D9D9D9', color: '#353535' }}><h3>You have no Transactions yet!</h3></Card>
+        <Card body style={{ textAlign: 'center', backgroundColor: '#D9D9D9', color: '#353535', height: 400 }}>
+          <h3>You have no Transactions yet!</h3>
+          <p>Lets get going on this! Start by clicking one of the buttons below!</p>
+          <Button href="/buy" style={{marginTop: 20, marginLeft: 20}}>Buy Coin</Button>
+          <Button href="/mining" style={{marginTop: 20, marginLeft: 20}}>Mine Coin</Button>
+        </Card>
       </Container>
     )
   } else {
