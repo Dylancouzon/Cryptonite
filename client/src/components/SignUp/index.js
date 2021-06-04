@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react';
+<<<<<<< HEAD
 import { Form, Button, Modal, Col, Row, InputGroup } from "react-bootstrap";
+=======
+import { Form, Button, Modal, InputGroup } from "react-bootstrap";
+>>>>>>> main
 import Alert from 'react-bootstrap/Alert'
 import API from "../../utils/api";
 import { googleLoginUrl, privateKey } from '../../utils/googleOauth';
@@ -13,12 +17,20 @@ function SignUpForm() {
     const [private_key, setPrivate] = useState("");
 
     // Alert states and functions
+    const [showCopyAlert, setCopyAlert] = useState(false);
+    const [showCopyAlertMessage, setShowCopyAlertMessage] = useState("");
     const [showAlert, setShowAlert] = useState(false);
     const [showAlertMessage, setShowAlertMessage] = useState("");
     const handleCloseAlert = () => {
         setShowAlert(false);
         setShowAlertMessage("");
     }
+
+    const handleCopyClose = () => {
+        setCopyAlert(false);
+    }
+
+
     const handleAlertMessage = (message) => {
         if (message) {
             setShowAlert(true);
@@ -43,7 +55,8 @@ function SignUpForm() {
             document.location.replace("/profile");
             setPrivate("");
         } else {
-            alert("Please copy your Private Key");
+            setCopyAlert(true);
+            setShowCopyAlertMessage("Please Copy your key!");
         }
     }
 
@@ -177,6 +190,14 @@ function SignUpForm() {
                                 </Button>
                             </InputGroup.Append>
                         </InputGroup>
+                        <Alert 
+                        variant="warning"
+                        dismissible="true"
+                        onClose={handleCopyClose}
+                        show={showCopyAlert}
+                        >
+                        <p>{showCopyAlertMessage}</p>
+                        </Alert>
                     </Form.Group>
                 </Modal.Body>
                 <Modal.Footer>
