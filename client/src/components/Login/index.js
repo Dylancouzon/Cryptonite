@@ -3,6 +3,7 @@ import { Form, Button } from "react-bootstrap";
 import Alert from 'react-bootstrap/Alert';
 import API from "../../utils/api";
 import SessionContext from "../../utils/sessionContext";
+import { googleLoginUrl } from '../../utils/googleOauth';
 
 function SignUpForm() {
     const { setSession } = useContext(SessionContext);
@@ -88,13 +89,13 @@ function SignUpForm() {
                 
                 {/* Need to add a type for button */}
                 <Button
-                    id="googleBtn"
-                    type="submit"
-                    className="sidebutton"
-                    block
-                    variant="outline-light"
-                    style={{ marginTop: 15 }}
-                >Sign-up with Google
+                href={googleLoginUrl}
+                type="submit"
+                value="Submit"
+                className="sidebutton"
+                block
+                variant="outline-light"
+            >Login with Google
                 </Button>
             </>
         )

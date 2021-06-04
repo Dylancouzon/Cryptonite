@@ -4,9 +4,11 @@ import axios from "axios";
 
 
 export default {
-    
+
+    googleOauth: function (data) {
+        return axios.post(`/api/googleOauth`, data)
+    },
     signUp: function (data) {
-        console.log(data);
         return axios.post(`/api/signUp`, data)
     },
     logOut: function(){
