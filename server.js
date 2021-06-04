@@ -40,7 +40,11 @@ app.use(express.json());
 
 // Serve up static assets for heroku
 if (process.env.NODE_ENV === "production") {
-    app.use(express.static("client/public"));
+    app.use(express.static("client/build"));
+    app.get(['/', '/profile', '/mining', '/buy', '/send'], function (req, res) {
+        res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+    });
+
 }
 
 //Server side API routes.
@@ -49,9 +53,7 @@ app.use('/api/blockchain', require('./routes/blockchain'));
 app.use('/api/stripe', require('./routes/stripe'));
 
 //Routes
-app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "./client/public/index.html"));
-});
+
 
 // Visit the /seed get route to populate the db with data from the users.json file.
 app.get("/seed", async (_req, _res) => {
@@ -75,7 +77,7 @@ app.get("/seed", async (_req, _res) => {
 
 
 mongoose.connection.on('open', function () {
-    
+
     app.listen(process.env.PORT, () => {
         console.log(`🌎 ==> API server now on port ${process.env.PORT}!`);
     });

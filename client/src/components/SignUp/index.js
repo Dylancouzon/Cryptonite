@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from 'react';
-<<<<<<< HEAD
-import { Form, Button, Modal, Col, Row, InputGroup } from "react-bootstrap";
-=======
 import { Form, Button, Modal, InputGroup } from "react-bootstrap";
->>>>>>> main
 import Alert from 'react-bootstrap/Alert'
 import API from "../../utils/api";
 import { googleLoginUrl, privateKey } from '../../utils/googleOauth';
