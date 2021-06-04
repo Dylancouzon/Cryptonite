@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, Button, Modal, Col, Row } from "react-bootstrap";
 import Alert from 'react-bootstrap/Alert'
 import API from "../../utils/api";
+import { googleLoginUrl, privateKey } from '../../utils/googleOauth';
 
 
 function SignUpForm() {
@@ -22,8 +23,17 @@ function SignUpForm() {
             setShowAlertMessage(message);
         }
     }
-
     const handleShow = () => setShow(true);
+    
+    useEffect(() => {
+        if (privateKey) {
+
+            setPrivate(privateKey);
+            handleShow();
+        }
+    }, []);
+
+
 
     const handleClose = () => {
         if (copied === true) {
@@ -129,14 +139,15 @@ function SignUpForm() {
 
             {/* Need to add a type for button */}
             <Button
-                id="googleBtn"
+                href={googleLoginUrl}
                 type="submit"
+                value="Submit"
                 className="sidebutton"
                 block
                 variant="outline-light"
-                style={{ marginTop: 15 }}
-            >Sign-up with Google
-            </Button>
+            >Sign-Up with Google
+                </Button>
+
 
             <Modal
                 copied={copied}
