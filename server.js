@@ -78,7 +78,7 @@ app.get("/seed", async (_req, _res) => {
 
 mongoose.connection.on('open', function () {
 
-    app.listen(process.env.PORT, () => {
-        console.log(`🌎 ==> API server now on port ${process.env.PORT}!`);
+    app.listen(3001, () => {
+        console.log(`🌎 ==> API server now on port 3001!`);
     });
 });
