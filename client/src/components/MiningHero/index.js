@@ -42,10 +42,7 @@ const [showFail, setShowFail] = useState(false);
             <Card className="text-center">
                 <Card.Body className="justify-content-center">
                     <Card.Text>
-                        Information about mining: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                        Etiam non quam lacus suspendisse. Facilisis magna etiam tempor orci eu. Id porta nibh venenatis cras sed felis eget velit. Ullamcorper dignissim cras tincidunt lobortis feugiat vivamus at augue. 
-                        Tristique magna sit amet purus. Etiam dignissim diam quis enim lobortis. 
-                        Cursus vitae congue mauris rhoncus. Aenean pharetra magna ac placerat. Scelerisque purus semper eget duis at.
+                    Mining is gaining cryptocurrencies by solving cryptographic equations through the use of computers. This process involves validating data blocks and adding transaction records to a public record (ledger) known as a blockchain. Your machine will automatically attempt to solve the equation, if correct, the reward is yours. To start, click the Start Mine button below.
                     </Card.Text>
                     {!isActive 
                     ? (<Button variant="dark" style={{width: '25%'}} onClick={() => handleStart()}>Start Mining</Button>) 
