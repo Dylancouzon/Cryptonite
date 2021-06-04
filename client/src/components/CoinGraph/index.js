@@ -57,19 +57,16 @@ function CoinGraph() {
 
     return (
         <>
-            <Card className="px-3 coinHeader" style={{
+            <Card className="px-3 chart" style={{
                 backgroundColor: 'gainsboro',
                 color: 'rgb(53, 53, 53)',
+                paddingBottom: '20px',
+                marginTop: '10px'
             }}>
                 <div className='header'>
                     <h3>Total coins in circulation: {totalCoins}</h3>
                 </div>
-            </Card>
-            <Card className="px-3 chart" style={{
-                backgroundColor: 'gainsboro',
-                color: 'rgb(53, 53, 53)',
-                paddingBottom: '10px'
-            }}>
+
                 <h6 className='title' style={{ 
                     textAlign: 'center',
                     paddingTop: '10px',

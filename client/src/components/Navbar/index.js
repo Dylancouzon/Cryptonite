@@ -46,8 +46,7 @@ function Navigation() {
                                 <Container>
                                     <Nav.Item>
                                         <Link className="navbar-brand" to="/">
-
-                                             <img id="logo" src="./assets/cryptonite-logo-2.PNG" alt="brand-logo"/>
+                                            <img id="logo" src="./assets/cryptonite-logo-2.PNG" alt="brand-logo"/>
                                 Cryptonite
                                 </Link>
                                     </Nav.Item>
@@ -99,7 +98,7 @@ function Navigation() {
                                 <Nav.Item>
                                     <Link className="navbar-brand" to="/">
                                         <img id="logo" src="./assets/cryptonite-logo-2.PNG" alt="brand-logo" />
-                                    CryptoCoin
+                                    Cryptonite
                                     </Link>
                                 </Nav.Item>
                                 <Nav.Item className="d-flex">
