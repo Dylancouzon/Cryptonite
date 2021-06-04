@@ -1,47 +1,77 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Accordion, Card, Row, Col, Button } from "react-bootstrap";
 import { isMobile } from 'react-device-detect';
+import SessionContext from "../../utils/sessionContext";
 
 
-const title = "Get Started";
 
-const body = (
-  <Row>
-    <Col md={7} className="cardBody"> <h1>{title}</h1>
-      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-      when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
-      into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
-     Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-      <Button variant="dark">Sign Up !</Button>
-    </Col>
-    <Col md={5}><img src={'https://cdn.pixabay.com/photo/2016/04/20/08/21/entrepreneur-1340649_960_720.jpg'} className="image" alt='Started' /></Col>
-  </Row>
-);
 
 function GetStarted() {
+  const { logged_in } = useContext(SessionContext);
+  console.log(logged_in);
 
-  if (isMobile) {
+  if (isMobile && logged_in) {
     return (
       <Card>
         <Accordion.Toggle as={Card.Header} eventKey="2">
-          {title}
+        Get Started
         </Accordion.Toggle>
-
         <Accordion.Collapse eventKey="2">
           <Card.Body>
-                {body}
+            <Row style={{ textAlign: "center" }}>
+              <Col md={7} className="cardBody"> 
+              <h1>Get Started</h1>
+              <p>Please Sign-Up. After submitting the Sign-Up form, please be sure to keep your private key in a safe place where only your eyes will be able to view it (You will need it for peer-to-peer transactions). You'll notice that your account is empty, in order to fill your account with coins you'll need to either Mine or Buy coins! Once you have a base of coins in your wallet, do with them whatever you'd like. Be sure to keep track of the value of the coin by checking your USD amount in your profile, or the graph located on the Buy page.</p>
+              </Col>
+              <Col md={5}><img src={'https://cdn.pixabay.com/photo/2016/04/20/08/21/entrepreneur-1340649_960_720.jpg'} className="image" alt='Started' /></Col>
+            </Row>
           </Card.Body>
-
         </Accordion.Collapse>
 
+      </Card>
+    )
+  } else if (isMobile) {
+    return (
+      <Card className="desktopCard">
+        <Card.Body>
+          <Row style={{ textAlign: "center" }}>
+            <Col md={7} className="cardBody"> 
+            <h1>Get Started</h1>
+            <p>Please Sign-Up. After submitting the Sign-Up form, please be sure to keep your private key in a safe place where only your eyes will be able to view it (You will need it for peer-to-peer transactions). You'll notice that your account is empty, in order to fill your account with coins you'll need to either Mine or Buy coins! Once you have a base of coins in your wallet, do with them whatever you'd like. Be sure to keep track of the value of the coin by checking your USD amount in your profile, or the graph located on the Buy page.</p>
+            <Button variant="dark">Sign Up !</Button>
+            </Col>
+            <Col md={5}><img src={'https://cdn.pixabay.com/photo/2016/04/20/08/21/entrepreneur-1340649_960_720.jpg'} className="image" alt='Started' /></Col>
+          </Row>
+        </Card.Body>
+      </Card>
+    )
+  } else if (logged_in) {
+    return (
+      <Card className="desktopCard">
+        <Card.Body>
+          <Row style={{ textAlign: "center" }}>
+            <Col md={7} className="cardBody"> 
+            <h1>Get Started</h1>
+            <p>Please Sign-Up. After submitting the Sign-Up form, please be sure to keep your private key in a safe place where only your eyes will be able to view it (You will need it for peer-to-peer transactions). You'll notice that your account is empty, in order to fill your account with coins you'll need to either Mine or Buy coins! Once you have a base of coins in your wallet, do with them whatever you'd like. Be sure to keep track of the value of the coin by checking your USD amount in your profile, or the graph located on the Buy page.</p>
+            </Col>
+            <Col md={5}><img src={'https://cdn.pixabay.com/photo/2016/04/20/08/21/entrepreneur-1340649_960_720.jpg'} className="image" alt='Started' /></Col>
+          </Row>
+        </Card.Body>
       </Card>
     )
   } else {
     return (
       <Card className="desktopCard">
-          <Card.Body>
-                {body}
-          </Card.Body>
+        <Card.Body>
+          <Row style={{ textAlign: "center" }}>
+            <Col md={7} className="cardBody"> 
+            <h1>Get Started</h1>
+            <p>Please Sign-Up. After submitting the Sign-Up form, please be sure to keep your private key in a safe place where only your eyes will be able to view it (You will need it for peer-to-peer transactions). You'll notice that your account is empty, in order to fill your account with coins you'll need to either Mine or Buy coins! Once you have a base of coins in your wallet, do with them whatever you'd like. Be sure to keep track of the value of the coin by checking your USD amount in your profile, or the graph located on the Buy page.</p>
+            <Button variant="dark">Sign Up !</Button>
+            </Col>
+            <Col md={5}><img src={'https://cdn.pixabay.com/photo/2016/04/20/08/21/entrepreneur-1340649_960_720.jpg'} className="image" alt='Started' /></Col>
+          </Row>
+        </Card.Body>
       </Card>
     )
   }
