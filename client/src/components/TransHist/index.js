@@ -26,7 +26,7 @@ function TransHist() {
   const defaultSorted = [{
     dataField: 'timestamp',
     order: 'desc'
-  }];
+  }]; 
   // ^^^ background color of column when clicked. 
 
 
