@@ -20,7 +20,7 @@ function About() {
 
   if (isMobile) {
     return (
-      <Card className="aboutCard">
+      <Card className="mobileView">
         <Accordion.Toggle as={Card.Header} eventKey="0">
           {title}
         </Accordion.Toggle>

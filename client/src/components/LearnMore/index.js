@@ -18,7 +18,7 @@ const body = (
 function LearnMore() {
   if (isMobile) {
     return (
-      <Card>
+      <Card className="mobileView">
         <Accordion.Toggle as={Card.Header} eventKey="1">
           {title}
         </Accordion.Toggle>
