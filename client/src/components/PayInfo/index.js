@@ -158,8 +158,9 @@ const PayInfo = (info) => {
                 </Modal.Header>
                 <Modal.Body>
                     <Form.Group as={Row} controlId="formPlaintextTotal">
-                        <Col style={{ marginTop: 5 }} md={{ span: 6, offset: 3 }}>
+                        <Col style={{ marginTop: 5, textAlign: "center" }} >
                             <h4 style={{ color: "red" }}>Transaction Failed</h4>
+                            <h5>Amount too low.</h5>
                         </Col>
                     </Form.Group>
                 </Modal.Body>

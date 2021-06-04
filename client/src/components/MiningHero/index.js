@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Card, Button, Modal } from 'react-bootstrap';
+import { Card, Button, Modal, Container } from 'react-bootstrap';
 import API from "../../utils/api";
 import "./style.css";
 
@@ -40,14 +40,15 @@ const [showFail, setShowFail] = useState(false);
             {/* Need to change size of image/card */}
             <Card.Img variant="" src='./assets/MiningGif.gif' />
             <Card className="text-center">
-                <Card.Body>
+                <Card.Body className="justify-content-center">
                     <Card.Text>
-                        Information about mining: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                        Etiam non quam lacus suspendisse. Facilisis magna etiam tempor orci eu. Id porta nibh venenatis cras sed felis eget velit. Ullamcorper dignissim cras tincidunt lobortis feugiat vivamus at augue. 
-                        Tristique magna sit amet purus. Etiam dignissim diam quis enim lobortis. 
-                        Cursus vitae congue mauris rhoncus. Aenean pharetra magna ac placerat. Scelerisque purus semper eget duis at.
+                    Mining is gaining cryptocurrencies by solving cryptographic equations through the use of computers. This process involves validating data blocks and adding transaction records to a public record (ledger) known as a blockchain. Your machine will automatically attempt to solve the equation, if correct, the reward is yours. To start, click the Start Mine button below.
                     </Card.Text>
-                    {!isActive ? (<Button variant="dark" style={{width: '25%'}} onClick={() => handleStart()}>Start Mining</Button>) : <p>{formatTime()}</p>}
+                    {!isActive 
+                    ? (<Button variant="dark" style={{width: '25%'}} onClick={() => handleStart()}>Start Mining</Button>) 
+                    : <Container className="timerWrap">
+                        <p className="timer">{formatTime()}</p>
+                      </Container>}
                 </Card.Body>
             </Card>
             {/* Successfully Mined modal */}

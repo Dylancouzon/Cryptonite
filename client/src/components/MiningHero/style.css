@@ -24,3 +24,15 @@ div.text-center.card {
 .mineIcon {
   margin-bottom: 15px;
 }
+
+.timerWrap {
+  background: rgb(53, 53, 53);
+  width: 25% !important;
+  border-radius: 5px;
+}
+
+.timer {
+  font-size: 30px;
+  font-weight: bolder;
+  color: rgb(217, 217, 217);
+}
