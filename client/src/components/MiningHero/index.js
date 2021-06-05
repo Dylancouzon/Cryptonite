@@ -25,7 +25,12 @@ const [showFail, setShowFail] = useState(false);
             setShow(true);
             setTimer(0);
             console.log(res.data);
-        })
+        }).catch(()=>{
+            clearInterval(countRef.current);
+            setIsActive(false);
+            setShowFail(true);
+            setTimer(0);
+        });
     }
     const formatTime = () => {
         const getSeconds = `0${(timer % 60)}`.slice(-2)
