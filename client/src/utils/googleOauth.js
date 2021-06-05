@@ -20,7 +20,7 @@ const urlParams = queryString.parse(window.location.search);
 
 if (urlParams.error) {
   console.log(`An error occurred: ${urlParams.error}`);
-} else {
+} else if(urlParams.code) {
    getAccessTokenFromCode(urlParams.code)
   .then((res)=>{
     getGoogleUserInfo(res)
