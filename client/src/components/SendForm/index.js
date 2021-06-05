@@ -91,6 +91,7 @@ function SendForm() {
         console.log(formHandle.current[0].value);
         API.sendTransaction(data)
             .then(res => {
+                document.getElementById("sendForm").reset();
                 handleAlertMessage("Transaction successful.", "success");
             }).catch(err => {
                 handleAlertMessage(err.response.data.message, "danger");
@@ -107,7 +108,7 @@ function SendForm() {
                 >
                     <p>{showAlertMessage}</p>
                 </Alert>
-                <Form ref={formHandle}>
+                <Form ref={formHandle} id="sendForm">
                     <Form.Group as={Row} controlId="to">
                         <Col style={{ marginTop: 5 }} md={{ span: 7, offset: 2 }}>
                             <Form.Control className="inputBox" type="text" placeholder="Recipient (Public Key)" />
