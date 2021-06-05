@@ -82,11 +82,11 @@ class Block {
    * of the block starts with enough zeros (= difficulty)
    */
   mineBlock(difficulty) {
-    while (this.hash.substring(0, difficulty) !== Array(difficulty + 1).join('0')) {
+    
      // console.log(this.hash.substring(0, difficulty));
       this.nonce++;
       this.hash = this.calculateHash();
-    }
+    
 
   }
 
@@ -187,7 +187,6 @@ class Blockchain {
     const block = new Block(Date.now(), this.pendingTransactions, this.getLatestBlock().hash, this.getLatestBlock().nonce);
     if (difficulty !== 0) { difficulty = this.difficulty; }
     block.mineBlock(difficulty);
-
     this.chain.push(block);
     this.numberOfBlocks++;
 
@@ -303,6 +302,7 @@ class Blockchain {
       const currentBlock = this.chain[i];
 
       if (!currentBlock.hasValidTransactions()) {
+
         return false;
       }
 
@@ -310,7 +310,6 @@ class Blockchain {
         return false;
       }
     }
-
     return true;
   }
 }
