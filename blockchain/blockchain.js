@@ -302,6 +302,7 @@ class Blockchain {
       const currentBlock = this.chain[i];
 
       if (!currentBlock.hasValidTransactions()) {
+
         return false;
       }
 
@@ -309,7 +310,6 @@ class Blockchain {
         return false;
       }
     }
-
     return true;
   }
 }

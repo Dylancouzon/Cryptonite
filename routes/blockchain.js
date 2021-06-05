@@ -168,64 +168,86 @@ router.get('/mine', async (req, res) => {
     const pool = new StaticPool({
         size: 4,
         task: filePath,
-       // workerData: "workerData!",
+        // workerData: "workerData!",
     });
 
-        (async () => {
-
-            // This will choose one idle worker in the pool
-            // to execute your heavy task without blocking
-            // the main thread!
-
-        
-
-            const nodeLengths = [];
-            const nodeNumber = Math.floor(Math.random() * 10);
-            
-
-
-            nodes.map((node) => nodeLengths.push(node.numberOfBlocks));
-            nodeLengths[nodeNumber]++;
-            const maxLength = Math.max(...nodeLengths);
-            var count = nodeLengths.filter(function (nodeLength) {
-                return nodeLength == maxLength;
-            })
-            console.log("count: " + count.length)
-            console.log("Node number:" + nodeNumber);
-            console.log("Nodelengths: " + nodeLengths);
-            console.log("Max length: " + maxLength);
-            console.log("\nThis Node length" + nodeLengths[nodeNumber]);
-
-            nodes[nodeNumber].minePendingTransactions(req.session.publicKey)
-            
-
-            // if (!nodes[nodeNumber].isChainValid()) return res.status(401).json("Block Invalid");
-
-            const res = await pool.exec(nodeNumber);
-            console.log("Number of blocks: " + nodes[nodeNumber].numberOfBlocks + " count: " + count.length)
-            if (nodes[nodeNumber].numberOfBlocks >= maxLength && count.length === 1) {
-                blockchain = Object.assign(Object.create(Object.getPrototypeOf(nodes[nodeNumber])), nodes[nodeNumber]);
-                for (let i = 0; i < 9; i++) {
-                    nodes[i] = Object.assign(Object.create(Object.getPrototypeOf(nodes[nodeNumber])), nodes[nodeNumber]);
-                }
-                console.log("Sucess\n")
-                const jsonChain = JSON.stringify(blockchain.chain)
-                // fs.writeFile('./blockchain/chain.json', jsonChain, err => {
-                //     if (err) {
-                //         console.log('Error writing file', err)
-                //     } else {
-                //         console.log("sucess");
-                //        // this.res.status(200).json("sucess");
-                //     }
-                // })
-            } else {
-                nodes[nodeNumber] = Object.assign(Object.create(Object.getPrototypeOf(blockchain)), blockchain);
-                console.log("This Block has already been mined");
-                //res.status(400).json("This Block has already been mined");
-            }
-        })();
-
+    const result = await thread(pool, req.session.publicKey);
+    switch (result) {
+        case 1:
+            res.status(401).json("Block Invalid");
+            break;
+        case 2:
+            res.status(200).json("sucess");
+            break;
+        default:
+            res.status(401).json("This block has already been mined");
+    }
+    console.log("result " + result);
 
 });
+
+const thread = async (pool, publicKey) => {
+
+    // This will choose one idle worker in the pool
+    // to execute your heavy task without blocking
+    // the main thread!
+
+
+
+    const nodeLengths = [];
+    const nodeNumber = Math.floor(Math.random() * 9);
+
+
+
+    nodes.map((node) => nodeLengths.push(node.numberOfBlocks));
+    nodeLengths[nodeNumber]++;
+    const maxLength = Math.max(...nodeLengths);
+    var count = nodeLengths.filter(function (nodeLength) {
+        return nodeLength == maxLength;
+    })
+    console.log("count: " + count.length)
+    console.log("Node number:" + nodeNumber);
+    console.log("Nodelengths: " + nodeLengths);
+    console.log("Max length: " + maxLength);
+    console.log("\nThis Node length" + nodeLengths[nodeNumber]);
+
+    if (count.length === 1) {
+        nodes[nodeNumber].minePendingTransactions(publicKey)
+    }
+
+    // if(!nodes[nodeNumber].isChainValid()) return res.status(401).json("Block Invalid");
+    if (!nodes[nodeNumber].isChainValid()) {
+        //Block Invalid
+        return 1;
+
+    } else {
+
+        const res = await pool.exec(nodeNumber);
+        console.log("Number of blocks: " + nodes[nodeNumber].numberOfBlocks + " count: " + count.length)
+        if (nodes[nodeNumber].numberOfBlocks >= maxLength && count.length === 1) {
+            blockchain = Object.assign(Object.create(Object.getPrototypeOf(nodes[nodeNumber])), nodes[nodeNumber]);
+            for (let i = 0; i < 9; i++) {
+                nodes[i] = Object.assign(Object.create(Object.getPrototypeOf(nodes[nodeNumber])), nodes[nodeNumber]);
+            }
+
+            const jsonChain = JSON.stringify(blockchain.chain)
+            fs.writeFile('./blockchain/chain.json', jsonChain, err => {
+                if (err) {
+                    console.log('Error writing file', err)
+                } else {
+                    console.log("sucess");
+                   // this.res.status(200).json("sucess");
+                }
+            })
+
+            // Sucess 
+            return 2;
+        } else {
+            nodes[nodeNumber] = Object.assign(Object.create(Object.getPrototypeOf(blockchain)), blockchain);
+            // console.log("This Block has already been mined");
+            return 3;
+        }
+    }
+}
 
 module.exports = router;
