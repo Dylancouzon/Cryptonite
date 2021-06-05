@@ -65,7 +65,8 @@ const [showFail, setShowFail] = useState(false);
                 </Modal.Header>
                 <Modal.Body>
                     <h3 className="mineIcon">⛏️</h3>
-                    <p>Your mining reward of <strong>100 Cryptocoins</strong> was added to the pending transactions and will be awarded when it is mined.</p>
+                    <strong><h3>Sucess!</h3></strong>
+                    <p>A mining reward of <strong>100 Cryptocoins</strong> was credited to your account.</p>
                     <p>Thanks for mining!</p>
                 </Modal.Body>
                 <Modal.Footer>
