@@ -44,6 +44,7 @@ function TransHist() {
         console.log(res.data);
         let count = 0;
         res.data.forEach(data => {
+          console.log(res.data[0]);
           data.key = count;
           data.timestamp = timeConverter(data.timestamp);
           if (data.fromAddress === publicKey) {
@@ -153,7 +154,7 @@ function TransHist() {
   console.log(transactions);
   if (transactions.length === 0) {
     return (
-      <Container>
+      <Container className="buttonSize">
         <Card body style={{ textAlign: 'center', backgroundColor: '#D9D9D9', color: '#353535', height: 400 }}>
           <h3>You have no Transactions yet!</h3>
           <p>Lets get going on this! Start by clicking one of the buttons below!</p>
@@ -165,7 +166,7 @@ function TransHist() {
   } else {
     return (
       <>
-        <Container>
+        <Container className="tableSize">
           <BootstrapTable
             className="table"
             style={{ textAlign: 'center' }}
