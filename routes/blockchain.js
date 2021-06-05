@@ -7,7 +7,9 @@ const User = require('../models/users');
 var fs = require('fs');
 const crypto = require('crypto');
 const { StaticPool } = require("node-worker-threads-pool");
-const filePath = "./routes/worker.js";
+
+//Absolute path to the worker.
+const filePath = "./blockchain/worker.js";
 
 /**
  * 
@@ -262,7 +264,7 @@ const thread = async (pool, publicKey) => {
     nodeLengths[nodeNumber]++;
 
     // Check if somebody is already mining this transaction
-    // by comparing the length of each node
+    // by comparing the length of each node & counting how many times the longest node shows up.
     const maxLength = Math.max(...nodeLengths);
     var count = nodeLengths.filter(function (nodeLength) {
         return nodeLength == maxLength;
@@ -296,18 +298,15 @@ const thread = async (pool, publicKey) => {
             for (let i = 0; i < 9; i++) {
                 nodes[i] = Object.assign(Object.create(Object.getPrototypeOf(nodes[nodeNumber])), nodes[nodeNumber]);
             }
-
             // Store the data in the Json file(For seeding & server reboot purposes.)
             const jsonChain = JSON.stringify(blockchain.chain)
-            fs.writeFile('./blockchain/chain.json', jsonChain, err => {
-                if (err) {
-                    console.log('Error writing file', err)
-                } else {
-                    // Sucess 
+            fs.writeFile('./blockchain/chain.json', jsonChain)
+                .then(() => {
                     return 2;
-                    // this.res.status(200).json("sucess");
                 }
-            })
+                );
+            //Success 
+
         } else {
             // console.log("This Block has already been mined");
             return 3;
