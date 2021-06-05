@@ -300,13 +300,18 @@ const thread = async (pool, publicKey) => {
             }
             // Store the data in the Json file(For seeding & server reboot purposes.)
             const jsonChain = JSON.stringify(blockchain.chain)
-            fs.writeFile('./blockchain/chain.json', jsonChain)
-                .then(() => {
+            fs.writeFile('./blockchain/chain.json', jsonChain, err => {
+                if (err) {
+                    console.log('Error writing file', err)
+                } else {
+                    // Await is not waiting for this Callback for some reason ? 
                     return 2;
+                    // this.res.status(200).json("sucess");
                 }
-                );
+                
+            })
             //Success 
-
+            return 2;
         } else {
             // console.log("This Block has already been mined");
             return 3;
