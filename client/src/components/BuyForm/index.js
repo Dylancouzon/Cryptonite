@@ -39,7 +39,7 @@ function BuyForm() {
 
 
             const fee = value / 100;
-            setFees(fee);
+            setFees(fee.toFixed(2));
             const total = parseFloat(value) + parseFloat(fee);
             setTotal(total.toFixed(2));
         }
@@ -58,7 +58,7 @@ function BuyForm() {
             setCoinAmount(value);
 
             const fee = usd / 100;
-            setFees(fee);
+            setFees(fee.toFixed(2));
             const total = parseFloat(usd) + parseFloat(fee);
             setTotal(total.toFixed(2));
         }
@@ -127,7 +127,7 @@ function BuyForm() {
                     </Form.Group>
                     <Form.Group as={Row} controlId="formPlaintextTransFees">
                         <Form.Label style={{ marginTop: 5 }} column md={4}>
-                            Trans Fees:
+                            Trans Fees (1% USD):
                         </Form.Label>
                         <Col style={{ marginTop: 5 }} md={{ span: 4, offset: 4 }}>
                             <Form.Control readOnly value={fees} />
@@ -135,7 +135,7 @@ function BuyForm() {
                     </Form.Group>
                     <Form.Group as={Row} controlId="formPlaintextTotal">
                         <Form.Label style={{ marginTop: 5 }} column md={4}>
-                            Total(USD):
+                            Total (USD):
                         </Form.Label>
                         <Col style={{ marginTop: 5 }} md={{ span: 4, offset: 4 }}>
                             <Form.Control type="number" readOnly value={(total)} />

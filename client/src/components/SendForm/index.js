@@ -43,12 +43,13 @@ function SendForm() {
     }
     //Input is coins
     const getValue = (amount) => {
+        amount = parseInt(amount);
         const value = amount * coinVal;
         const fee = amount / 100;
 
         setUSDAmount(value.toFixed(2));
         setFees(fee);
-        const total = parseInt(amount) + parseInt(fee);
+        const total = amount + fee;
         setTotal(total);
     }
 
@@ -58,7 +59,7 @@ function SendForm() {
         setCoinAmount(value);
         const fee = value / 100;
         setFees(fee);
-        const total = parseInt(value) + parseInt(fee);
+        const total = value + fee;
         setTotal(total);
     }
 
@@ -90,15 +91,16 @@ function SendForm() {
         console.log(formHandle.current[0].value);
         API.sendTransaction(data)
             .then(res => {
+                document.getElementById("sendForm").reset();
                 handleAlertMessage("Transaction successful.", "success");
-            }).catch(err =>{
+            }).catch(err => {
                 handleAlertMessage(err.response.data.message, "danger");
             });
     }
 
     return (
         <Container >
-            <Card className="cardStyle" style={{padding: 50}}>
+            <Card className="cardStyle" style={{ padding: 50 }}>
                 <Alert
                     show={showAlert}
                     variant={showAlertVariant}
@@ -106,7 +108,7 @@ function SendForm() {
                 >
                     <p>{showAlertMessage}</p>
                 </Alert>
-                <Form ref={formHandle}>
+                <Form ref={formHandle} id="sendForm">
                     <Form.Group as={Row} controlId="to">
                         <Col style={{ marginTop: 5 }} md={{ span: 7, offset: 2 }}>
                             <Form.Control className="inputBox" type="text" placeholder="Recipient (Public Key)" />
@@ -119,28 +121,29 @@ function SendForm() {
                     </Form.Group>
                     <Form.Group as={Row} controlId="label">
                         <Col style={{ marginTop: 5 }} md={{ span: 7, offset: 2 }}>
-                            <Form.Control className="inputBox" type="text" placeholder="Label"/>
+                            <Form.Control className="inputBox" type="text" placeholder="Label" />
                         </Col>
                     </Form.Group>
-                    <Form.Group as={Row} controlId="amount">
-                        <Form.Label style={{ marginTop: 5 }} column md={4}>
-                            Amount of Coins:
-                        </Form.Label>
-                        <Col style={{ marginTop: 5 }} md={{ span: 4, offset: 4 }}>
-                            {toggle
-                                ? <Form.Control className="inputBox" ref={cost} type="text" onChange={(e) => getValue(e.target.value)} />
-                                : <Form.Control className="inputBox" ref={cost} type="text" onFocus={(e) => toggleListener(true, e.target.value)} value={coinAmount} />
-                            }
-                        </Col>
-                    </Form.Group>
+
                     <Form.Group as={Row} controlId="cost">
                         <Form.Label style={{ marginTop: 5 }} column md={4}>
-                            Cost USD:
+                            Amount USD:
                         </Form.Label>
                         <Col style={{ marginTop: 5 }} md={{ span: 4, offset: 4 }}>
                             {toggle
                                 ? <Form.Control className="inputBox" type="text" onFocus={(e) => toggleListener(false, e.target.value)} value={usdAmount} />
                                 : <Form.Control className="inputBox" type="text" onChange={(e) => getUSD(e.target.value)} />
+                            }
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} controlId="amount">
+                        <Form.Label style={{ marginTop: 5 }} column md={4}>
+                            Amount Cryptonite:
+                        </Form.Label>
+                        <Col style={{ marginTop: 5 }} md={{ span: 4, offset: 4 }}>
+                            {toggle
+                                ? <Form.Control className="inputBox" ref={cost} type="text" onChange={(e) => getValue(e.target.value)} />
+                                : <Form.Control className="inputBox" ref={cost} type="text" onFocus={(e) => toggleListener(true, e.target.value)} value={coinAmount} />
                             }
                         </Col>
                     </Form.Group>
@@ -154,7 +157,7 @@ function SendForm() {
                     </Form.Group>
                     <Form.Group as={Row} controlId="formPlaintextTotal">
                         <Form.Label style={{ marginTop: 5 }} column md={4}>
-                            Total(coins):
+                            Total Cryptonite:
                         </Form.Label>
                         <Col style={{ marginTop: 5 }} md={{ span: 4, offset: 4 }}>
                             <Form.Control readOnly value={(total)} />
