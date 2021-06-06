@@ -3,7 +3,7 @@ let db = require('../models');
 let userSeed = require('./users.json');
 let transactionSeed = require('./transactions.json');
 
-mongoose.connect('mongodb://localhost/cryptousers', {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/cryptousers', {
   useNewUrlParser: true,
   useFindAndModify: false
 });
