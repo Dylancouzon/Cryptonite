@@ -25,7 +25,12 @@ const [showFail, setShowFail] = useState(false);
             setShow(true);
             setTimer(0);
             console.log(res.data);
-        })
+        }).catch(()=>{
+            clearInterval(countRef.current);
+            setIsActive(false);
+            setShowFail(true);
+            setTimer(0);
+        });
     }
     const formatTime = () => {
         const getSeconds = `0${(timer % 60)}`.slice(-2)
@@ -42,10 +47,7 @@ const [showFail, setShowFail] = useState(false);
             <Card className="text-center">
                 <Card.Body className="justify-content-center">
                     <Card.Text>
-                        Information about mining: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                        Etiam non quam lacus suspendisse. Facilisis magna etiam tempor orci eu. Id porta nibh venenatis cras sed felis eget velit. Ullamcorper dignissim cras tincidunt lobortis feugiat vivamus at augue. 
-                        Tristique magna sit amet purus. Etiam dignissim diam quis enim lobortis. 
-                        Cursus vitae congue mauris rhoncus. Aenean pharetra magna ac placerat. Scelerisque purus semper eget duis at.
+                    Mining is gaining cryptocurrencies by solving cryptographic equations through the use of computers. This process involves validating data blocks and adding transaction records to a public record (ledger) known as a blockchain. Your machine will automatically attempt to solve the equation, if correct, the reward is yours. To start, click the Start Mine button below.
                     </Card.Text>
                     {!isActive 
                     ? (<Button variant="dark" style={{width: '25%'}} onClick={() => handleStart()}>Start Mining</Button>) 
@@ -68,7 +70,8 @@ const [showFail, setShowFail] = useState(false);
                 </Modal.Header>
                 <Modal.Body>
                     <h3 className="mineIcon">⛏️</h3>
-                    <p>Your mining reward of <strong>100 Cryptocoins</strong> was added to the pending transactions and will be awarded when it is mined.</p>
+                    <strong><h3>Sucess!</h3></strong>
+                    <p>A mining reward of <strong>100 Cryptocoins</strong> was credited to your account.</p>
                     <p>Thanks for mining!</p>
                 </Modal.Body>
                 <Modal.Footer>

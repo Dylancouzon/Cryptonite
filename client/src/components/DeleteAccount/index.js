@@ -129,7 +129,7 @@ function DeleteAccount() {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h5>Thank you for using CryptoCoin!</h5>
+          <h5>Thank you for using Cryptonite!</h5>
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={handleCloseSuccess}>Close</Button>

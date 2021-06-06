@@ -45,3 +45,11 @@ td {
     background-color: rgb(217, 217, 217);
     color: rgb(53, 53, 53);
 }
+
+.tableSize {
+    margin-bottom: 100px;
+}
+
+.buttonSize {
+    margin-bottom: 112px;
+}

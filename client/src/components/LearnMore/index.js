@@ -9,10 +9,7 @@ const body = (
   <Row>
     <Col md={6}><img src={'https://cdn.pixabay.com/photo/2018/01/17/20/22/analytics-3088958_960_720.jpg'} className="image" alt='Learn More' /></Col>
     <Col md={6} className="cardBody" id="learnCard"> <h1>{title}</h1>
-      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-      when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
-      into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
-     Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+      <p>Cryptocurrency -- aka crypto -- is a digital currency designed to work as a medium of exchange. It uses cryptography (the practice of securing communication under a third party) to secure and verify transactions, as well as to control the creation of new units of a particular cryptocurrency. The best feature of a cryptocurrency is the fact that it is not controlled by any central authority. The decentralized nature of the  blockchain makes cryptocurrency theoretically immune to the old ways of government control and interference. Cryptocurrencies can be traded between two parties using public and private keys.</p>
     </Col>
 
   </Row>
@@ -21,7 +18,7 @@ const body = (
 function LearnMore() {
   if (isMobile) {
     return (
-      <Card>
+      <Card className="mobileView">
         <Accordion.Toggle as={Card.Header} eventKey="1">
           {title}
         </Accordion.Toggle>

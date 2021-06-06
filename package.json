@@ -17,6 +17,7 @@
     "express-session": "^1.17.2",
     "luxon": "^1.27.0",
     "mongoose": "^5.12.11",
+    "node-worker-threads-pool": "^1.4.3",
     "query-string": "^7.0.0",
     "react-bootstrap": "^1.6.0",
     "react-bootstrap-table2-paginator": "^2.1.2",

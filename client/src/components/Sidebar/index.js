@@ -7,7 +7,7 @@ function Sidebar() {
 
   return (
     <div>
-      <h3 className="sidebar-header" style={{ marginTop: 20, marginBottom: 30, color: "whitesmoke" }}>CryptoCoin</h3>
+      <h3 className="sidebar-header" style={{ marginTop: 20, marginBottom: 30, color: "whitesmoke" }}>Cryptonite</h3>
 
       <Button
         className="sidebutton"
