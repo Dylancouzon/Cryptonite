@@ -4,7 +4,7 @@ import API from "./api";
 
 const stringifiedParams = queryString.stringify({
   client_id: '232246939902-feprc0hdm5dl57fbkpomoq7cec1lkpce.apps.googleusercontent.com',
-  redirect_uri: 'http://localhost:3000/profile',
+  redirect_uri: 'https://cryptonite.azurewebsites.net/profile',
   scope: [
     'https://www.googleapis.com/auth/userinfo.email',
     'https://www.googleapis.com/auth/userinfo.profile',
