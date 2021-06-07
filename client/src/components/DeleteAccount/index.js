@@ -32,6 +32,10 @@ function DeleteAccount() {
     e.preventDefault()
     const privateKey = e.target[0].value
 
+    if(!privateKey) {
+      handleShowFailure();
+    }
+    
     API.checkPrivateKeyMatch(privateKey)
       .then((res) => {
         if (res.status === 200) {
