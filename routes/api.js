@@ -200,6 +200,7 @@ router.delete('/delete/:private', async (req, res) => {
 
   const privateKey = req.params.private;
   const publicKeyDel = ec.keyFromPrivate(privateKey);
+
   if (publicKeyDel.getPublic('hex') !== req.session.publicKey) {
     return res.status(400).json({ message: "Keys are not Matching" });
   } else {
