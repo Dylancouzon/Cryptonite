@@ -52,5 +52,5 @@ jobs:
       with:
         app-name: 'Cryptonite'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_c3c71bf469da422ebce4d84c17cc1c82 }}
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_177c2c00a1d34856b0d72e0f8206fa82 }}
         package: .
