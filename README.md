@@ -11,11 +11,10 @@ Go to [Crytonite.](https://cryptonite.azurewebsites.net/)
 
 1. Technology & third-party APIs
 2. Installation
-3. Deployment
-4. Our Blockchain Requirements & Features
-5. Usage & Features
-6. Contributing & Future Development
-7. Contact Us
+3. Our Blockchain Requirements & Features
+4. Usage & Features
+5. Contributing & Future Development
+6. Contact Us
 
 <hr>
 
