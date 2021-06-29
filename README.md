@@ -96,7 +96,9 @@ MONGODB_URI =
 NODE_ENV =
 STRIPE_TEST_SECRET_KEY =
 ```
+
 <br>
+
 
 ## Deployment
 
@@ -137,6 +139,7 @@ A side navigation menu slides over when a user goes to sign-up. Here they will e
 ![signup.gif](./client/public/assets/readme/signup3.gif)
 
 
+
 **Sign-up/Login with Google**
 We also provide user's the ability to sign-in with Google by connected to Google's API.
 ![googlelogin.gif](./client/public/assets/readme/googlelogin.gif)
@@ -145,6 +148,7 @@ We also provide user's the ability to sign-in with Google by connected to Google
 **Profile, Wallet, and Transactions**
 After a user has signed-up
 ![profile.gif](./client/public/assets/readme/profile.gif)
+
 
 
 **Buying coins**

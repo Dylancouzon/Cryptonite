@@ -38,13 +38,10 @@ function TransHist() {
   }
 
   useEffect(() => {
-    console.log("hello");
     API.getUserTransactions(publicKey)
       .then(res => {
-        console.log(res.data);
         let count = 0;
         res.data.forEach(data => {
-          console.log(res.data[0]);
           data.key = count;
           data.timestamp = timeConverter(data.timestamp);
           if (data.fromAddress === publicKey) {
@@ -52,7 +49,8 @@ function TransHist() {
             data.amount = " - " + data.amount;
             API.getUsername(data.toAddress)
               .then(result => {
-                console.log(result.data.message);
+                //Fix the crash we had during the demo
+                if(!result.data.message) result.data.message = "User not Found";
                 data.toAddress = result.data.message;
               });
           };
@@ -62,7 +60,7 @@ function TransHist() {
             if (data.fromAddress) {
               API.getUsername(data.fromAddress)
                 .then(result => {
-                  console.log(result.data.message);
+                  if(!result.data.message) result.data.message = "User not Found";
                   data.fromAddress = result.data.message;
                 })
             } else {
@@ -71,12 +69,12 @@ function TransHist() {
           };
           count++;
         });
-        console.log(res.data);
-        setTimeout(() => {
-          setTransactions(res.data);
-        }, 2000);
-      }
-      )
+        return res.data;
+      }).then(finalRes =>{
+        // Add a promise so we won't try to load the table before the data is ready
+        // Still add a small timeout because of nested getUsername API call
+        setTimeout(()=> {setTransactions(finalRes)},1000);
+      })
   }, [publicKey, username]);
 
 
@@ -151,7 +149,6 @@ function TransHist() {
       );
     }
   };
-  console.log(transactions);
   if (transactions.length === 0) {
     return (
       <Container className="buttonSize">
