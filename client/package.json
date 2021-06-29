@@ -26,8 +26,7 @@
     "react-modern-drawer": "^0.1.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
-    "sidenavjs": "^1.0.28",
-    "web-vitals": "^1.1.2"
+    "sidenavjs": "^1.0.28"
   },
   "scripts": {
     "start": "react-scripts start",

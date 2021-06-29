@@ -6,23 +6,15 @@
   "dependencies": {
     "axios": "^0.21.1",
     "bcrypt": "^5.0.1",
-    "bootstrap": "^5.0.1",
-    "chart.js": "^3.3.0",
-    "chartjs-adapter-luxon": "^1.0.0",
     "connect-mongodb-session": "^2.4.1",
     "crypto-js": "^4.0.0",
     "dotenv": "^10.0.0",
     "elliptic": "^6.5.4",
     "express": "^4.17.1",
     "express-session": "^1.17.2",
-    "luxon": "^1.27.0",
     "mongoose": "^5.12.11",
     "node-worker-threads-pool": "^1.4.3",
-    "query-string": "^7.0.0",
-    "react-bootstrap": "^1.6.0",
-    "react-bootstrap-table2-paginator": "^2.1.2",
-    "react-router-dom": "^5.2.0",
-    "stripe": "^8.149.0"
+    "query-string": "^7.0.0"
   },
   "devDependencies": {
     "concurrently": "^6.2.0"
