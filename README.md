@@ -155,23 +155,24 @@ As part of our blockchain's requirements, we needed to have the ability to valid
 
 Please feel free to reach out to us with questions we'd be happy to chat. If you'd like to reach us individually or see some of our other works please follow the links below.
 
-<br>
+
   - Dylan Couzon
-    - [dylancouzon@gmail.com](mailto:dylancouzon@gmail.com)
-    - [GitHub](https://github.com/Dylancouzon)
-    - [LinkedIn](https://www.linkedin.com/in/dcouzon/)
-<br>
+    - <a href="mailto:dylancouzon@gmail.com" target="_blank">Email</a>
+    - <a href= "https://github.com/Dylancouzon" target="_blank">Github</a>
+    - <a href= "https://www.linkedin.com/in/dcouzon/">LinkedIn</a>
+    
   - Jake Novelli
-    - [jakenovelli11@gmail.com](mailto:jakenovelli11@gmail.com)
-    - [GitHub](https://github.com/dnovelli1)
-    - [LinkedIn](https://www.linkedin.com/in/david-jacob-novelli/)
-<br>
+    - <a href="mailto:jakenovelli11@gmail.com" target="_blank">Email</a>
+    - <a href= "https://github.com/dnovelli1" target="_blank">Github</a>
+    - <a href= "https://www.linkedin.com/in/david-jacob-novelli/">LinkedIn</a>
+
   - Liam Stewart
-    - [liamchristopher.media@gmail.com](mailto:liamchristopher.media@gmail.com)
-    - [GitHub](https://github.com/LiamStewart8/gamehub)
-    - [LinkedIn](https://www.linkedin.com/in/liamsctewart/)
-<br>
+    - <a href="mailto:liamstewartdev@gmail.com" target="_blank">Email</a>
+    - <a href= "https://github.com/LiamStewartDev" target="_blank">Github</a>
+    - <a href= "https://www.linkedin.com/in/liamsctewart/">LinkedIn</a>
+
   - Cheng Tang
-    - [cheng21tang@gmail.com](mailto:cheng21tang@gmail.com)
-    - [GitHub](https://github.com/cheng21tang)
-    - [LinkedIn](https://www.linkedin.com/in/cheng21tang/)
+    - <a href="mailto:cheng21tang@gmail.com" target="_blank">Email</a>
+    - <a href= "https://github.com/cheng21tang" target="_blank">Github</a>
+    - <a href= "https://www.linkedin.com/in/cheng21tang/">LinkedIn</a>
+
