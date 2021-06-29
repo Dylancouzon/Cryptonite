@@ -115,21 +115,22 @@ Please feel free to reach out to us with questions we'd be happy to chat. If you
 
 
   - Dylan Couzon
-    - [Email](mailto:dylancouzon@gmail.com)
-    - [GitHub](https://github.com/Dylancouzon)
-    - [LinkedIn](https://www.linkedin.com/in/dcouzon/)
-
+    - <a href="mailto:dylancouzon@gmail.com" target="_blank">Email</a>
+    - <a href= "https://github.com/Dylancouzon" target="_blank">Github</a>
+    - <a href= "https://www.linkedin.com/in/dcouzon/">LinkedIn</a>
+    
   - Jake Novelli
-    - [Email](mailto:jakenovelli11@gmail.com)
-    - [GitHub](https://github.com/dnovelli1)
-    - [LinkedIn](https://www.linkedin.com/in/david-jacob-novelli/)
+    - <a href="mailto:jakenovelli11@gmail.com" target="_blank">Email</a>
+    - <a href= "https://github.com/dnovelli1" target="_blank">Github</a>
+    - <a href= "https://www.linkedin.com/in/david-jacob-novelli/">LinkedIn</a>
 
   - Liam Stewart
-    - [Email](mailto:liamstewartdev@gmail.com)
-    - [GitHub](https://github.com/LiamStewart8/gamehub)
-    - [LinkedIn](https://www.linkedin.com/in/liamsctewart/)
+    - <a href="mailto:liamstewartdev@gmail.com" target="_blank">Email</a>
+    - <a href= "https://github.com/LiamStewartDev" target="_blank">Github</a>
+    - <a href= "https://www.linkedin.com/in/liamsctewart/">LinkedIn</a>
 
   - Cheng Tang
-    - [Email](mailto:cheng21tang@gmail.com)
-    - [GitHub](https://github.com/cheng21tang)
-    - [LinkedIn](https://www.linkedin.com/in/cheng21tang/)
+    - <a href="mailto:cheng21tang@gmail.com" target="_blank">Email</a>
+    - <a href= "https://github.com/cheng21tang" target="_blank">Github</a>
+    - <a href= "https://www.linkedin.com/in/cheng21tang/">LinkedIn</a>
+
