@@ -1,6 +1,6 @@
 # Cryptonite
 
-Crytonite is a cryptocurrency application utilizing the MERN stack and blockchain technology written in JavaScript. React is powering the front end views with Express routing our backend to mongoDB. There are also several npm packages we employed to deliver the features of our MVP. Below we'll discuss certain features and why we made the decisions we did in our applications.
+Cryptonite is a cryptocurrency application utilizing the MERN stack and blockchain technology written in JavaScript. React is powering the front end views with Express routing our backend to mongoDB. There are also several npm packages we employed to deliver the features of our MVP. Below we'll discuss certain features and why we made the decisions we did in our application.
 
 Go to [Crytonite.](https://cryptonite.azurewebsites.net/)
 
@@ -68,14 +68,14 @@ Please visit the links above to learn more and read their documentation.
 
 ## Installation
 
-The following are requirements for installation:
+Please fork this repository to get started. The following are requirements for installation:
 
 - mongoDB Atlas account
 - Stripe account
 - MongoDBShell
 - Robo 3T
-
-Please fork this repository to get started.
+- .env
+- Stripe Publishable and Secret keys (please refer to Stripe's documentation to learn more)
 
 Once forked please open your git terminal and run the following command in the root directory.
 ```
@@ -84,7 +84,18 @@ npm install
 
 The following dependencies will be installed:
 
-<-------------picture of dependencies here for server and client (package.json)
+![package.jsons.png](./client/public/assets/readme/package-jsons.png)
+
+
+**.env**
+You will also need to setup your .env file with the following variables:
+```
+SECRET = { your own variables here}
+PORT = 
+MONGODB_URI =
+NODE_ENV =
+STRIPE_TEST_SECRET_KEY =
+```
 
 
 ## Our Blockchain Requirements & Features
@@ -93,20 +104,51 @@ The following dependencies will be installed:
 
 ## Usage & Features
 
-<-------- Gif of signing and signing in with Google and public key/copy feature
+**Sign-up, user validation, and Private Key modal**
 
-<-------- Gif of Profile page and viewing wallet amount, transaction history and sorting/pagination
+A side navigation menu slides over when a user goes to sign-up. Here they will enter their email address, username, and password twice to confirm. With server-side validation for each field we will present feedback to the user with alet banners if a field is inputted incorrectly. Then an alert modal will call attention to the user's Private Key and they will not be able to close the modal unless they copy-to-clipboard their private key.
+![signup.gif](./client/public/assets/readme/signup3.gif)
 
-<-------- Gif of buying coins and success/failure messages
+
+**Sign-up/Login with Google**
+We also provide user's the ability to sign-in with Google by connected to Google's API.
+![googlelogin.gif](./client/public/assets/readme/googlelogin.gif)
+
+
+**Profile, Wallet, and Transactions**
+After a user has signed-up
+![profile.gif](./client/public/assets/readme/profile.gif)
+
+
+**Buying coins**
+
+One of the first steps a user might get started in our application is by purchasing coins. Here the user can input the number of Cryptonite coins they would like to purchase or specify a USD amount. Both fields with dynamically be generate off of one another. Then using Stripe's payment processing API, we present this to the user with a Payment Information modal where they can enter their payment details. We then handle error/success messages calling attention to them using modals.
+
+![buycoinsuccess.gif](./client/public/assets/readme/buycoinsuccess.gif)
 
 <-------- GIf of sending coins and success/failure messages
+**Sending coins**
 
-<-------- Gif of mining coins and success/failure messages
+When sending coins, the user will need to have their Private Key and the recipients Public Key. Here they can write a message for why their sending coins and either enter the amount of coins to send or the amount USD amount. There is logic in each field to calculate the other based on the current price of Crytonite.
+<!-- <img src="./client/public/assets/readme/sendcoinsuccess.gif" width=""> -->
+![sendcoinsuccess.gif](./client/public/assets/readme/sendcoinsuccess.gif)
 
-<-------- Gif of deleting account and success/failure messages
+
+
+![mining.gif](./client/public/assets/readme/mining.gif)
+
+As part of our blockchain's requirements, we needed to have the ability to validate transactions before being appended to the blockchain. We accomplished this by having a mining method that a user would call upon within our application. Under the hood, the mining method is looking for hash starting with "00000". (See more above). If a user has successfully or failed to mine a block, we will then alert the user with the corresponding modals.
+
+
+
+![delete_account.gif](./client/public/assets/readme/delete_account.gif)
+
+
 
 
 ## Contributing & Future Development
+
+
 
 
 ## Contact Us
