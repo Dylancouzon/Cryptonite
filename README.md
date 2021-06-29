@@ -115,21 +115,21 @@ Please feel free to reach out to us with questions we'd be happy to chat. If you
 
 
   - Dylan Couzon
-    - [dylancouzon@gmail.com](mailto:dylancouzon@gmail.com)
+    - [Email](mailto:dylancouzon@gmail.com)
     - [GitHub](https://github.com/Dylancouzon)
     - [LinkedIn](https://www.linkedin.com/in/dcouzon/)
 
   - Jake Novelli
-    - [jakenovelli11@gmail.com](mailto:jakenovelli11@gmail.com)
+    - [Email](mailto:jakenovelli11@gmail.com)
     - [GitHub](https://github.com/dnovelli1)
     - [LinkedIn](https://www.linkedin.com/in/david-jacob-novelli/)
 
   - Liam Stewart
-    - [liamchristopher.media@gmail.com](mailto:liamchristopher.media@gmail.com)
+    - [Email](mailto:liamstewartdev@gmail.com)
     - [GitHub](https://github.com/LiamStewart8/gamehub)
     - [LinkedIn](https://www.linkedin.com/in/liamsctewart/)
-<br>
+
   - Cheng Tang
-    - [cheng21tang@gmail.com](mailto:cheng21tang@gmail.com)
+    - [Email](mailto:cheng21tang@gmail.com)
     - [GitHub](https://github.com/cheng21tang)
     - [LinkedIn](https://www.linkedin.com/in/cheng21tang/)
