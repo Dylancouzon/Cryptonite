@@ -113,17 +113,17 @@ The following dependencies will be installed:
 
 Please feel free to reach out to us with questions we'd be happy to chat. If you'd like to reach us individually or see some of our other works please follow the links below.
 
-<br>
+
   - Dylan Couzon
     - [dylancouzon@gmail.com](mailto:dylancouzon@gmail.com)
     - [GitHub](https://github.com/Dylancouzon)
     - [LinkedIn](https://www.linkedin.com/in/dcouzon/)
-<br>
+
   - Jake Novelli
     - [jakenovelli11@gmail.com](mailto:jakenovelli11@gmail.com)
     - [GitHub](https://github.com/dnovelli1)
     - [LinkedIn](https://www.linkedin.com/in/david-jacob-novelli/)
-<br>
+
   - Liam Stewart
     - [liamchristopher.media@gmail.com](mailto:liamchristopher.media@gmail.com)
     - [GitHub](https://github.com/LiamStewart8/gamehub)
