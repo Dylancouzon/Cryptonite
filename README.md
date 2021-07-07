@@ -97,9 +97,38 @@ NODE_ENV =
 STRIPE_TEST_SECRET_KEY =
 ```
 
+<br>
+
+
+## Deployment
+
+To deploy the react app, please run the following command:
+```
+npm run build
+```
+Then, to run the backend server, run the following command:
+```
+npm start
+```
+
+The App should be accessible on the link: http://localhost:5001
+
+<br>
 
 ## Our Blockchain Requirements & Features
 
+The blockchain Data structure is a reversed linked list. Each block references the previous block via its hash, all the way down to the genesis block.
+Each block contains a timestamp of its creation, a list of transactions, the hash of the previous block, the hash of this block, a nonce, and a Merkle root.
+The Merkle root encodes the data from all the previous blocks (Like a Binary search tree) to allow us to verify the integrity of the chain.
+
+![block.png](./client/public/assets/readme/block.png)
+
+Our blockchain works on a centralized ledger, which means that several copies of the blockchain are saved on a central server.
+Each miner that attempts to mine a block, is requested to solve a mathematical problem on a random copy of the blockchain
+The first person to achieve it will then send the results to the other miners to be verified.
+If a consensus is reached, the block is mined and each copy is updated.
+
+![mining.png](./client/public/assets/readme/mining.png)
 
 
 ## Usage & Features
@@ -110,6 +139,7 @@ A side navigation menu slides over when a user goes to sign-up. Here they will e
 ![signup.gif](./client/public/assets/readme/signup3.gif)
 
 
+
 **Sign-up/Login with Google**
 We also provide user's the ability to sign-in with Google by connected to Google's API.
 ![googlelogin.gif](./client/public/assets/readme/googlelogin.gif)
@@ -118,6 +148,7 @@ We also provide user's the ability to sign-in with Google by connected to Google
 **Profile, Wallet, and Transactions**
 After a user has signed-up
 ![profile.gif](./client/public/assets/readme/profile.gif)
+
 
 
 **Buying coins**
