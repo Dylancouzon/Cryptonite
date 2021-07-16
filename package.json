@@ -20,14 +20,13 @@
     "concurrently": "^6.2.0"
   },
   "scripts": {
-    "server": "node server.js",
-    "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "install": "cd client && npm install",
     "build": "cd client && npm run build",
-    "start": "node server.js",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install npm && run build",
-    "seed": "node seeds/seed.js"
+    "install-client": "cd client && npm install",
+    "heroku-postbuild": "npm run install-client && npm run build",
+    "server": "nodemon server.js",
+    "develop": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix client\"",
+    "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix client\""
   },
   "repository": {
     "type": "git",
