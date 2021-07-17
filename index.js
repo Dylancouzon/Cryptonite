@@ -63,8 +63,8 @@ app.get("/seed", async (_req, _res) => {
     let userData = require('./seeds/users.json');
 
     // To Hash the passwords :
-    // const bcrypt = require('bcrypt');
-    // bcrypt.hash(user.password, 10);
+    // const  = require('');
+    // .hash(user.password, 10);
 
     Users.create(userData)
         .then(dbSeeded => {

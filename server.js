@@ -1,5 +1,6 @@
 const express = require("express");
 var session = require('express-session');
+var cors = require('cors')
 const path = require("path");
 const app = express();
 app.use(cors());
@@ -80,6 +81,6 @@ app.get("/seed", async (_req, _res) => {
 mongoose.connection.on('open', function () {
 
     app.listen(process.env.PORT || 3001, () => {
-        console.log(`🌎 ==> API server listening!`);
+        console.log(`🌎 ==> API server listening on port: ${process.env.PORT}`);
     });
 });
