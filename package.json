@@ -1,12 +1,12 @@
 {
-  "name": "Project-3",
+  "name": "project-3",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "dependencies": {
     "axios": "^0.21.1",
-    "bcrypt": "^5.0.1",
     "connect-mongodb-session": "^2.4.1",
+    "cors": "^2.8.5",
     "crypto-js": "^4.0.0",
     "dotenv": "^10.0.0",
     "elliptic": "^6.5.4",
@@ -14,7 +14,8 @@
     "express-session": "^1.17.2",
     "mongoose": "^5.12.11",
     "node-worker-threads-pool": "^1.4.3",
-    "query-string": "^7.0.0"
+    "query-string": "^7.0.0",
+    "stripe": "^8.163.0"
   },
   "devDependencies": {
     "concurrently": "^6.2.0"
@@ -26,12 +27,11 @@
     "install": "cd client && npm install",
     "build": "cd client && npm run build",
     "start": "node server.js",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install npm && run build",
     "seed": "node seeds/seed.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cheng21tang/Project-3.git"
+    "url": "git+https://github.com/cheng21tang/Cryptonite-a-cryptocurrency"
   },
   "engines": {
     "node": "14.16.1"
@@ -40,7 +40,7 @@
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/cheng21tang/Project-3/issues"
+    "url": "https://github.com/cheng21tang/Cryptonite-a-cryptocurrency/issues"
   },
-  "homepage": "https://github.com/cheng21tang/Project-3#readme"
+  "homepage": "https://github.com/cheng21tang/Cryptonite-a-cryptocurrency#readme"
 }

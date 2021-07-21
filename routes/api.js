@@ -1,6 +1,5 @@
 const router = require('express').Router();
 const User = require('../models/users');
-const bcrypt = require('bcrypt');
 const EC = require('elliptic').ec;
 const ec = new EC('secp256k1');
 const axios = require("axios");
@@ -25,7 +24,7 @@ router.post('/signUp', async (req, res) => {
     const publicKey = key.getPublic('hex');
     const privateKey = key.getPrivate('hex');
     req.body.public_key = publicKey;
-    req.body.password = await bcrypt.hash(req.body.password, 8);
+    // req.body.password = await bcrypt.hash(req.body.password, 8);
     User.create(req.body, (err, result) => {
       if (err) {
         // Return the different Mongoose erros.
@@ -88,12 +87,12 @@ router.post('/logIn', async (req, res) => {
 
       } else {
         //Comparing the passwords
-        bcrypt.compare(req.body.password, userData[0].password, function (err, result) {
+       // bcrypt.compare(req.body.password, userData[0].password, function (err, result) {
           if (err) {
             return res.status(400).json({ message: 'Error decrypting Password.' });
           }
           //Creating the sessions
-          if (result) {
+        //  if (result) {
             req.session.save(() => {
               req.session.user_id = userData[0]._id;
               req.session.username = userData[0].username;
@@ -102,11 +101,11 @@ router.post('/logIn', async (req, res) => {
 
               res.status(200).json({ user: userData });
             });
-          } else {
+          // } else {
 
-            return res.status(400).json({ message: 'Incorrect password.' });
-          }
-        });
+          //   return res.status(400).json({ message: 'Incorrect password.' });
+          // }
+        // });
       }
     });
 
@@ -157,7 +156,7 @@ router.post('/googleOauth', (req, res) => {
           google: true
         }
         //needs to set this up proprely for it to work on the server.
-        axios.post(`http://localhost:3001/api/signUp`, data)
+        axios.post(`http://localhost:8080/api/signUp`, data)
           .then(({data}) => {
             req.session.save(() => {
               req.session.user_id = data.user_id;
