@@ -1,7 +1,9 @@
 const express = require("express");
 var session = require('express-session');
+var cors = require('cors')
 const path = require("path");
 const app = express();
+app.use(cors());
 
 const mongoose = require("mongoose");
 var MongoDBStore = require('connect-mongodb-session')(session);
@@ -78,7 +80,7 @@ app.get("/seed", async (_req, _res) => {
 
 mongoose.connection.on('open', function () {
 
-    app.listen(3001, () => {
-        console.log(`🌎 ==> API server now on port 3001!`);
+    app.listen(process.env.PORT || 3001, () => {
+        console.log(`🌎 ==> API server listening on port: ${process.env.PORT}`);
     });
 });
