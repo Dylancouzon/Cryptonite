@@ -18,7 +18,6 @@ Check it out [here](https://cryptonite-v2.herokuapp.com/)
 
 <hr>
 
-
 ## Technology & third-party APIs
 
 <img align="left" alt="html" width="25x" src="./client/public/assets/icons/html5.png"/> &nbsp;
